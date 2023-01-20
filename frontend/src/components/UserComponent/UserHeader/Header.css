@@ -192,23 +192,25 @@
   .modal__buttons > .cancle {
     margin-top: 10px;
     border: none;
+    background-color: rgb(196, 189, 185);
     outline: none;
-    color: gray;
+    color: rgb(121, 37, 37);
     font-weight: 500;
+    font-size: large;
     padding: 10px;
     border-radius: 33px;
     cursor: pointer;
   }
   
   .modal__buttons > .cancle:hover {
-    color: red;
+    color: rgb(7, 6, 6);
   }
   
   .modal__buttons > .add {
     border: none;
     outline: none;
     margin-top: 10px;
-    background-color: #222;
+    background-color: rgb(124, 28, 28);
     color: white;
     font-weight: 700;
     padding: 10px;
@@ -231,3 +233,8 @@
       display: none;
     }
   }
+  .modalspan{
+    margin-right:10%;
+  }
+
+  

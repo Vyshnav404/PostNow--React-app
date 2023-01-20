@@ -1,6 +1,8 @@
 .userHome{
     width: '100%';
     min-width: fit-content;
+    font-family: 'Rubik', sans-serif;
+    ;
 }
 
 .home__contents{
@@ -20,3 +22,19 @@
     padding: 0px 10px;
     justify-content: center;
 }
+
+.react-responsive-modal-modal {
+    width: 90vw;
+    height: 90vh;
+  }
+  
+  .quill {
+    height: 50vh;
+  }
+  
+  .react-responsive-modal-overlay {
+    background: rgb(0 0 0 / 75%);
+  }
+   *{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }

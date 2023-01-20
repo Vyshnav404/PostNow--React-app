@@ -2,3 +2,8 @@
     margin-top: 10px;
     flex: 0.2;
 }
+@media screen and (max-width: 712px) {
+    .sidebar {
+      display: none;
+    }
+  }
