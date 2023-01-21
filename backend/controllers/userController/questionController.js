@@ -28,7 +28,7 @@ const addQuestion = async(req,res)=>{
 }
 
 const getQuestionAnswer = async(req,res)=>{
-    console.log("working");
+    console.log("its comming");
     try {
         await questionDB.aggregate([
             {

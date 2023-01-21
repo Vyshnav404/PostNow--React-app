@@ -9,13 +9,24 @@ import { Modal } from 'react-responsive-modal'
 import CloseIcon from '@material-ui/icons/Close';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'
+import ReactTimeAgo from 'react-time-ago'
 
 
 
-function Post() {
+ function LastSeen({ date }) {
+  return (
+    <div>
+     <ReactTimeAgo date={date} locale="en-US" timeStyle="twitter"/>
+    </div>
+  )
+}
+
+function Post({post}) {
+  console.log("here",post);
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [inputUrl,setInputUrl] = useState('')
+  // const [answer,setAnswer] = useState('')
 
   const Close = (<CloseIcon />)
 
@@ -27,14 +38,14 @@ function Post() {
     <div className="post__info">
       <Avatar />
       <h4>User Name</h4>
-
+   
       <small>
-        Timestamp
+        <LastSeen date={post?.createdAt}/>
       </small>
     </div>
     <div className="post__body">
       <div className="post__question">
-        <p>This is test question</p>
+        <p>{post?.questionName}</p>
         <button  onClick={()=> setIsModalOpen(true)}     
           className="post__btnAnswer">
           Answer
@@ -50,9 +61,9 @@ function Post() {
           },
         }}>
           <div className='modal__question'>
-            <h1>This is test question.</h1>
+            <h1>{post?.questionName}</h1>
             <p>asked by {" "}<span className='name'>Username</span>{" "}on{" "}
-            <span className='name'>timestamp</span></p>
+            <span className='name'>{new Date(post?.createdAt).toLocaleString()}</span></p>
           </div>
           <div className='modal__answer'>
             <ReactQuill  placeholder='Enter your answer' />
@@ -89,7 +100,7 @@ function Post() {
         margin: "10px 0",
       }}
     >
-     Answer
+     {post?.allAnswers.length}
     </p>
 
     <div
