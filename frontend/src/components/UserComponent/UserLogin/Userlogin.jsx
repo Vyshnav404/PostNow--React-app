@@ -20,8 +20,9 @@ function Userlogin() {
     const handleSubmit = async(e)=>{
       e.preventDefault();
       try {
-        const url = "http://localhost:8080/login";
-        const { data: res } = await axios.post(url, data);
+        // const url = "http://localhost:8080/login";
+        axios.defaults.baseURL = 'http://localhost:8080'
+        const { data: res } = await axios.post('/login', data);
         localStorage.setItem("token", res.data);
         setIsUserLoggedIn(true);
         

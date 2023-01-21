@@ -38,15 +38,15 @@ app.use(bodyParser.urlencoded({extended : true, limit :'50mb'}))
         //  static resources
 
 app.use('/uploads', express.static(path.join(__dirname, "/../uploads")))
-app.use("/uploads", express.static(path.join(__dirname,"/../frontend/build")))
+// app.use( express.static(path.join(__dirname,"/../frontend/dist")))
 
-app.get("*", (req, res)=>{
-    try {
-        res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`))
-    } catch (e) {
-        res.sendFile('Ooops ! unexpected error')
-    }
-})
+// app.get("*", (req, res)=>{
+//     try {
+//         res.sendFile(path.join(`${__dirname}/../frontend/dist/index.html`))
+//     } catch (e) {
+//         res.sendFile('Ooops ! unexpected error')
+//     }
+// })
 
 app.use(cors())
 

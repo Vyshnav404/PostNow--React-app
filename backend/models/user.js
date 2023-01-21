@@ -10,15 +10,13 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign(
-    { _id: this._id },
-    "secret",
-    process.env.JWTPRIVATEKEY,
-    { expiresIn: "7d" }
-  );
-  return token;
-};
+userSchema.methods.generateAuthToken = function(){
+  const token = jwt.sign({
+      _id:this._id
+  },
+  process.env.JWTPRIVATEKEY,{expiresIn:'7d'});
+return token; 
+}
 
 const User = mongoose.model("user", userSchema);
 

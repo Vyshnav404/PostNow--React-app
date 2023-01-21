@@ -24,8 +24,9 @@ function UserSignUp() {
             e.preventDefault();
             try {
                 console.log(data+"data comming");
-                const url = 'http://localhost:8080/signup';
-                const {data:res} = await axios.post(url,data)
+                // const url = 'http://localhost:8080/signup';
+                axios.defaults.baseURL = 'http://localhost:8080'
+                const {data:res} = await axios.post('/signup',data)
                 navigate('/')
                 console.log(res.message);
             } catch (error) {
