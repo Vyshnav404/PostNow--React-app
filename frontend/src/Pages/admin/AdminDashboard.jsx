@@ -1,11 +1,12 @@
 import React from 'react'
+import AdminCommon from '../../components/AdminComponents/AdminDashboard/AdminDashboard'
 
 
 
 function AdminDashboard() {
   return (
     <div>
-      <h1>Admin Dashboard</h1>
+        <AdminCommon />
     </div>
   )
 }

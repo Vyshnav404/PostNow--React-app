@@ -174,3 +174,14 @@ h1,h2,h3,h4,h5,h6,p {
     transition: all 0.3s;
     cursor: pointer;
 } 
+
+.error_msg {
+	width: 370px;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #791616;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+}

@@ -11,14 +11,21 @@ import en from 'javascript-time-ago/locale/en.json'
 
 TimeAgo.addDefaultLocale(en)
 // TimeAgo.addLocale(en)
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:8000'
+
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
   <React.StrictMode>
     <BrowserRouter>
     <App />
     </BrowserRouter>
    
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>
 )

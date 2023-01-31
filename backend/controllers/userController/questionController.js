@@ -2,7 +2,7 @@ const questionDB = require('../../models/question')
 
 
 const addQuestion = async(req,res)=>{
-    console.log(req.body,"its comming");
+  console.log("alert");
 
     try {
         await questionDB.create({

@@ -12,7 +12,7 @@ const userLogin = async(req,res)=>{
         return res.status(400).send({message:error.details[0].message});
         
         const user = await User.findOne({email:req.body.email});
-        console.log(user,"user");
+     
         if(!user)
         return res.status(401).send({message:"Invalid Email or Password"});
         
@@ -24,12 +24,12 @@ const userLogin = async(req,res)=>{
             return res.status(401).send({message:"Invalid Email or Password"})
             
             const token = user.generateAuthToken();
-            console.log("goooo"); 
+            console.log("goooo",token); 
            
-           res.status(200).send({data:token,message:"Logged in successfully"}) 
+           res.status(200).send({data:token,user,message:"Logged in successfully"}) 
         
     } catch (error) {
-        res.status(500).send({message:"Internal Server Error"})
+        res.status(500).send({message:"Internal Server Error "})
         console.log(error,"kkkk"); 
         
     }

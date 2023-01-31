@@ -2,15 +2,19 @@ import React from "react";
 import "./AdminLogin.css";
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showloading,hideloading } from "../../../redux/features/alertSlice";
 
 function Adminlogin() {
 
-  console.log(axios);
+  
   const [isAdminLoggedIn,setIsAdminLoggedIn]= useState(false)
   const [data,setData] = useState({
     userName:'',
     password:'',
   })
+
+  const dispatch = useDispatch()
 
   const handleChange = ({currentTarget : input})=>{
     setData({...data,[input.name]:input.value});
@@ -19,8 +23,11 @@ function Adminlogin() {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
-       const url = "http://localhost:8080/admin/adminLogin";
-       const { data:res } = await axios.post(url,data);
+    
+      // axios.defaults.baseURL = 'http://localhost:8000'
+      dispatch(showloading())
+       const { data:res } = await axios.post('/admin/adminLogin',data);
+        dispatch(hideloading())
        localStorage.setItem("Admintoken",res.data);
        setIsAdminLoggedIn(true);
        window.location = "/admindashboard"

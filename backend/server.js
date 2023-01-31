@@ -7,7 +7,7 @@ const db = require('./config/db')
 const userRouter = require('./routes/userRouter')
 const adminRouter = require('./routes/adminRouter')
 require('dotenv').config();
-const PORT = 8080;
+const PORT = 8000;
 
 
        //  database connection
@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({extended : true, limit :'50mb'}))
 
         //  static resources
 
-app.use('/uploads', express.static(path.join(__dirname, "/../uploads")))
+// app.use('/uploads', express.static(path.join(__dirname, "/../uploads")))
 // app.use( express.static(path.join(__dirname,"/../frontend/dist")))
 
 // app.get("*", (req, res)=>{

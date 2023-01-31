@@ -2,6 +2,12 @@ import React from 'react'
 import './Userlogin.css'
 import axios from 'axios'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { showloading,hideloading } from '../../../redux/features/alertSlice'
+import { setUser } from '../../../redux/features/userSlice'
+import { useNavigate } from 'react-router-dom'
+
 
 function Userlogin() {
 
@@ -10,6 +16,8 @@ function Userlogin() {
       email:'',
       password:''
     })
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [error,setError]=useState('');
 
@@ -20,13 +28,13 @@ function Userlogin() {
     const handleSubmit = async(e)=>{
       e.preventDefault();
       try {
-        // const url = "http://localhost:8080/login";
-        axios.defaults.baseURL = 'http://localhost:8080'
+        dispatch(showloading());
         const { data: res } = await axios.post('/login', data);
-        localStorage.setItem("token", res.data);
-        setIsUserLoggedIn(true);
-        
-        window.location = "/home";
+        dispatch(setUser(data))
+       dispatch(hideloading());
+       localStorage.setItem("token", res.data);
+        setIsUserLoggedIn(true);   
+        navigate('/home')
 
         
       } catch (error) {
@@ -57,8 +65,9 @@ function Userlogin() {
                 <div className="inputBox">
                     <input type="submit" name="" value="Sign In"/> 
                 </div>
+                {error && <div><p className='errormsg'>{error}</p></div>}
             </form>
-            <p className="forgot">Not a member ? <a href="#">Sign up now</a></p>
+            <p className="forgot">Not a member ? <Link to='/signup'>signup now</Link></p>
             
         </div>
         </div>

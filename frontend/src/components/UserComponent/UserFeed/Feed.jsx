@@ -10,9 +10,8 @@ function Feed() {
   const [posts,setPost] = useState([])
  
   useEffect(()=>{
-    axios.defaults.baseURL = 'http://localhost:8080'
+    // axios.defaults.baseURL = 'http://localhost:8080'
       axios.get('/Allquestions').then((res)=>{
-        console.log(res.data);
         setPost(res.data.reverse())
       }).catch((e)=>{
         console.log(e);

@@ -3,6 +3,7 @@ import './UserSignup.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { styled } from '@material-ui/core'
 
 function UserSignUp() {
      
@@ -25,15 +26,17 @@ function UserSignUp() {
             try {
                 console.log(data+"data comming");
                 // const url = 'http://localhost:8080/signup';
-                axios.defaults.baseURL = 'http://localhost:8080'
+                // axios.defaults.baseURL = 'http://localhost:8000'
                 const {data:res} = await axios.post('/signup',data)
                 navigate('/')
                 console.log(res.message);
             } catch (error) {
                 if(error.response &&
                     error.response.status >=400 &&
-                    error.response.status <= 500){
-                        setError(error.response,data.message)
+                    error.response.status <= 500)
+                    {
+                        setError(error.response.data.message)
+                        
                     }
             }
         }
@@ -69,6 +72,8 @@ function UserSignUp() {
                     <input type="password" id="password" name='password' value={data.password}  onChange={handleChange} placeholder="Password" required></input>
                 </div>  
                 
+                 {error &&  <div><p className='error_msg'>{error}</p></div> }
+               
                 <div className="Signup-form-group">
                     <button type="submit" className="Signup-button">Create account</button>   
                 </div>        

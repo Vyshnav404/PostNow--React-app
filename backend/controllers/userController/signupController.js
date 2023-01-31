@@ -2,12 +2,12 @@ const{User,validate} = require('../../models/user')
 const bcrypt = require('bcrypt')
 
 const userSignup = async(req,res)=>{
-    
     try {
         const {error} = validate(req.body);
         if(error) return res.status(400).send({message:error.details[0].message});
-
+        
         const user = await User.findOne({email:req.body.email});
+        console.log("going");
         if(user)
         return res.status(409).send({message:"User with given email already exists!!!"});
 

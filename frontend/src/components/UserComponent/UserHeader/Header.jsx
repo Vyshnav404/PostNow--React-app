@@ -9,20 +9,27 @@ import './Header.css'
 import { useState } from 'react';
 import 'react-responsive-modal/styles.css'
 import axios from 'axios'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const { userDetails }= useSelector(state=>state.user)
+  console.log(userDetails,"come on daa");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl,setInputUrl] = useState('')
   const [question, setQuestion] = useState('')
   const Close = (<CloseIcon />)
+  const navigate = useNavigate()
 
   const handleSubmit = async()=>{
     if(question !== ""){
 
       const config = {
         headers:{
-          "Content-Type":"application/json"
+          "Content-Type":"application/json",
+        
+
         }
       }
 
@@ -30,15 +37,22 @@ function Header() {
         questionName: question,
         questionUrl: inputUrl
       }
-      axios.defaults.baseURL = 'http://localhost:8080'
       await axios.post('/questions',body,config).then((res)=>{
-          console.log(res.data);
+        console.log("eroor");
+        console.log(res.data);
           alert(res.data.message)
+          // window.location.href = '/home'
+          navigate('/home')
       }).catch((e)=>{
         console.log(e);
         alert('Error in adding question')
       })
     }
+  }
+
+  const handleLogout = ()=>{
+    localStorage.removeItem('token')
+    navigate('/')
   }
 
   return (
@@ -133,7 +147,7 @@ function Header() {
                     </div>
                   </Modal>
 
-       
+                  <Button  onClick={handleLogout} style={{backgroundColor:'#9b2222', color:"lightgrey" ,marginLeft:"8px"}} >Logout</Button>
      </div>
     </div>
   )

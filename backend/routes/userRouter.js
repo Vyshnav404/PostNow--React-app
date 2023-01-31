@@ -3,6 +3,7 @@ const { userSignup} = require('../controllers/userController/signupController')
 const { userLogin } = require('../controllers/userController/loginController')
 const { addQuestion,getQuestionAnswer } =require('../controllers/userController/questionController')
 const { addAnswer } = require('../controllers/userController/answerController')
+
 const router = express.Router()
 
 router.post('/signup',userSignup)
