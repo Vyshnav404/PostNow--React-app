@@ -1,8 +1,40 @@
 const{User,validate} = require('../../models/user')
 const bcrypt = require('bcrypt')
+const nodemailer = require("nodemailer");
+
+
+
+let mailTransporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:"vyshnav404@gmail.com",
+        pass:"cfurmqbfeuxzcwwz"
+    },
+});
+const OTP = `${Math.floor(1000 + Math.random() * 9000)}`;
+
+
 
 const userSignup = async(req,res)=>{
     try {
+
+        let Email = req.body.email;
+        console.log("email check ",Email)
+        let mailDetails = {
+            from :"vyshnav404@gmail.com",
+            to:Email,
+            subject:"PostNow",
+            html:`<p> YOUR OTP FOR REGISTRATION IN PostNow IS ${OTP}</P>`,
+        };
+        mailTransporter.sendMail(mailDetails,function(err,data){
+            if(err){
+                console.log("error occurs ",err);
+            }else{
+                console.log("email send successfully");
+            }
+        });
+
+
         const {error} = validate(req.body);
         if(error) return res.status(400).send({message:error.details[0].message});
         
@@ -15,7 +47,7 @@ const userSignup = async(req,res)=>{
         const hashPassword = await bcrypt.hash(req.body.password,salt);
 
         await new User({...req.body, password:hashPassword}).save();
-        res.status(201).send({message:"User created successfully"})
+        res.status(201).send({message:"User created successfully",...req.body,OTP})
 
     } catch (error) {
         res.status(500).send({message:"Internal Server Error"})

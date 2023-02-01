@@ -9,6 +9,7 @@ import { useSelector } from "react-redux"
 import Spinner from "./components/AdminComponents/Spinner"
 import ProtectedRouted from "./components/Protect/ProtectedRouted"
 import PublicRoute from "./components/Protect/PublicRoute"
+import UserOtp from "./Pages/user/UserOtp"
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
          <UserHome />
          </ProtectedRouted>
          }></Route>
+
+
+         <Route exact path="/otp-page" element={<UserOtp />}></Route>
          
         </Routes>
       ) }
