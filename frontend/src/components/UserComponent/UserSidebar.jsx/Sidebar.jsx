@@ -4,7 +4,7 @@ import SidebarOptions from './SidebarOptions';
 
 function Sidebar() {
   return (
-    <div className='sidebar col-lg-3 col-sm-12'>
+    <div style={{flex:'0.2'}} className='sidebar col-lg-3 col-sm-12'>
       <SidebarOptions />
     </div>
   )

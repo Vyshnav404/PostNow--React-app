@@ -4,7 +4,7 @@ import './Widget.css'
 
 function Widget() {
   return (
-    <div className='widget col-lg-4'>
+    <div style={{flex:'0.2'}} className='widget col-lg-4'>
       <div className='widget__header'>
         <h5>Space to follow</h5>
       </div>

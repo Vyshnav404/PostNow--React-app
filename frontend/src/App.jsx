@@ -10,6 +10,8 @@ import Spinner from "./components/AdminComponents/Spinner"
 import ProtectedRouted from "./components/Protect/ProtectedRouted"
 import PublicRoute from "./components/Protect/PublicRoute"
 import UserOtp from "./Pages/user/UserOtp"
+import UserManagePage from "./Pages/admin/UserManagePage"
+import UserProfilePage from "./Pages/user/UserProfilePage"
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
          <Routes>
          <Route exact path="/admin" element={<AdminLogin />}></Route>
          <Route exact path="/admindashboard" element={<AdminDashboard />}></Route>
+         <Route exact path="/userdetails" element={<UserManagePage />}></Route>
 
 
          <Route 
@@ -47,6 +50,14 @@ function App() {
          </ProtectedRouted>
          }></Route>
 
+
+        <Route 
+         exact path="/profile" 
+         element={
+          <ProtectedRouted>
+         <UserProfilePage />
+         </ProtectedRouted>
+         }></Route>
 
          <Route exact path="/otp-page" element={<UserOtp />}></Route>
          

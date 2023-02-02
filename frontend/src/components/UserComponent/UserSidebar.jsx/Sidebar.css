@@ -7,3 +7,11 @@
       display: none;
     }
   }
+
+  @media (min-width: 992px){
+    .col-lg-   {
+      margin-top: 10px;
+      flex: 0.2;
+
+  }
+  }

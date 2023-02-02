@@ -1,14 +1,18 @@
 import React from 'react'
-import AdminCommon from '../../components/AdminComponents/AdminDashboard/AdminDashboard'
+import Dashboard from '../../components/AdminComponents/AdminDashboard/Dashboard'
+import Sidebar from '../../components/AdminComponents/AdminDashboard/Sidebar'
+
 
 
 
 function AdminDashboard() {
   return (
     <div>
-        <AdminCommon />
+       <Sidebar />
+       <Dashboard />
     </div>
   )
 }
 
-export default AdminDashboard
+export default AdminDashboard 
+     
