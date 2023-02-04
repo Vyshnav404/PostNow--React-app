@@ -12,6 +12,7 @@ import PublicRoute from "./components/Protect/PublicRoute"
 import UserOtp from "./Pages/user/UserOtp"
 import UserManagePage from "./Pages/admin/UserManagePage"
 import UserProfilePage from "./Pages/user/UserProfilePage"
+import UserAnswerPage from "./Pages/user/UserAnswerPage"
 
 function App() {
 
@@ -56,6 +57,14 @@ function App() {
          element={
           <ProtectedRouted>
          <UserProfilePage />
+         </ProtectedRouted>
+         }></Route>
+
+        <Route 
+         exact path="/answerpage" 
+         element={
+          <ProtectedRouted>
+         <UserAnswerPage />
          </ProtectedRouted>
          }></Route>
 

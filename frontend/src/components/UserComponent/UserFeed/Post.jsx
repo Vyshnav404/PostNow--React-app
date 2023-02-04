@@ -12,6 +12,7 @@ import 'react-quill/dist/quill.snow.css'
 import ReactTimeAgo from 'react-time-ago'
 import axios from 'axios';
 import ReactHtmlParser from 'html-react-parser'
+import { Link } from 'react-router-dom';
 
 
 
@@ -73,8 +74,8 @@ function Post({post}) {
     </div>
     <div className="post__body">
       <div className="post__question">
-        <p>{post?.questionName}</p>
-        <button  onClick={()=>{
+      <Link to='/answerpage' state={{id:post?._id}}><p>{post?.questionName}</p></Link>
+        {/* <button  onClick={()=>{
           setIsModalOpen(true);
           console.log(post?._id);
         } }     
@@ -107,7 +108,7 @@ function Post({post}) {
                         Add Answer
                       </button>
                     </div>
-        </Modal>
+        </Modal> */}
       </div>
      {
       post.questionUrl !=='' && <img src={post.questionUrl} alt="" />
@@ -136,7 +137,7 @@ function Post({post}) {
      {post?.allAnswers.length}Answers
     </p>
 
-    <div
+    {/* <div
       style={{
         margin: "5px 0px 0px 0px ",
         padding: "5px 0px 0px 20px",
@@ -189,7 +190,7 @@ function Post({post}) {
               }
         
       
-    </div>
+    </div> */}
   </div>
 
   

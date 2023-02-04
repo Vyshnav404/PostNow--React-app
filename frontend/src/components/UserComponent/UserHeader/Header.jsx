@@ -56,6 +56,8 @@ function Header() {
     navigate('/')
   }
 
+  
+
   return (
     <div className='qHeader'>
       <div className='qHeader-content'>
@@ -64,7 +66,7 @@ function Header() {
           </div>
           <div className='qHeader__icons'>
           <div className='qHeader__icon'>
-            <HomeIcon />
+           <Link className='qHeader__icon' to='/home'>< HomeIcon /></Link> 
           </div>
           <div className='qHeader__icon'>
             <FeaturedPlayListOutlined />

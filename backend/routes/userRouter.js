@@ -1,7 +1,7 @@
 const express = require('express');
 const { userSignup,verifyUser} = require('../controllers/userController/signupController')
 const { userLogin } = require('../controllers/userController/loginController')
-const { addQuestion,getQuestionAnswer } =require('../controllers/userController/questionController')
+const { addQuestion,getQuestionAnswer ,getOneQuestion} =require('../controllers/userController/questionController')
 const { addAnswer } = require('../controllers/userController/answerController')
 const { getUser,getUserDetails,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController')
@@ -17,6 +17,7 @@ router.get('/getUserDetails/:data_id',getUserDetails)
 router.put('/update-user',updateUserDetails)
 router.put('/profilePicture/:id',profilePicture)
 router.post('/otpVerify',verifyUser)
+router.get('/onequestion/:qid',getOneQuestion)
 
 try {
     router.get('/Allquestions',getQuestionAnswer)
