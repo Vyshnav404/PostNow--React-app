@@ -2,7 +2,7 @@ const express = require('express');
 const { userSignup,verifyUser} = require('../controllers/userController/signupController')
 const { userLogin } = require('../controllers/userController/loginController')
 const { addQuestion,getQuestionAnswer ,getOneQuestion} =require('../controllers/userController/questionController')
-const { addAnswer } = require('../controllers/userController/answerController')
+const { addAnswer,getAllQuestion } = require('../controllers/userController/answerController')
 const { getUser,getUserDetails,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController')
 
@@ -12,6 +12,7 @@ router.post('/signup',userSignup)
 router.post('/login',userLogin)
 router.post('/questions', addQuestion)
 router.post('/answers',addAnswer)
+router.get('/getAnswers/:qid',getAllQuestion)
 router.get('/getUser/:email',getUser)
 router.get('/getUserDetails/:data_id',getUserDetails)
 router.put('/update-user',updateUserDetails)

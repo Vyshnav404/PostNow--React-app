@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSingleQuestion } from '../../../redux/features/singleQuestionSlice'
+import { setShowAnswers } from '../../../redux/features/showAnswersSlice'
 import { useSelector } from 'react-redux';
 import CloseIcon from '@material-ui/icons/Close';
 import { Avatar } from '@material-ui/core'
@@ -13,6 +14,7 @@ import ReactTimeAgo from 'react-time-ago'
 import { Modal } from 'react-responsive-modal'
 import ReactQuill from "react-quill";
 import { useNavigate } from 'react-router-dom';
+import ReactHtmlParser from 'html-react-parser'
 import './Answer.css'
  
  function LastSeen({ date }) {
@@ -26,7 +28,8 @@ import './Answer.css'
 
 function AnswerComponent(){
 
-    const { questionDetails } = useSelector(state => state.singleQuestion)
+    const { questionDetails } = useSelector(state => state.singleQuestion);
+    const { answerDetails } = useSelector(state => state.showAnswers)
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [question,setQuestion]= useState('')
@@ -69,13 +72,36 @@ function AnswerComponent(){
     await axios.post('/answers',body,config).then((res)=>{
       console.log("answer is comming",res.data)
       alert("Answer added successfully")
+     axios.get('/getAnswers/'+qid).then((res)=>{
+        console.log("answer from back",res.data)
+        dispatch(setShowAnswers(res.data))
+  
+      })
       setIsModalOpen(false)
       navigate('/answerpage')
+      
     })
   }
  }
 
+ const getAnswers = async()=>{
+  try {
+    await axios.get('/getAnswers/'+qid).then((res)=>{
+      console.log("answer from back",res.data)
+      dispatch(setShowAnswers(res.data))
+
+    })
+  } catch (error) {
+    console.log(error)
+  }
+ }
+
+ useEffect(()=>{
+  getAnswers()
+ },[])
+
   console.log("question details",questionDetails)
+  console.log("answer from back",answerDetails)
 
 
     return(
@@ -142,7 +168,7 @@ function AnswerComponent(){
           <MoreHorizOutlined />
         </div>
       </div>
-      {/* <p
+      <p
         style={{
           color: "rgba(0,0,0,0.5)",
           fontSize: "12px",
@@ -150,10 +176,10 @@ function AnswerComponent(){
           margin: "10px 0",
         }}
       >
-       {post?.allAnswers.length}Answers
-      </p> */}
+       {answerDetails?.length}Answers
+      </p>
   
-      {/* <div
+      <div
         style={{
           margin: "5px 0px 0px 0px ",
           padding: "5px 0px 0px 20px",
@@ -164,7 +190,7 @@ function AnswerComponent(){
           
             
                 {
-                  post?.allAnswers?.map((_a)=>(
+                  answerDetails?.map((_a)=>(
                   <>
                   
                   <div
@@ -206,7 +232,7 @@ function AnswerComponent(){
                 }
           
         
-      </div> */}
+      </div>
     </div>
     )
 }

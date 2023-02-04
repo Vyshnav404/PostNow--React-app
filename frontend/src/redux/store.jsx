@@ -5,7 +5,8 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import { combineReducers } from '@reduxjs/toolkit';
 import { completeUserSlice } from './features/completeUserSlice';
-import { singleQuestionSlice } from './features/singleQuestionSlice'
+import { singleQuestionSlice } from './features/singleQuestionSlice';
+import { showAnswersSlice } from './features/showAnswersSlice';
 
 
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     user:userSlice.reducer,
     allUsers:completeUserSlice.reducer,
     singleQuestion:singleQuestionSlice.reducer,
+    showAnswers:showAnswersSlice.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig,reducer)

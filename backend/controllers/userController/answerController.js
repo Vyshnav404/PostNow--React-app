@@ -26,6 +26,21 @@ const addAnswer = async(req,res)=>{
     }
 }
 
+const getAllQuestion = async(req,res)=>{
+    try {
+        console.log("lllllloooooogggg");
+        let id = req.params.qid
+        console.log("dddddaaaaaa",id);
+        await answerDB.find({questionId:Object(id)}).then((response)=>{
+            console.log(response,"response");
+            res.status(200).json(response)
+        })
+    } catch (error) {
+        
+    }
+}
+
 module.exports= {
-    addAnswer
+    addAnswer,
+    getAllQuestion
 }
