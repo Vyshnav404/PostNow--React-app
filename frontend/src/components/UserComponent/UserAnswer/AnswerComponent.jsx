@@ -10,6 +10,9 @@ import { useSelector } from 'react-redux';
 import CloseIcon from '@material-ui/icons/Close';
 import { Avatar } from '@material-ui/core'
 import ReactTimeAgo from 'react-time-ago'
+import { Modal } from 'react-responsive-modal'
+import ReactQuill from "react-quill";
+import { useNavigate } from 'react-router-dom';
 import './Answer.css'
  
  function LastSeen({ date }) {
@@ -25,14 +28,19 @@ function AnswerComponent(){
 
     const { questionDetails } = useSelector(state => state.singleQuestion)
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [question,setQuestion]= useState('')
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [answer,setAnswer] = useState('')
     const Close = (<CloseIcon />)
 
 
     const location = useLocation();
   let qid = location.state?.id;
  
-   
+  const handleQuill = (value)=>{
+    setAnswer(value)
+  }
 
   const getOneQuestion = async()=>{
     await axios.get('/onequestion/'+qid).then((res)=>{
@@ -47,6 +55,26 @@ function AnswerComponent(){
     getOneQuestion()
   },[])
   
+ const handleSubmit = async()=>{
+  if(questionDetails?._id && answer !==''){
+    const config = {
+      headers:{
+        "Content-Type":"application/json"
+      }
+    }
+    const body = {
+      answer : answer,
+      questionId : questionDetails?._id
+    }
+    await axios.post('/answers',body,config).then((res)=>{
+      console.log("answer is comming",res.data)
+      alert("Answer added successfully")
+      setIsModalOpen(false)
+      navigate('/answerpage')
+    })
+  }
+ }
+
   console.log("question details",questionDetails)
 
 
@@ -63,14 +91,14 @@ function AnswerComponent(){
       <div className="post__body">
         <div className="post__question">
           <p>{questionDetails?.questionName}</p>
-          {/* <button  onClick={()=>{
+          <button  onClick={()=>{
             setIsModalOpen(true);
            
           } }     
             className="post__btnAnswer">
             Answer
-          </button> */}
-          {/* <Modal 
+          </button>
+          <Modal 
           open = {isModalOpen} closeIcon={Close} onClose={()=> setIsModalOpen(false)}
           closeOnEsc
           center 
@@ -81,9 +109,9 @@ function AnswerComponent(){
             },
           }}>
             <div className='modal__question'>
-              <h1>{post?.questionName}</h1>
+              <h1>{questionDetails?.questionName}</h1>
               <p>asked by {" "}<span className='name'>Username</span>{" "}on{" "}
-              <span className='name'>{new Date(post?.createdAt).toLocaleString()}</span></p>
+              <span className='name'>{new Date(questionDetails?.createdAt).toLocaleString()}</span></p>
             </div>
             <div className='modal__answer'>
               <ReactQuill value={answer} onChange={handleQuill} placeholder='Enter your answer' />
@@ -96,7 +124,7 @@ function AnswerComponent(){
                           Add Answer
                         </button>
                       </div>
-          </Modal> */}
+          </Modal>
         </div>
        {
         questionDetails.questionUrl !=='' && <img src={questionDetails.questionUrl} alt="" />
