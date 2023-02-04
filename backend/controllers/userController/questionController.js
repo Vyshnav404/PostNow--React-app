@@ -57,9 +57,9 @@ const getQuestionAnswer = async(req,res)=>{
 
 const getOneQuestion = async(req,res)=>{
     let id = req.params.qid;
+   
   try {
     await questionDB.findById({_id:id}).then((response)=>{
-        console.log(response,"user quesrio");
         res.status(200).json(response)
     })
   } catch (error) {

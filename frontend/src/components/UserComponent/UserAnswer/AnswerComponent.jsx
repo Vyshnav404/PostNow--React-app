@@ -5,7 +5,7 @@ import { ArrowDownwardOutlined, ArrowUpwardOutlined,
 import axios from 'axios';     
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { singleQuestion } from '../../../redux/features/singleQuestionSlice'
+import { setSingleQuestion } from '../../../redux/features/singleQuestionSlice'
 import { useSelector } from 'react-redux';
 import CloseIcon from '@material-ui/icons/Close';
 import { Avatar } from '@material-ui/core'
@@ -23,7 +23,7 @@ import './Answer.css'
 
 function AnswerComponent(){
 
-    const { questionDetails } = useSelector(state => state.question)
+    const { questionDetails } = useSelector(state => state.singleQuestion)
     const dispatch = useDispatch();
     const [question,setQuestion]= useState('')
     const Close = (<CloseIcon />)
@@ -31,29 +31,23 @@ function AnswerComponent(){
 
     const location = useLocation();
   let qid = location.state?.id;
-
-  // const getOneQuestion = async()=>{
-  //   await axios.get('/onequestion/'+qid).then((res)=>{
-  //       setQuestion(res.data)
-  //       dispatch(singleQuestion(res.data))
-  //     });
-  // }
-
-
- useEffect(()=>{
- const getSingleQuestion =async()=>{
-  await axios.get('/onequestion/'+qid).then((res)=>{
-    setQuestion(res.data)
-    dispatch(singleQuestion(res.data))
-  }
-  )
- }
- getSingleQuestion()
  
-  
-},[])
+   
 
-    console.log("iiddd =====",questionDetails.createdAt)
+  const getOneQuestion = async()=>{
+    await axios.get('/onequestion/'+qid).then((res)=>{
+       console.log("datas",res.data)
+       setQuestion(res.data)
+       dispatch(setSingleQuestion(res.data))
+      });
+  }
+
+  
+  useEffect(()=>{
+    getOneQuestion()
+  },[])
+  
+  console.log("question details",questionDetails)
 
 
     return(

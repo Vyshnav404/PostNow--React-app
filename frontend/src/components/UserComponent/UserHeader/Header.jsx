@@ -42,8 +42,7 @@ function Header() {
         console.log("eroor");
         console.log(res.data);
           alert(res.data.message)
-          // window.location.href = '/home'
-          navigate('/home')
+          navigate('/')
       }).catch((e)=>{
         console.log(e);
         alert('Error in adding question')

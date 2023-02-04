@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const questionSlice = createSlice({
-    name:'question',
+export const singleQuestionSlice = createSlice({
+    name:'singleQuestion',
     initialState:{
         questionDetails:'',
     },
     reducers:{
-        singleQuestion:(state, action)=>{
+       setSingleQuestion:(state, action)=>{
             state.questionDetails = action.payload
             console.log(action.payload,"action payload")
         }
     }
 })
 
-export const { singleQuestion } = questionSlice.actions
-export default questionSlice.reducer;
+export const { setSingleQuestion } = singleQuestionSlice.actions
+export default singleQuestionSlice.reducer;

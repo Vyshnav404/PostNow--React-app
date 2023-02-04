@@ -7,7 +7,7 @@ const db = require('./config/db')
 const userRouter = require('./routes/userRouter')
 const adminRouter = require('./routes/adminRouter')
 require('dotenv').config();
-const PORT = 8080;
+const PORT = 8000;
 
 
        //  database connection
