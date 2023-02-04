@@ -11,6 +11,7 @@ import 'react-responsive-modal/styles.css'
 import axios from 'axios'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const { userDetails }= useSelector(state=>state.user)
@@ -83,7 +84,7 @@ function Header() {
                 <input type="text" placeholder='Search questions' />
               </div>
               <div className='qHeader__Rem'>
-                <Avatar />
+               <Link to='/profile' ><Avatar /></Link>
               </div>
                   <Button onClick={()=> setIsModalOpen(true)} style={{backgroundColor:'#9b2222', color:"lightgrey" ,marginLeft:"8px"}}>Add Question</Button>
                   <Modal

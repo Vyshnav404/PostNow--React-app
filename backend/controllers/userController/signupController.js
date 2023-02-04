@@ -56,6 +56,18 @@ const userSignup = async(req,res)=>{
     }
 }
 
+const verifyUser = async(req,res)=>{
+    try {
+       let mail = req.body.mail
+        await User.findOneAndUpdate({email:mail},{$set:{
+            verified:1
+        }})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
-    userSignup
+    userSignup,
+    verifyUser
 }

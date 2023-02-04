@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast,{Toaster} from 'react-hot-toast'
+import axios from "axios";
 
 function Otp() {
 
@@ -11,6 +12,8 @@ function Otp() {
 
   const { userDetails } = useSelector((state) => state.user);
   console.log("otp comming", userDetails);
+  const mail = userDetails.data.email;
+  console.log(mail,"uuuuuuseeer iiiid");
 
   const handleChange = (e)=>{
     setOtp(e.target.value)
@@ -21,6 +24,8 @@ function Otp() {
 
   const handleOTP =()=>{
     if(verifyOTP === otp){
+      axios.post('/otpVerify',{mail:mail}).then((res)=>{
+      })
       // alert('correct')
       toast.success('otp verified')
       navigate('/')

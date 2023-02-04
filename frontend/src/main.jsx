@@ -5,24 +5,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter} from 'react-router-dom'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
-// import ru from 'javascript-time-ago/locale/ru.json'
 TimeAgo.addDefaultLocale(en)
-// TimeAgo.addLocale(en)
-import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8000'
-
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:8080'
 
 
-
+let persistor = persistStore(store)
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
   <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
-   
-  </React.StrictMode>
+    </PersistGate>
   </Provider>
+  </React.StrictMode>
 )

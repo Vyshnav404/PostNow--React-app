@@ -7,21 +7,21 @@ import Navbar from "../AdminDashboard/Navbar";
 import styled from "styled-components";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import toast, { Toaster } from "react-hot-toast";
-import { setUser } from "../../../redux/features/userSlice";
+import { setUsers } from "../../../redux/features/completeUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import scrollreveal from "scrollreveal";
 
 const UserManage = () => {
   const [details, setDetails] = useState([]);
   const dispatch = useDispatch();
-  const { userDetails } = useSelector((state) => state.user);
+  const { usersDetails } = useSelector((state) => state.allUsers);
 
   const getUserDetails = async () => {
     try {
       await axios.get("/admin/userdetails").then((response) => {
         console.log("userDetails comming", response);
         setDetails(response.data);
-        dispatch(setUser(response.data));
+        dispatch(setUsers(response.data));
       });
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const UserManage = () => {
         toast.error("User Blocked");
 
         axios.get("/admin/userdetails").then((res) => {
-          dispatch(setUser(res.data));
+          dispatch(setUsers(res.data));
         });
       });
     } catch (error) {
@@ -51,7 +51,7 @@ const UserManage = () => {
         toast.success("user unblocked");
 
         axios.get("/admin/userdetails").then((res) => {
-          dispatch(setUser(res.data));
+          dispatch(setUsers(res.data));
         });
       });
     } catch (error) {
@@ -124,7 +124,7 @@ const UserManage = () => {
         <DataTable
           title={"User Details"}
           columns={columns}
-          data={userDetails}
+          data={usersDetails}
           pagination
         />
       </Section>

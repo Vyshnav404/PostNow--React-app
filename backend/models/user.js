@@ -8,16 +8,24 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  isBlocked:{type:Boolean,default:false}
+  isBlocked: { type: Boolean, default: false },
+  imageUrl: { type:String, },
+  job: { type:String },
+  company:{ type:String },
+  verified :{type:Number,default:0}
+
 });
 
-userSchema.methods.generateAuthToken = function(){
-  const token = jwt.sign({
-      _id:this._id
-  },
-  process.env.JWTPRIVATEKEY,{expiresIn:'7d'});
-return token; 
-}
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.JWTPRIVATEKEY,
+    { expiresIn: "7d" }
+  );
+  return token;
+};
 
 const User = mongoose.model("user", userSchema);
 
@@ -28,7 +36,7 @@ const validate = (data) => {
     email: joi.string().email().required().label("Email"),
     password: passwordComplexity().required().label("Password"),
   });
-  
+
   return schema.validate(data);
 };
 

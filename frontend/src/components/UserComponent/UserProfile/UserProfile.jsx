@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   MDBCol,
   MDBContainer,
@@ -16,43 +16,56 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
+import{ useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/features/userSlice'
+import axios from 'axios';
+import { useEffect } from 'react';
+import ProfileUpdate from './ProfileUpdate';
+import ProfilePicAddModal from './ProfilePicAddModal';
 
 const UserProfile = () => {
+  const { userDetails } = useSelector(state=> state.user);
+  const [useresponse , setResponse] = useState([])
 
+  const dispatch = useDispatch()
+
+  let email = userDetails.email
+  const getUser = async()=>{
+    await axios.get('/getUser/'+email).then((response)=>{
+        setResponse(response.data)
+        dispatch(setUser(response.data))
+    })
+  }
+
+  useEffect(()=>{
+    getUser()
+  },[])
+
+
+ let defaultUrl = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
   return (
     <div>
         <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
-        {/* <MDBRow>
-          <MDBCol>
-          <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-          <MDBBreadcrumbItem>
-          <a href='#'>Home</a>
-          </MDBBreadcrumbItem>
-          <MDBBreadcrumbItem>
-          <a href="#">User</a>
-          </MDBBreadcrumbItem>
-          <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-          </MDBBreadcrumb>
-          </MDBCol> 
-        </MDBRow> */}
+      
 
         <MDBRow>
           <MDBCol lg="4">
             <MDBCard className="mb-4">
               <MDBCardBody className="text-center">
-                <MDBCardImage
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                  alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+               
+               <img src={useresponse.imageUrl ? useresponse?.imageUrl:defaultUrl} 
+               alt="avatar"
+                className='rounded-circle'
+                style={{width:'150px'}} />
+
+                <p className="text-muted mb-1">{userDetails.firstName+" "}{userDetails.lastName}</p>
+                <p className="text-muted mb-4">{userDetails.job}</p>
                 
-                <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
+                <div className="d-flex justify-content-center mb-2 ">
+                  {/* <MDBBtn>Follow</MDBBtn>
+                  <MDBBtn outline className="ms-1">Message</MDBBtn> */}
+                  <ProfileUpdate  userData={userDetails}  /><ProfilePicAddModal />
                 </div>
 
               </MDBCardBody>
@@ -64,9 +77,9 @@ const UserProfile = () => {
 
                 <MDBListGroupItem className=" d-flex  align-items-center justify-content-center p-3">
                     <MDBIcon/>
-                    <MDBCardText><h5>Social medias</h5></MDBCardText>
+                    <MDBCardText><h5 >Social medias</h5></MDBCardText>
                     
-                    <button className="btn btn-primary mb-3 ml-5  " type="submit">add</button>
+                    <button className="btn btn-primary mb-3 ms-5  " type="submit">add</button>
                 
                     
                   </MDBListGroupItem>
@@ -104,7 +117,7 @@ const UserProfile = () => {
                     <MDBCardText>First Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan </MDBCardText>
+                    <MDBCardText className="text-muted">{userDetails.firstName}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -113,7 +126,7 @@ const UserProfile = () => {
                     <MDBCardText>Last Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan </MDBCardText>
+                    <MDBCardText className="text-muted">{userDetails.lastName} </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -122,34 +135,26 @@ const UserProfile = () => {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">{userDetails.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
-                {/* <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Phone</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
-                  </MDBCol>
-                </MDBRow> */}
+               
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Profession</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Mern Stack Developer</MDBCardText>
+                    <MDBCardText className="text-muted">{userDetails.job}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
+                    <MDBCardText>Company</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted">{userDetails.company}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

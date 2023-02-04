@@ -81,7 +81,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(1)}
               >
                 <a onClick={()=>{
-                    navigate('/#')
+                    navigate('/admindashboard')
                   }} >
                   <MdSpaceDashboard />
                   <span className="buttonsDashboard"  > Dashboard</span>

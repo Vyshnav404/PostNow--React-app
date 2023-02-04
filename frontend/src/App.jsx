@@ -15,11 +15,11 @@ import UserProfilePage from "./Pages/user/UserProfilePage"
 
 function App() {
 
-  const { loading } = useSelector((state)=>state.alerts);
+  // const { loading } = useSelector((state)=>state.alerts);
 
   return (
     <div>
-      { loading ?(<Spinner />):(
+      {/* { loading ?(<Spinner />):( */}
          <Routes>
          <Route exact path="/admin" element={<AdminLogin />}></Route>
          <Route exact path="/admindashboard" element={<AdminDashboard />}></Route>
@@ -62,7 +62,7 @@ function App() {
          <Route exact path="/otp-page" element={<UserOtp />}></Route>
          
         </Routes>
-      ) }
+       {/* ) }  */}
     
       
     </div>

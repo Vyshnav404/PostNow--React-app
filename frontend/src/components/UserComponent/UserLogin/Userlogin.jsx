@@ -30,6 +30,7 @@ function Userlogin() {
       try {
         dispatch(showloading());
         const { data: res } = await axios.post('/login', data);
+        console.log('logindata',data);
         dispatch(setUser(data))
        dispatch(hideloading());
        localStorage.setItem("token", res.data);
