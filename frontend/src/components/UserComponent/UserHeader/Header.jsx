@@ -1,7 +1,7 @@
 import React from 'react'
 import  logo from '../../../assets/mylogo.png'
 import HomeIcon from '@material-ui/icons/Home';
-import {AssessmentOutlined, Close, ExpandMore, FeaturedPlayListOutlined, NotificationsOutlined, PeopleAltOutlined, Search} from '@material-ui/icons/'
+import {AssessmentOutlined, Close, ExpandMore, FeaturedPlayListOutlined, NotificationsOutlined, PeopleAltOutlined, Search, Style} from '@material-ui/icons/'
 import { Avatar, Button, Input } from '@material-ui/core';
 import { Modal } from 'react-responsive-modal'
 import CloseIcon from '@material-ui/icons/Close';
@@ -55,7 +55,7 @@ function Header() {
     navigate('/')
   }
 
-  
+  let defaultUrl = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
 
   return (
     <div className='qHeader'>
@@ -85,7 +85,12 @@ function Header() {
                 <input type="text" placeholder='Search questions' />
               </div>
               <div className='qHeader__Rem'>
-               <Link to='/profile' ><Avatar /></Link>
+               <Link to='/profile' >
+                <img src={userDetails.imageUrl ? userDetails?.imageUrl: defaultUrl } 
+                alt="avatar"
+                className='rounded-circle'
+                style={{width:'60px'}} />
+                </Link>
               </div>
                   <Button onClick={()=> setIsModalOpen(true)} style={{backgroundColor:'#9b2222', color:"lightgrey" ,marginLeft:"8px"}}>Add Question</Button>
                   <Modal

@@ -28,37 +28,37 @@ function Post({post}) {
   
 
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [answer,setAnswer] = useState('')
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [answer,setAnswer] = useState('')
   const Close = (<CloseIcon />)
 
 
-    const handleQuill = (value)=>{
-      setAnswer(value)
-    }
+    // const handleQuill = (value)=>{
+    //   setAnswer(value)
+    // }
     // console.log(answer);
 
-  const handleSubmit = async()=>{
-    if(post?._id && answer !== ""){
-        const config={
-          headers:{
-            "Content-Type":"application/json"
-          }
-        }
-        const body = {
-          answer : answer,
-          questionId : post?._id
-        }
-        await axios.post('/answers',body,config).then((res)=>{
-          console.log(res.data);
-          alert('Answer added succesfully')
-          setIsModalOpen(false)
-          window.location.href = '/home'
-        }).catch((e)=>{
-          console.log(e);
-        })
-    }
-  }
+  // const handleSubmit = async()=>{
+  //   if(post?._id && answer !== ""){
+  //       const config={
+  //         headers:{
+  //           "Content-Type":"application/json"
+  //         }
+  //       }
+  //       const body = {
+  //         answer : answer,
+  //         questionId : post?._id
+  //       }
+  //       await axios.post('/answers',body,config).then((res)=>{
+  //         console.log(res.data);
+  //         alert('Answer added succesfully')
+  //         setIsModalOpen(false)
+  //         window.location.href = '/home'
+  //       }).catch((e)=>{
+  //         console.log(e);
+  //       })
+  //   }
+  // }
 
   return (
     
@@ -74,7 +74,7 @@ function Post({post}) {
     </div>
     <div className="post__body">
       <div className="post__question">
-      <Link to='/answerpage' state={{id:post?._id}}><p>{post?.questionName}</p></Link>
+      <Link to='/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
         {/* <button  onClick={()=>{
           setIsModalOpen(true);
           console.log(post?._id);

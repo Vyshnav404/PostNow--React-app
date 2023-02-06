@@ -10,7 +10,8 @@ import { FiLogOut } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
 import scrollreveal from "scrollreveal";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { HiUsers } from "react-icons/hi";
 import {message} from 'antd'
 import './Sidebar.css'

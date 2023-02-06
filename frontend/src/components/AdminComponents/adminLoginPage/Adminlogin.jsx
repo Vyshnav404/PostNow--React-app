@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showloading,hideloading } from "../../../redux/features/alertSlice";
+import toast,{ Toaster } from 'react-hot-toast'
 
 function Adminlogin() {
 
@@ -32,7 +33,12 @@ function Adminlogin() {
        setIsAdminLoggedIn(true);
        window.location = "/admindashboard"
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      if(error.response &&
+        error.response.status >= 400 &&
+        error.response.status <500){
+          toast.error("Invalid Password or Admin Name")
+        }
     }
   }
 
@@ -62,6 +68,7 @@ function Adminlogin() {
           <input type="submit" id="submit" value="login" />
         </form>
       </div>
+      <Toaster/>
     </>
   );
 }

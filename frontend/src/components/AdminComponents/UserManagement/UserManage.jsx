@@ -10,6 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { setUsers } from "../../../redux/features/completeUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import scrollreveal from "scrollreveal";
+import swal from 'sweetalert'
 
 const UserManage = () => {
   const [details, setDetails] = useState([]);
@@ -28,22 +29,54 @@ const UserManage = () => {
     }
   };
 
-  const userBlock = async (id) => {
-    try {
-      console.log("xios");
-      await axios.put("/admin/block-user/" + id).then((response) => {
-        console.log(response);
-        toast.error("User Blocked");
+  // const userBlock = async (id) => {
+  //   try {
+  //     console.log("xios");
+  //     if(window.confirm("Are you sure?")){
 
-        axios.get("/admin/userdetails").then((res) => {
-          dispatch(setUsers(res.data));
+  //       await axios.put("/admin/block-user/" + id).then((response) => {
+  //         console.log(response);
+  //         toast.error("User Blocked");
+  
+  //         axios.get("/admin/userdetails").then((res) => {
+  //           dispatch(setUsers(res.data));
+  //         });
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error, "this is");
+  //   }
+  // };
+  //  start
+  const userBlock = async(id)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to block the user!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+         axios.put("/admin/block-user/" + id).then((response) => {
+          console.log(response);
+          // toast.error("User Blocked");
+  
+          axios.get("/admin/userdetails").then((res) => {
+            dispatch(setUsers(res.data));
+          });
         });
-      });
-    } catch (error) {
-      console.log(error, "this is");
-    }
-  };
+        swal("You blocked the user!", {
+          icon: "success",
+        });
+      } else {
+        swal("Action not done!");
+      }
+    });
+  }
+ 
 
+  // eeennnd
   const userUnBlock = async (id) => {
     try {
       await axios.put("/admin/unblock-user/" + id).then((response) => {

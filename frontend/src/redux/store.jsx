@@ -10,6 +10,7 @@ import { showAnswersSlice } from './features/showAnswersSlice';
 
 
 
+
 const persistConfig = {
     key:"root",
     version:1,
@@ -22,6 +23,7 @@ const reducer = combineReducers({
     allUsers:completeUserSlice.reducer,
     singleQuestion:singleQuestionSlice.reducer,
     showAnswers:showAnswersSlice.reducer,
+   
 })
 
 const persistedReducer = persistReducer(persistConfig,reducer)

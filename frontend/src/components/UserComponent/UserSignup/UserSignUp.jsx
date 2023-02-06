@@ -30,8 +30,9 @@ function UserSignUp() {
       const { data: res } = await axios
         .post("/signup", data)
         .then((response) => {
-            console.log(response.data.OTP,"goood");
-            
+          console.log(response.data.OTP,"goood");
+          console.log(response.data,"goood");
+ 
           dispatch(setUser(response, response.data.OTP));
           navigate("/otp-page");
         });
@@ -67,6 +68,8 @@ function UserSignUp() {
               action="#"
               className="Signup-login-form"
               onSubmit={handleSubmit}
+              
+              
             >
               <div className="Signup-form-group">
                 <input

@@ -1,5 +1,5 @@
 const express = require('express');
-const { userSignup,verifyUser} = require('../controllers/userController/signupController')
+const { userSignup,verifyUser,resendotp} = require('../controllers/userController/signupController')
 const { userLogin } = require('../controllers/userController/loginController')
 const { addQuestion,getQuestionAnswer ,getOneQuestion} =require('../controllers/userController/questionController')
 const { addAnswer,getAllQuestion } = require('../controllers/userController/answerController')
@@ -19,6 +19,7 @@ router.put('/update-user',updateUserDetails)
 router.put('/profilePicture/:id',profilePicture)
 router.post('/otpVerify',verifyUser)
 router.get('/onequestion/:qid',getOneQuestion)
+router.post('/resendotp/:mail',resendotp)
 
 try {
     router.get('/Allquestions',getQuestionAnswer)

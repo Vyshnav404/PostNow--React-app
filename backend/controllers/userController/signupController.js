@@ -11,7 +11,7 @@ let mailTransporter = nodemailer.createTransport({
         pass:"cfurmqbfeuxzcwwz"
     },
 });
-const OTP = `${Math.floor(1000 + Math.random() * 9000)}`;
+let OTP = `${Math.floor(1000 + Math.random() * 9000)}`;
 
 
 
@@ -47,6 +47,7 @@ const userSignup = async(req,res)=>{
         const hashPassword = await bcrypt.hash(req.body.password,salt);
 
         await new User({...req.body, password:hashPassword}).save();
+        console.log(req.body,"bodyy vanne");
         res.status(201).send({message:"User created successfully",...req.body,OTP})
 
     } catch (error) {
@@ -67,7 +68,32 @@ const verifyUser = async(req,res)=>{
     }
 }
 
+const resendotp = async(req,res)=>{
+    let Email = req.params.mail
+     try {
+        // let Email = req.body.email;
+        console.log("email check ",Email)
+        let mailDetails = {
+            from :"vyshnav404@gmail.com",
+            to:Email,
+            subject:"PostNow",
+            html:`<p> YOUR OTP FOR REGISTRATION IN PostNow IS ${OTP}</P>`,
+        };
+        mailTransporter.sendMail(mailDetails,function(err,data){
+            if(err){
+                console.log("error occurs ",err);
+            }else{
+                res.status(200).json({OTP})
+                console.log("email send successfully");
+            }
+        });
+     } catch (error) {
+        console.log(error);
+     }
+}
+
 module.exports = {
     userSignup,
-    verifyUser
+    verifyUser,
+    resendotp
 }

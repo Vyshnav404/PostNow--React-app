@@ -9,9 +9,12 @@ export const userSlice = createSlice({
         setUser:(state, action)=>{
             state.userDetails = action.payload
            
-        }
+        },
+       resetOTP:(state,action)=>{
+        state.userDetails.OTP = action.payload
+       } 
     }
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser,resetOTP } = userSlice.actions
 export default userSlice.reducer;

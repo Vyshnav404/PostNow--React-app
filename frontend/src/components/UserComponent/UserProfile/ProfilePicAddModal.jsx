@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector } from 'react-redux';
+import toast,{ Toaster } from 'react-hot-toast'
 
 function ProfilePicAddModal() {
   
@@ -12,8 +13,11 @@ function ProfilePicAddModal() {
   const [ image,setImage] = useState('')
   const [ url, setUrl ] = useState('')
 
+ let Allowed_File_Types = ["image/jpeg","image/jpg","image/png","image/webp","image/gif" ]
+
   const handleSubmit = async()=>{
-    const data = new FormData()
+    if(Allowed_File_Types.includes(image.type)){
+      const data = new FormData()
     data.append("file",image)
     data.append("upload_preset","imagetesting")
     data.append("cloud_name",'dv5vyqpjh') 
@@ -34,6 +38,10 @@ function ProfilePicAddModal() {
     .catch((err)=>{
       console.log(err);
     })
+    }else{
+     toast.error("File type is not good")
+    }
+    
   }
 
 
@@ -63,6 +71,7 @@ function ProfilePicAddModal() {
         </Modal.Footer>
         {/* </form> */}
       </Modal>
+      <Toaster/>
     </div>
   );
 }

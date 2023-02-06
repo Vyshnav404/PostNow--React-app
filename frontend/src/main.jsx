@@ -11,7 +11,7 @@ import store from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8000'
+axios.defaults.baseURL = 'http://localhost:8080'
 
 
 let persistor = persistStore(store)

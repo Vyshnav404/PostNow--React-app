@@ -13,6 +13,8 @@ import UserOtp from "./Pages/user/UserOtp"
 import UserManagePage from "./Pages/admin/UserManagePage"
 import UserProfilePage from "./Pages/user/UserProfilePage"
 import UserAnswerPage from "./Pages/user/UserAnswerPage"
+import AdminProtectedRoute from "./components/AdminProtect/AdminProtectedRoute"
+import AdminPublicRoute from "./components/AdminProtect/AdminPublicRoute"
 
 function App() {
 
@@ -22,9 +24,9 @@ function App() {
     <div>
       {/* { loading ?(<Spinner />):( */}
          <Routes>
-         <Route exact path="/admin" element={<AdminLogin />}></Route>
-         <Route exact path="/admindashboard" element={<AdminDashboard />}></Route>
-         <Route exact path="/userdetails" element={<UserManagePage />}></Route>
+         <Route exact path="/admin" element={ <AdminPublicRoute> <AdminLogin /> </AdminPublicRoute> }></Route>
+         <Route exact path="/admindashboard" element={<AdminProtectedRoute> <AdminDashboard /> </AdminProtectedRoute>}></Route>
+         <Route exact path="/userdetails" element={ <AdminProtectedRoute> <UserManagePage /> </AdminProtectedRoute>}></Route>
 
 
          <Route 
