@@ -7,7 +7,8 @@ const addQuestion = async(req,res)=>{
     try {
         await questionDB.create({
             questionName: req.body.questionName,
-            questionUrl: req.body.questionUrl
+            questionUrl: req.body.questionUrl,
+            user:req.body.user,
         }).then(()=>{
             res.status(201).send({
                 status:true,
@@ -67,8 +68,22 @@ const getOneQuestion = async(req,res)=>{
   }
 }
 
+const reportQuestion = async(req,res)=>{
+    let qid = req.params.qid;
+    try {
+      
+        questionDB.findByIdAndUpdate(qid,{$set:{report:true}}).then((response)=>{
+            console.log(response,"report");
+            res.status(200).json(response)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports ={
     addQuestion,
     getQuestionAnswer,
-    getOneQuestion
+    getOneQuestion,
+    reportQuestion
 }

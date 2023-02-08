@@ -35,7 +35,6 @@ const updateUserDetails = async(req,res)=>{
       job:req.body.job,
       company:req.body.company
     }},{upsert:true}).then((response)=>{
-      console.log("updatttttttte",response);
       res.status(200).json({response:response,message:"user updated successfully"})
     })
   } catch (error) {
@@ -53,7 +52,6 @@ const profilePicture = async(req,res)=>{
     await User.findByIdAndUpdate({_id:id},{$set:{
       imageUrl
     }}).then((response)=>{
-      console.log(response,"jkkjkjkjkj");
     })
   } catch (error) {
     console.log(error);

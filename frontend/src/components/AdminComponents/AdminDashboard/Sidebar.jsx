@@ -104,7 +104,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(3)}
               >
                 <a onClick={()=>{
-                  navigate('/#')
+                  navigate('/reportQuestion')
                 }}>
                   <FaAddressCard />
                   <span className="buttonsDashboard" > Questions</span>

@@ -15,6 +15,7 @@ import UserProfilePage from "./Pages/user/UserProfilePage"
 import UserAnswerPage from "./Pages/user/UserAnswerPage"
 import AdminProtectedRoute from "./components/AdminProtect/AdminProtectedRoute"
 import AdminPublicRoute from "./components/AdminProtect/AdminPublicRoute"
+import AdminQuestionPage from "./Pages/admin/AdminQuestionPage"
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
          <Route exact path="/admin" element={ <AdminPublicRoute> <AdminLogin /> </AdminPublicRoute> }></Route>
          <Route exact path="/admindashboard" element={<AdminProtectedRoute> <AdminDashboard /> </AdminProtectedRoute>}></Route>
          <Route exact path="/userdetails" element={ <AdminProtectedRoute> <UserManagePage /> </AdminProtectedRoute>}></Route>
-
+         <Route exact path="/reportQuestion" element={ <AdminProtectedRoute> <AdminQuestionPage /> </AdminProtectedRoute>}></Route>
 
          <Route 
          exact path="/" 

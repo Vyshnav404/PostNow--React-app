@@ -36,7 +36,8 @@ function Header() {
 
       const body = {
         questionName: question,
-        questionUrl: inputUrl
+        questionUrl: inputUrl,
+        user:userDetails
       }
       await axios.post('/questions',body,config).then((res)=>{
         console.log("eroor");

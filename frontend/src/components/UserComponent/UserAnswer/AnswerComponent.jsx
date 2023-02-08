@@ -99,6 +99,30 @@ function AnswerComponent(){
  useEffect(()=>{
   getAnswers()
  },[])
+   
+
+ const reportQuestion = async()=>{
+  swal({
+    title: "Are you sure?",
+    text: "Do you want to report this question!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      
+       axios.post('/reportQuestion/'+qid).then((res)=>{
+    
+      })
+      swal("You done a action report to this question!", {
+        icon: "success",
+      });
+    } else {
+      swal("Action not done!");
+    }
+  });
+ }
 
   console.log("question details",questionDetails)
   console.log("answer from back",answerDetails)
@@ -164,8 +188,9 @@ function AnswerComponent(){
         <RepeatOneOutlined />
         <ChatBubbleOutlined />
         <div className="post__footerLeft">
-          <ShareOutlined />
-          <MoreHorizOutlined />
+          <button  className="post__report" onClick={reportQuestion} >Report</button>
+          {/* <ShareOutlined />
+          <MoreHorizOutlined /> */}
         </div>
       </div>
       <p

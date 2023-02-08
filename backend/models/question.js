@@ -11,6 +11,11 @@ const QuestionSchema = new mongoose.Schema({
     answers: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"Answers"
+    },
+    user:Object,
+    report:{
+        type:Boolean,
+        default:false
     }
 })
 

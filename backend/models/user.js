@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   company:{ type:String },
   verified :{type:Number,default:0}
 
+
 });
 
 userSchema.methods.generateAuthToken = function () {
