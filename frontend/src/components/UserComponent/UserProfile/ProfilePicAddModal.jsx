@@ -26,14 +26,14 @@ function ProfilePicAddModal() {
       method:"post",
       body:data
     }).then((res)=>res.json())
-    .then((data)=>{
+    .then(async(data)=>{
       console.log("image",data.url);
-      setUrl(data.url) 
+      // setUrl(data.url) 
+      // console.log("url=     ==========",url);
+      await axios.put('/profilePicture/'+id,{url:data.url}).then((res)=>{
+      })
     })
-    console.log("url===========",url);
-    await axios.put('/profilePicture/'+id,{url:url}).then((res)=>{
 
-   })
    
     .catch((err)=>{
       console.log(err);

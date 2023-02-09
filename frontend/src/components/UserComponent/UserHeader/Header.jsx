@@ -20,35 +20,82 @@ function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl,setInputUrl] = useState('')
   const [question, setQuestion] = useState('')
+  const [image, setImage ] = useState('')
   const Close = (<CloseIcon />)
   const navigate = useNavigate()
+ 
+  let Allowed_File_Types = ["image/jpeg","image/jpg","image/png","image/webp","image/gif" ]
+
+  
 
   const handleSubmit = async()=>{
     if(question !== ""){
+      if(Allowed_File_Types.includes(image.type)){
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","imagetesting")
+        data.append("cloud_name","dv5vyqpjh")
 
-      const config = {
-        headers:{
-          "Content-Type":"application/json",
-        
-
+        await fetch('https://api.cloudinary.com/v1_1/dv5vyqpjh/image/upload',{
+          method:"post",
+          body:data
+        }).then((res)=>res.json())
+        .then(async(data)=>{
+          // setInputUrl(data.url);
+          if(data.url){
+          
+          const config = {
+            headers:{
+              "Content-Type":"application/json",
+            
+    
+            }
+          }
+    
+          const body = {
+            questionName: question,
+            questionUrl: data.url,
+            user:userDetails
+          }
+          await axios.post('/questions',body,config).then((res)=>{
+            console.log("eroor");
+            console.log(res.data);
+              alert(res.data.message)
+              navigate('/')
+          }).catch((e)=>{
+            console.log(e);
+            alert('Error in adding question')
+          }) 
         }
+        })
+      }else{
+        const config = {
+          headers:{
+            "Content-Type":"application/json",
+          
+  
+          }
+        }
+  
+        const body = {
+          questionName: question,
+          questionUrl: inputUrl,
+          user:userDetails
+        }
+        await axios.post('/questions',body,config).then((res)=>{
+          console.log("eroor");
+          console.log(res.data);
+            alert(res.data.message)
+            navigate('/')
+        }).catch((e)=>{
+          console.log(e);
+          alert('Error in adding question')
+        }) 
       }
+      
 
-      const body = {
-        questionName: question,
-        questionUrl: inputUrl,
-        user:userDetails
-      }
-      await axios.post('/questions',body,config).then((res)=>{
-        console.log("eroor");
-        console.log(res.data);
-          alert(res.data.message)
-          navigate('/')
-      }).catch((e)=>{
-        console.log(e);
-        alert('Error in adding question')
-      })
-    }
+     
+    } ///
   }
 
   const handleLogout = ()=>{
@@ -127,9 +174,9 @@ function Header() {
                         flexDirection:'column',
                       
                       }}>
-                        <input type="text" className='inputSize mt-5'
-                        value={inputUrl}
-                        onChange={(e) => setInputUrl(e.target.value)}
+                        <input type="file" className='inputSize mt-5'
+                        // value={inputUrl}
+                        onChange={(e) => setImage(e.target.files[0])}
                         style={{
                          
                           margin: '5px 0',
@@ -142,7 +189,7 @@ function Header() {
                           height:"40vh",
                           objectFit:"contain"
                          }} src={ inputUrl } alt="image" />}
-                         
+                        
                       </div>
                     </div>
                     <div className='modal__buttons'>
