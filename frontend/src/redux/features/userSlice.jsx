@@ -4,6 +4,7 @@ export const userSlice = createSlice({
     name:'user',
     initialState:{
         userDetails:[],
+        tokenData:'',
     },
     reducers:{
         setUser:(state, action)=>{
@@ -12,9 +13,13 @@ export const userSlice = createSlice({
         },
        resetOTP:(state,action)=>{
         state.userDetails.OTP = action.payload
-       } 
+       } ,
+
+       setToken:(state,action)=>{
+        state.tokenData=action.payload
+       }
     }
 })
 
-export const { setUser,resetOTP } = userSlice.actions
+export const { setUser,resetOTP ,setToken} = userSlice.actions
 export default userSlice.reducer;

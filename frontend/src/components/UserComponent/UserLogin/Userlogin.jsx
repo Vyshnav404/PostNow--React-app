@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { showloading,hideloading } from '../../../redux/features/alertSlice'
-import { setUser } from '../../../redux/features/userSlice'
+import { setToken, setUser } from '../../../redux/features/userSlice'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -34,6 +34,8 @@ function Userlogin() {
         dispatch(setUser(data))
        dispatch(hideloading());
        localStorage.setItem("token", res.data);
+       console.log("user token",res.data)
+       dispatch(setToken(res.data))
         setIsUserLoggedIn(true);   
         navigate('/home')
 

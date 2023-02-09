@@ -25,21 +25,43 @@ import ProfilePicAddModal from './ProfilePicAddModal';
 
 const UserProfile = () => {
   const { userDetails } = useSelector(state=> state.user);
+  const { tokenData } = useSelector(state => state.user)
   const [useresponse , setResponse] = useState([])
 
   const dispatch = useDispatch()
 
   let email = userDetails.email
   const getUser = async()=>{
-    await axios.get('/getUser/'+email).then((response)=>{
-        setResponse(response.data)
-        dispatch(setUser(response.data))
+    // await axios.get('/getUser/'+email).then((response)=>{
+    //     setResponse(response.data)
+    //     dispatch(setUser(response.data))
+    // })
+    const data = await axios({
+      url:'/getUser/'+email,
+      method:'get',
+      headers:{
+        Authorization:tokenData
+      }
     })
+    console.log("ddddddaaata",data)
+    setResponse(data.data)
+    dispatch(setUser(data.data))
+
   }
 
   useEffect(()=>{
     getUser()
   },[])
+
+  // useEffect(async()=>{
+  //   const data = await axios( {
+  //     url:'/getUser/'+email,
+  //     method:'get',
+  //     headers:{
+  //       Authorization:tokenData
+  //     }
+  //   })
+  // })
 
 
  let defaultUrl = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"

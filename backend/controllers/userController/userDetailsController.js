@@ -2,8 +2,10 @@ const { User }  = require('../../models/user')
 
 const getUser = async(req,res)=>{
     try {
-        let mail = req.params.email
+      let mail = req.params.email
+      console.log("njaaaan",mail);
         User.findOne({email:mail}).then((response)=>{
+          console.log(response);
           res.status(200).json(response)
         })
     } catch (error) {
