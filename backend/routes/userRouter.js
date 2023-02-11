@@ -6,6 +6,7 @@ const { addAnswer,getAllQuestion } = require('../controllers/userController/answ
 const { getUser,getUserDetails,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController');
 const verifyToken = require('../middleware/authjwt');
+const { addPost,getAllPosts,reportPost } = require('../controllers/userController/userPostController')
 
 
     const router = express.Router()
@@ -30,6 +31,11 @@ router.get('/getUser/:email',verifyToken,getUser)
 router.get('/getUserDetails/:data_id',getUserDetails)
 router.put('/update-user',updateUserDetails)
 router.put('/profilePicture/:id',profilePicture)
+
+
+router.post('/addPost',addPost)
+router.get('/getAllPosts',getAllPosts)
+router.put('/reportPost/:id',reportPost)
 
 
 

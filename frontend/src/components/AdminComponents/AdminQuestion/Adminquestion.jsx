@@ -22,8 +22,8 @@ function Adminquestion() {
 
       const questionDelete = async(qid)=>{
         console.log(qid,"qid qid qid qid ")
-        await axios.delete(`/admin/question-delete/${qid}`).then((res)=>{
-         axios.get('/admin/getreportQuestion').then((res)=>{
+        await axios.delete(`/admin/question-delete/${qid}`).then(async(res)=>{
+        await axios.get('/admin/getreportQuestion').then((res)=>{
             setReport(res.data)
           })
         })

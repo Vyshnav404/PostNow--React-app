@@ -116,7 +116,7 @@ function Header() {
            <Link className='qHeader__icon' to='/home'>< HomeIcon /></Link> 
           </div>
           <div className='qHeader__icon'>
-            <FeaturedPlayListOutlined />
+          <Link className='qHeader__icon' to='/userpost'><FeaturedPlayListOutlined /></Link>  
           </div>
           <div className='qHeader__icon'>
             <AssessmentOutlined />

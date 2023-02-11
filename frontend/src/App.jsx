@@ -16,6 +16,7 @@ import UserAnswerPage from "./Pages/user/UserAnswerPage"
 import AdminProtectedRoute from "./components/AdminProtect/AdminProtectedRoute"
 import AdminPublicRoute from "./components/AdminProtect/AdminPublicRoute"
 import AdminQuestionPage from "./Pages/admin/AdminQuestionPage"
+import UserPostPage from "./Pages/user/UserPostPage"
 
 function App() {
 
@@ -68,6 +69,15 @@ function App() {
          element={
           <ProtectedRouted>
          <UserAnswerPage />
+         </ProtectedRouted>
+         }></Route>
+
+
+        <Route 
+         exact path="/userpost" 
+         element={
+          <ProtectedRouted>
+         <UserPostPage />
          </ProtectedRouted>
          }></Route>
 
