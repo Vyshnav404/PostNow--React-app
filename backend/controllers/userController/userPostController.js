@@ -36,9 +36,21 @@ const reportPost = async(req,res)=>{
   }
 }
 
+const getPostOnProfile  = async(req,res)=>{
+  try {
+    let userId = req.params.id;
+    await postDb.find({'user._id':userId}).then((response)=>{
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 module.exports={
     addPost,
     getAllPosts,
-    reportPost
+    reportPost,
+    getPostOnProfile
 }

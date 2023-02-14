@@ -66,7 +66,7 @@ function Post({post}) {
     <div className="post">
     <div className="post__info">
       <Avatar />
-      <h4>User Name</h4>
+      <h4>{post.user.firstName}</h4>
    
       <small>
         <LastSeen date={post?.createdAt}/>

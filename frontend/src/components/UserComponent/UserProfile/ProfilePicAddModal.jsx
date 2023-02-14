@@ -33,6 +33,7 @@ function ProfilePicAddModal() {
       await axios.put('/profilePicture/'+id,{url:data.url}).then((res)=>{
       })
     })
+    toast.error("image updated")
 
    
     .catch((err)=>{

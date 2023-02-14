@@ -81,9 +81,22 @@ const reportQuestion = async(req,res)=>{
     }
 }
 
+const getQuestionsOnProfile = async(req,res)=>{
+    try {
+        let id = req.params.id
+        await questionDB.find({'user._id':id}).then((response)=>{
+            console.log(response,"daaaaataaa.......>>>>>>>");
+        res.status(200).json(response)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports ={
     addQuestion,
     getQuestionAnswer,
     getOneQuestion,
-    reportQuestion
+    reportQuestion,
+    getQuestionsOnProfile
 }

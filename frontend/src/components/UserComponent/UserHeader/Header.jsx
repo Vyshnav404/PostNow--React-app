@@ -134,10 +134,10 @@ function Header() {
               </div>
               <div className='qHeader__Rem'>
                <Link to='/profile' >
-                <img src={userDetails.imageUrl ? userDetails?.imageUrl: defaultUrl } 
+                <img  src={userDetails.imageUrl ? userDetails?.imageUrl: defaultUrl } 
                 alt="avatar"
                 className='rounded-circle'
-                style={{width:'60px'}} />
+                style={{width:'50px',height:'35px'}} />
                 </Link>
               </div>
                   <Button onClick={()=> setIsModalOpen(true)} style={{backgroundColor:'#9b2222', color:"lightgrey" ,marginLeft:"8px"}}>Add Question</Button>

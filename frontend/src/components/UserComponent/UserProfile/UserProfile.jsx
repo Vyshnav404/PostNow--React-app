@@ -22,13 +22,27 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import ProfileUpdate from './ProfileUpdate';
 import ProfilePicAddModal from './ProfilePicAddModal';
+import PostOnProfile from './PostOnProfile';
+import QuestionOnProfile from './QuestionOnProfile';
+import Button from 'react-bootstrap/esm/Button';
 
 const UserProfile = () => {
   const { userDetails } = useSelector(state=> state.user);
   const { tokenData } = useSelector(state => state.user)
   const [useresponse , setResponse] = useState([])
+  const [values , setValues] = useState(null)
 
   const dispatch = useDispatch()
+
+  let post;
+  const handlePost=()=>{
+    setValues(post)
+  }
+ 
+  let questions;
+  const handleQuestion =()=>{
+    setValues(null)
+  }
 
   let email = userDetails.email
   const getUser = async()=>{
@@ -93,7 +107,7 @@ const UserProfile = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="mb-4 mb-lg-0">
+            {/* <MDBCard className="mb-4 mb-lg-0">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
 
@@ -129,7 +143,7 @@ const UserProfile = () => {
                   </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCardBody>
-            </MDBCard>
+            </MDBCard> */}
           </MDBCol>
           <MDBCol lg="8">
             <MDBCard className="mb-4">
@@ -182,7 +196,7 @@ const UserProfile = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBRow>
+            {/* <MDBRow>
               <MDBCol md="6">
                 <MDBCard className="mb-4 mb-md-0">
                   <MDBCardBody>
@@ -246,9 +260,25 @@ const UserProfile = () => {
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
-            </MDBRow>
+            </MDBRow> */}
           </MDBCol>
         </MDBRow>
+
+        <div className='d-flex' style={{justifyContent:'center'}}>
+         <div style={{marginRight:"15px"}}>
+            <Button onClick={handlePost}>Posts</Button>
+          </div> 
+         <div>
+          <Button onClick={handleQuestion}>Questions</Button>
+         </div>         
+        </div>
+
+        <div className='d-flex' style={{flexDirection:'column', alignItems:'center'}}>
+          {
+            values === post ? <PostOnProfile userData={userDetails}/> :  <QuestionOnProfile userData={userDetails}/> 
+          } 
+
+        </div>
       </MDBContainer>
     </section>
     </div>
