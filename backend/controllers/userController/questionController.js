@@ -70,9 +70,10 @@ const getOneQuestion = async(req,res)=>{
 
 const reportQuestion = async(req,res)=>{
     let qid = req.params.qid;
+    let reason = req.body.reason
     try {
       
-        questionDB.findByIdAndUpdate(qid,{$set:{report:true}}).then((response)=>{
+        questionDB.findByIdAndUpdate(qid,{$set:{report:true,reason:reason}}).then((response)=>{
             console.log(response,"report");
             res.status(200).json(response)
         })

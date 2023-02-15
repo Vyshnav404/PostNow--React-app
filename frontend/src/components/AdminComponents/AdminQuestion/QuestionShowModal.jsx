@@ -49,7 +49,7 @@ function QuestionShowModal({row}){
       <h4>{questionDetails?.questionName}</h4>
       </div>
       <div className='text-center'>
-      <img src= {questionDetails?.questionUrl} />
+      <img style={{width:"30vw"}} src= {questionDetails?.questionUrl} />
       </div>
       <div className='text-center'>
         {/* <h6>{ReactHtmlParser(questionDetails?.body)}</h6> */}

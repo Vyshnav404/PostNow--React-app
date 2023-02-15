@@ -52,13 +52,13 @@ function ProfilePicAddModal() {
 
   return (
     <div className='ms-2'>
-      <Button variant="primary" onClick={handleShow}>
+      <Button style={{background:'rgb(155, 34, 34)',border:'none'}} onClick={handleShow}>
         Add Profile Pic
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Profile Pic</Modal.Title>
         </Modal.Header>
         {/* <form  onSubmit={handleSubmit}> */}
         <input type="file" name="image" onChange={(e)=> setImage(e.target.files[0])} />

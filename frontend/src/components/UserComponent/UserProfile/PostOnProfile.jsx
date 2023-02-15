@@ -7,13 +7,17 @@ import { ArrowDownwardOutlined, ArrowUpwardOutlined,
   ChatBubbleOutlined, MoreHorizOutlined, RepeatOneOutlined,
    ShareOutlined } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
+import EditPost from '../UserPhotoPost/EditPost';
 
 export default function PostOnProfile({ userData }) {
 const { userDetails } = useSelector(state => state.user)
  let id = userData._id;
  const [state , setState] = useState([])
+
+
  const handlePost = async()=>{
     try {
+      
         await axios.get('/postOnProfile/'+id).then(async(res)=>{
            await setState(res.data)
         })
@@ -22,7 +26,37 @@ const { userDetails } = useSelector(state => state.user)
     }
 }
 
-console.log("tttaaa",state);
+
+const deletePost = async(id)=>{
+  try {
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to report this question!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then(async(willDelete) => {
+      if (willDelete) {
+        
+        await axios.delete('/deletePost/'+id).then(async(res)=>{
+          await handlePost()
+        })  
+        swal("You Reported This Question!", {
+            icon: "success",
+        });
+    } else {
+        swal("Action not done!");
+    }
+  })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+
  useEffect(()=>{
     handlePost();
  },[])
@@ -36,7 +70,7 @@ console.log("tttaaa",state);
           <div className="post">
           <div className="post__info">
             <img src={userDetails.imageUrl} alt=""  style={{width:'10%', borderRadius:'50%'}}/>
-            <h4>User Name</h4>
+            <h4>{userDetails.firstName +' '+ userDetails.lastName}</h4>
          
             {/* <small>
               <LastSeen date="createdAt"/>
@@ -58,10 +92,11 @@ console.log("tttaaa",state);
             </div>
             <RepeatOneOutlined />
             <ChatBubbleOutlined />
-            <div className="post__footerLeft">
+            <div className="post__footerLeft d-flex" >
             
-              <button  className="post__report me-2" onClick={()=> editPost(newState._id)} >Edit</button>
-              <button  className="post__report " onClick={()=> deletePost(newState._id)} >Delete</button>
+              {/* <button  className="post__report me-2" onClick={()=> editPost(newState._id)} >Edit</button> */}
+              <button className='post__report'><EditPost postId={newState._id}/></button>
+              <button  className="post__report ms-2"  onClick={()=> deletePost(newState._id)} >Delete</button>
             </div>
           </div>
           </div>

@@ -74,7 +74,7 @@ function ProfileUpdate({ userData }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button style={{background:'rgb(155, 34, 34)',border:'none'}} onClick={handleShow}>
         Edit Profile
       </Button>
 

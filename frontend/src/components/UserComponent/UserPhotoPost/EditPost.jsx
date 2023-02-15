@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { Modal } from 'react-responsive-modal'
 import Button from 'react-bootstrap//Button';
@@ -7,14 +7,30 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import toast,{ Toaster } from 'react-hot-toast'
 
-function AddPhotoPost() {
- 
+function EditPost({ postId }) {
+
+    
     const { userDetails } = useSelector(state => state.user)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [image, setImage] = useState('')
     const [caption, setCaption] = useState('')
+    const [img, setImg] = useState('')
     const Close = (<CloseIcon />)
-    console.log("immage data",image);
+
+    const getImgToEdit = async()=>{
+        try {
+            axios.get('/getImgToEdit/'+postId).then((res)=>{
+                setImg(res.data)
+                setCaption(res.data.caption)
+                
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
 
     const handleQuill = (value)=>{
         setCaption(value)
@@ -22,7 +38,8 @@ function AddPhotoPost() {
     let Allowed_File_Types  = ["image/jpeg","image/jpg","image/png","image/webp","image/gif" ]
 
     const handleSubmit = async()=>{
-        if(Allowed_File_Types.includes(image.type)){
+        if(Allowed_File_Types.includes(image.type) || caption ){
+            console.log("kkkkkkkk9999999999999");
             const data = new FormData()
             data.append("file",image)
             data.append("upload_preset","imagetesting")
@@ -33,7 +50,7 @@ function AddPhotoPost() {
                 body:data
             }).then((res)=>res.json())
             .then(async(data)=>{
-                 if(data.url){
+                 if(data.url || caption){
                     
                     const config = {
                         headers:{
@@ -47,8 +64,9 @@ function AddPhotoPost() {
                         user:userDetails
                     }
 
-                    await axios.post('/addPost',body,config).then((res)=>{
+                    await axios.put('/editPost/'+postId,body,config).then((res)=>{
                         toast.success("Post Added Successfully")
+
                         // >>>>>>>> Add balance after Post page complete <<<<<<<<
                     })
                 }
@@ -58,12 +76,15 @@ function AddPhotoPost() {
     }
 
 
-const handleShow = ()=> setIsModalOpen(true)
+const handleShow = ()=> {
+    setIsModalOpen(true)
+    getImgToEdit(); 
+}
   return (
     <div>
-        <div style={{textAlign:"center"}}>
+        <div>
         <Button style={{background:"rgb(155, 34, 34)",border:"none"}} onClick={handleShow} >
-        Add Post
+        Edit
         </Button>
         </div>
          <Modal 
@@ -85,7 +106,16 @@ const handleShow = ()=> setIsModalOpen(true)
                 <input type="file"  name="image" onChange={(e)=> setImage(e.target.files[0])}/>
             </div>
             <div style={{textAlign:"center"}}>
-          {image &&  <img src={URL.createObjectURL(image)} alt="image" style={{width:'50%',}} /> }
+          {
+            //  <img src={img.postUrl}  style={{width:"50%"}}/> 
+            //  image ? <img src={URL.createObjectURL(image)} alt="image" style={{width:'50%',}} /> : <img src={img.postUrl}  style={{width:"50%"}}/> 
+            <img src={
+                image ? 
+                URL.createObjectURL(image)
+                : img.postUrl
+            } alt="image" style={{width:'50%',}}/>
+          
+          }
           </div>
             <div className='modal__answer'>
               <ReactQuill value={caption} onChange={handleQuill} placeholder='Enter your answer' />
@@ -95,7 +125,7 @@ const handleShow = ()=> setIsModalOpen(true)
                           Cancel
                         </button>
                         <button  onClick={handleSubmit} type='submit' className='add' >
-                          Add Post
+                          Update Post
                         </button>
                       </div>
          
@@ -106,4 +136,4 @@ const handleShow = ()=> setIsModalOpen(true)
   )
 }
 
-export default AddPhotoPost
+export default EditPost

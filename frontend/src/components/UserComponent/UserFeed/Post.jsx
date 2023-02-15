@@ -55,11 +55,12 @@ function Post({post}) {
   //         setIsModalOpen(false)
   //         window.location.href = '/home'
   //       }).catch((e)=>{
-  //         console.log(e);
-  //       })
-  //   }
-  // }
-
+    //         console.log(e);
+    //       })
+    //   }
+    // }
+    
+    console.log(post?._id,"id==00000====")
   return (
     
   
@@ -74,6 +75,7 @@ function Post({post}) {
     </div>
     <div className="post__body">
       <div className="post__question">
+        
       <Link to='/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
         {/* <button  onClick={()=>{
           setIsModalOpen(true);

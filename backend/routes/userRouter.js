@@ -7,7 +7,8 @@ const { addAnswer,getAllQuestion } = require('../controllers/userController/answ
 const { getUser,getUserDetails,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController');
 const verifyToken = require('../middleware/authjwt');
-const { addPost,getAllPosts,reportPost,getPostOnProfile } = require('../controllers/userController/userPostController')
+const { addPost,getAllPosts,reportPost,editPost,
+    deletePost,getPostOnProfile,getImage } = require('../controllers/userController/userPostController')
 
 
     const router = express.Router()
@@ -20,7 +21,7 @@ const { addPost,getAllPosts,reportPost,getPostOnProfile } = require('../controll
 
 router.get('/onequestion/:qid',getOneQuestion)
 router.post('/questions', addQuestion)
-router.post('/reportQuestion/:qid',reportQuestion)
+router.post('/reportQuestion/:qid',reportQuestion) 
 
 
 router.post('/answers',addAnswer)
@@ -39,6 +40,9 @@ router.get('/questionOnProfile/:id',getQuestionsOnProfile)
 router.post('/addPost',addPost)
 router.get('/getAllPosts',getAllPosts)
 router.put('/reportPost/:id',reportPost)
+router.delete('/deletePost/:id',deletePost)
+router.get('/getImgToEdit/:postId',getImage)
+router.put('/editPost/:postId',editPost)
 
 
 

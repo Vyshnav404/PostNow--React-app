@@ -16,6 +16,7 @@ import ReactQuill from "react-quill";
 import { useNavigate } from 'react-router-dom';
 import ReactHtmlParser from 'html-react-parser'
 import './Answer.css'
+import ReasonForReport from './ReasonForReport';
  
  function LastSeen({ date }) {
   return (
@@ -101,32 +102,32 @@ function AnswerComponent(){
  },[])
    
 
- const reportQuestion = async()=>{
-  swal({
-    title: "Are you sure?",
-    text: "Do you want to report this question!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  })
-  .then((willDelete) => {
-    if (willDelete) {
+//  const reportQuestion = ()=>{
+//   swal({
+//     title: "Are you sure?",
+//     text: "Do you want to report this question!",
+//     icon: "warning",
+//     buttons: true,
+//     dangerMode: true,
+//   })
+//   .then((willDelete) => {
+//     if (willDelete) {
       
-       axios.post('/reportQuestion/'+qid).then((res)=>{
+//        axios.post('/reportQuestion/'+qid).then((res)=>{
     
-      })
-      swal("You done a action report to this question!", {
-        icon: "success",
-      });
-    } else {
-      swal("Action not done!");
-    }
-  });
- }
+//       })
+//       swal("You done a action report to this question!", {
+//         icon: "success",
+//       });
+//     } else {
+//       swal("Action not done!");
+//     }
+//   });
+  
+//  }
 
   console.log("question details",questionDetails)
   console.log("answer from back",answerDetails)
-
 
     return(
         <div className="post">
@@ -188,7 +189,10 @@ function AnswerComponent(){
         <RepeatOneOutlined />
         <ChatBubbleOutlined />
         <div className="post__footerLeft">
-          <button  className="post__report" onClick={reportQuestion} >Report</button>
+          {/* <button  className="post__report" onClick={reportQuestion} >Report</button> */}
+          {
+            <ReasonForReport  qid={qid} />
+          }
           {/* <ShareOutlined />
           <MoreHorizOutlined /> */}
         </div>
