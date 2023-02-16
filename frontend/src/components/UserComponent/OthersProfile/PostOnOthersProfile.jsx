@@ -9,8 +9,8 @@ import { ArrowDownwardOutlined, ArrowUpwardOutlined,
 import { useSelector } from 'react-redux';
 import EditPost from '../UserPhotoPost/EditPost';
 
-export default function PostOnProfile({ userData }) {
-const { userDetails } = useSelector(state => state.user)
+export default function PostOnOthersProfile({ userData }) {
+const { otherUserDetails } = useSelector(state => state.otherUser)
  let id = userData._id;
  console.log(id," id id id id id idi di");
  const [state , setState] = useState([])
@@ -70,8 +70,8 @@ const deletePost = async(id)=>{
 <>
           <div className="post">
           <div className="post__info">
-            <img src={userDetails.imageUrl} alt=""  style={{width:'10%', borderRadius:'50%'}}/>
-            <h4>{userDetails.firstName +' '+ userDetails.lastName}</h4>
+            <img src={otherUserDetails.imageUrl} alt=""  style={{width:'45px',height:'40px', borderRadius:'50%'}}/>
+            <h4>{otherUserDetails.firstName +' '+ otherUserDetails.lastName}</h4>
          
             {/* <small>
               <LastSeen date="createdAt"/>
@@ -93,12 +93,11 @@ const deletePost = async(id)=>{
             </div>
             <RepeatOneOutlined />
             <ChatBubbleOutlined />
-            <div className="post__footerLeft d-flex" >
+            {/* <div className="post__footerLeft d-flex" >
             
-              {/* <button  className="post__report me-2" onClick={()=> editPost(newState._id)} >Edit</button> */}
               <button className='post__report'><EditPost postId={newState._id}/></button>
               <button  className="post__report ms-2"  onClick={()=> deletePost(newState._id)} >Delete</button>
-            </div>
+            </div> */}
           </div>
           </div>
          

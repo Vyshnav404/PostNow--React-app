@@ -6,9 +6,12 @@ const { addQuestion,getQuestionAnswer ,getOneQuestion,reportQuestion,
 const { addAnswer,getAllQuestion } = require('../controllers/userController/answerController')
 const { getUser,getUserDetails,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController');
+
 const verifyToken = require('../middleware/authjwt');
-const { addPost,getAllPosts,reportPost,editPost,
-    deletePost,getPostOnProfile,getImage } = require('../controllers/userController/userPostController')
+
+const { addPost,getAllPosts,reportPost,editPost,addDisLike,
+    deletePost,getPostOnProfile,getImage,addLike } = require('../controllers/userController/userPostController')
+const { otherDetails } =require('../controllers/userController/othersDetailsController')    
 
 
     const router = express.Router()
@@ -20,7 +23,7 @@ const { addPost,getAllPosts,reportPost,editPost,
 
 
 router.get('/onequestion/:qid',getOneQuestion)
-router.post('/questions', addQuestion)
+router.post('/questions',verifyToken, addQuestion)
 router.post('/reportQuestion/:qid',reportQuestion) 
 
 
@@ -43,6 +46,11 @@ router.put('/reportPost/:id',reportPost)
 router.delete('/deletePost/:id',deletePost)
 router.get('/getImgToEdit/:postId',getImage)
 router.put('/editPost/:postId',editPost)
+router.put('/addLike/:id',addLike)
+router.put('/disLike/:id',addDisLike)
+
+
+router.get('/getOthersDetail/:id',otherDetails)
 
 
 

@@ -17,6 +17,8 @@ function Header() {
   const { userDetails }= useSelector(state=>state.user)
   console.log(userDetails,"come on daa");
 
+  const { tokenData } = useSelector(state=> state.user)
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl,setInputUrl] = useState('')
   const [question, setQuestion] = useState('')
@@ -57,12 +59,23 @@ function Header() {
             questionUrl: data.url,
             user:userDetails
           }
-          await axios.post('/questions',body,config).then((res)=>{
-            console.log("eroor");
-            console.log(res.data);
-              alert(res.data.message)
-              navigate('/')
-          }).catch((e)=>{
+          console.log(body,"body");
+          // await axios.post('/questions',body,config).then((res)=>{
+          //   console.log("eroor");
+          //   console.log(res.data);
+          //     alert(res.data.message)
+          //     navigate('/')
+          // })
+          const datas = await axios.post('/questions',body,{
+            headers:{
+              Authorization:tokenData
+            },
+            config
+          }
+          )
+          alert("Question added succesfully")
+          navigate('/')
+          .catch((e)=>{
             console.log(e);
             alert('Error in adding question')
           }) 

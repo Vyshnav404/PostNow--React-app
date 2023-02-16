@@ -17,6 +17,7 @@ import AdminProtectedRoute from "./components/AdminProtect/AdminProtectedRoute"
 import AdminPublicRoute from "./components/AdminProtect/AdminPublicRoute"
 import AdminQuestionPage from "./Pages/admin/AdminQuestionPage"
 import UserPostPage from "./Pages/user/UserPostPage"
+import OthersProfilePage from "./Pages/user/OthersProfilePage"
 
 function App() {
 
@@ -78,6 +79,15 @@ function App() {
          element={
           <ProtectedRouted>
          <UserPostPage />
+         </ProtectedRouted>
+         }></Route>
+
+
+        <Route 
+         exact path="/othersprofile" 
+         element={
+          <ProtectedRouted>
+         <OthersProfilePage />
          </ProtectedRouted>
          }></Route>
 

@@ -116,7 +116,7 @@ const handleLogout =()=>{
               >
                 <a href="#">
                   <GiTwirlCenter />
-                  <span className="buttonsDashboard" > Learning Center</span>
+                  <span className="buttonsDashboard" > Reported Post</span>
                 </a>
               </li>
               <li

@@ -94,7 +94,7 @@
   
   .post__footer > .MuiSvgIcon-root {
     color: gray;
-    margin-right: 40px;
+    margin-right: 8px;
     cursor: pointer;
   }
   
@@ -108,13 +108,13 @@
   }
   .post__footerAction > .MuiSvgIcon-root {
     color: gray;
-    margin-right: 40px;
+    margin-right: 8px;
     cursor: pointer;
   }
   
   .post__footerAction > .MuiSvgIcon-root:hover {
     color: rgb(0, 140, 255);
-    margin-right: 40px;
+    margin-right: 8px;
   }
   
   .post__footerLeft {
@@ -231,4 +231,5 @@
     color: #222;
     background: lightgray;
   }
+  
   

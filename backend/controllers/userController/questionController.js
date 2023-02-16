@@ -2,7 +2,7 @@ const questionDB = require('../../models/question')
 
 
 const addQuestion = async(req,res)=>{
-  console.log("alert");
+  console.log("alert" , req.body);
 
     try {
         await questionDB.create({
@@ -69,11 +69,11 @@ const getOneQuestion = async(req,res)=>{
 }
 
 const reportQuestion = async(req,res)=>{
-    let qid = req.params.qid;
+    let qid = req.params.qid;  
     let reason = req.body.reason
     try {
       
-        questionDB.findByIdAndUpdate(qid,{$set:{report:true,reason:reason}}).then((response)=>{
+        questionDB.findByIdAndUpdate(qid,{$push:{reason:reason}},{$set:{report:true}}).then((response)=>{
             console.log(response,"report");
             res.status(200).json(response)
         })

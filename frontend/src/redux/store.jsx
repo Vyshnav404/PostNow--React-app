@@ -7,7 +7,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { completeUserSlice } from './features/completeUserSlice';
 import { singleQuestionSlice } from './features/singleQuestionSlice';
 import { showAnswersSlice } from './features/showAnswersSlice';
-
+import { otherUserSlice } from './features/otherUserSlice';
+import { othersQuestionSlice } from './features/othersQuestionSlice';
 
 
 
@@ -23,6 +24,8 @@ const reducer = combineReducers({
     allUsers:completeUserSlice.reducer,
     singleQuestion:singleQuestionSlice.reducer,
     showAnswers:showAnswersSlice.reducer,
+    otherUser:otherUserSlice.reducer,
+    othersQuestion:othersQuestionSlice.reducer,
    
 })
 
