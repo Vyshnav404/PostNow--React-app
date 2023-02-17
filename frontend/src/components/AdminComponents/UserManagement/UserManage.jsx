@@ -159,6 +159,9 @@ const UserManage = () => {
           columns={columns}
           data={usersDetails}
           pagination
+          highlightOnHover
+          fixedHeader
+         
         />
       </Section>
       <Toaster />

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import toast,{ Toaster } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../../redux/features/userSlice';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -11,6 +11,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 function ProfileUpdate({ userData }) {
 
+    const { tokenData } = useSelector(state=> state.user)
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -25,11 +26,16 @@ function ProfileUpdate({ userData }) {
       company : userData.company
     }
     const [ userDetail , setUserDetail ] = useState(initialValue);
-    console.log("userDetails",userDetail);
+    // console.log("userDetails",userDetail);
 
     var data_id = userData._id;
     const getUserDetails = async()=>{
-      await axios.get('/getUserDetails/'+data_id).then((response)=>{
+      console.log("userData");
+      await axios.get('/getUserDetails/'+data_id,{
+        headers:{
+          Authorization:tokenData
+        }
+      }).then((response)=>{
        setUserDetail(response.data) 
       dispatch(setUser(response.data))
       })
@@ -52,15 +58,24 @@ function ProfileUpdate({ userData }) {
    const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
-      await axios.put('/update-user/',updateData).then(async(res)=>{
-        await axios.get('/getUserDetails/'+data_id).then((response)=>{
+      await axios.put('/update-user/',updateData,{
+        headers:{
+          Authorization:tokenData
+        }
+      }).then(async(res)=>{
+        console.log("updated");
+        await axios.get('/getUserDetails/'+data_id,{
+          headers:{
+            Authorization:tokenData
+          }
+        }).then((response)=>{
        
           dispatch(setUser(response.data))
           setUserDetail(response.data)
         
+          toast.success("profile updated")
+          navigate("/profile")
         })
-        toast.success("profile updated")
-     navigate("/profile")
         
       })
     } catch (error) {

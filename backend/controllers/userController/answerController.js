@@ -15,7 +15,7 @@ const addAnswer = async(req,res)=>{
             res.status(400).send({
                 status: false,
                 message: "Bad request"
-            })
+            }) 
         })
         
     } catch (error) {
@@ -28,13 +28,12 @@ const addAnswer = async(req,res)=>{
 
 const getAllQuestion = async(req,res)=>{
     try {
-        console.log("lllllloooooogggg");
         let id = req.params.qid
         console.log("dddddaaaaaa",id);
         await answerDB.find({questionId:Object(id)}).then((response)=>{
             console.log(response,"response");
             res.status(200).json(response)
-        })
+        }) 
     } catch (error) {
         
     }

@@ -8,7 +8,10 @@ import toast,{ Toaster } from 'react-hot-toast'
 function ProfilePicAddModal() {
   
   const { userDetails } = useSelector(state => state.user)
+  const { tokenData } = useSelector(state => state.user)
+
   const id = userDetails._id
+  const email = userDetails.email
   const [show, setShow] = useState(false);
   const [ image,setImage] = useState('')
   const [ url, setUrl ] = useState('')
@@ -30,13 +33,23 @@ function ProfilePicAddModal() {
       console.log("image",data.url);
       // setUrl(data.url) 
       // console.log("url=     ==========",url);
-      await axios.put('/profilePicture/'+id,{url:data.url}).then((res)=>{
+      await axios.put('/profilePicture/'+id,{url:data.url},{
+        headers:{
+          Authorization: tokenData
+        }
+      }).then(async(res)=>{
+        console.log("kaanik");
+        toast.success("image updated")
+        await axios.get('/getUser/'+email,{
+          headers:{
+            Authorization:tokenData
+          }
+        }).then((res)=>{
+          setShow(false)
+        })
       })
     })
-    toast.error("image updated")
-
-   
-    .catch((err)=>{
+   .catch((err)=>{
       console.log(err);
     })
     }else{

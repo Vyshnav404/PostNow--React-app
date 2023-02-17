@@ -57,6 +57,7 @@ const getQuestionAnswer = async(req,res)=>{
 }
 
 const getOneQuestion = async(req,res)=>{
+    console.log("question got");
     let id = req.params.qid;
    
   try {
@@ -90,7 +91,7 @@ const getQuestionsOnProfile = async(req,res)=>{
         res.status(200).json(response)
         })
     } catch (error) {
-        console.log(error);
+        console.log(error);  
     }
 }
 

@@ -3,11 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 function ReasonForReport({ qid }) {
   const [show, setShow] = useState(false);
   const [reason, setReason] = useState('')
+  const { tokenData } = useSelector(state=> state.user)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,7 +28,11 @@ function ReasonForReport({ qid }) {
     })
     .then((willDelete) => {
       if (willDelete) {
-         axios.post('/reportQuestion/'+qid,{reason:reason}).then((res)=>{
+         axios.post('/reportQuestion/'+qid,{reason:reason},{
+          headers:{
+            Authorization:tokenData
+          }
+         }).then((res)=>{
              
         })
         swal("You Reported This Question!", {
@@ -36,6 +42,8 @@ function ReasonForReport({ qid }) {
         swal("Action not done!");
     }
 });
+
+
 setShow(false)
      
    }

@@ -143,7 +143,7 @@ function Header() {
           </div>
               <div className='qHeader__input'>
                 <Search />
-                <input type="text" placeholder='Search questions' />
+                <input type="text"   placeholder='Search questions' />
               </div>
               <div className='qHeader__Rem'>
                <Link to='/profile' >

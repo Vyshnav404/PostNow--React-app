@@ -14,36 +14,36 @@ const { addPost,getAllPosts,reportPost,editPost,addDisLike,
 const { otherDetails } =require('../controllers/userController/othersDetailsController')    
 
 
-    const router = express.Router()
+const router = express.Router()
     
-    router.post('/signup',userSignup)
-    router.post('/login',userLogin)
-    router.post('/otpVerify',verifyUser)
-    router.post('/resendotp/:mail',resendotp)
+router.post('/signup',userSignup)
+router.post('/login',userLogin)
+router.post('/otpVerify',verifyUser)
+router.post('/resendotp/:mail',resendotp)
 
-
-router.get('/onequestion/:qid',getOneQuestion)
+ 
+router.get('/onequestion/:qid',verifyToken,getOneQuestion)
 router.post('/questions',verifyToken, addQuestion)
-router.post('/reportQuestion/:qid',reportQuestion) 
+router.post('/reportQuestion/:qid',verifyToken,reportQuestion) 
+router.get('/Allquestions',verifyToken ,getQuestionAnswer)
 
 
-router.post('/answers',addAnswer)
+router.post('/answers',verifyToken,addAnswer)
 router.get('/getAnswers/:qid',getAllQuestion)
-router.get('/Allquestions',getQuestionAnswer)
 
 
 router.get('/getUser/:email',verifyToken,getUser)
-router.get('/getUserDetails/:data_id',getUserDetails)
-router.put('/update-user',updateUserDetails)
-router.put('/profilePicture/:id',profilePicture)
-router.get('/postOnProfile/:id',getPostOnProfile)
-router.get('/questionOnProfile/:id',getQuestionsOnProfile)
+router.get('/getUserDetails/:data_id',verifyToken,getUserDetails)
+router.put('/update-user',verifyToken,updateUserDetails)
+router.put('/profilePicture/:id',verifyToken,profilePicture)
+router.get('/postOnProfile/:id',verifyToken,getPostOnProfile)
+router.get('/questionOnProfile/:id',verifyToken,getQuestionsOnProfile)
 
 
 router.post('/addPost',addPost)
 router.get('/getAllPosts',getAllPosts)
 router.put('/reportPost/:id',reportPost)
-router.delete('/deletePost/:id',deletePost)
+router.delete('/deletePost/:id',deletePost) 
 router.get('/getImgToEdit/:postId',getImage)
 router.put('/editPost/:postId',editPost)
 router.put('/addLike/:id',addLike)

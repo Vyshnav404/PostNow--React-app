@@ -5,7 +5,7 @@ const getUser = async(req,res)=>{
       let mail = req.params.email
       console.log("njaaaan",mail);
         User.findOne({email:mail}).then((response)=>{
-          console.log(response);
+          // console.log(response);
           res.status(200).json(response)
         })
     } catch (error) {
@@ -15,8 +15,7 @@ const getUser = async(req,res)=>{
 
 const getUserDetails = async(req,res)=>{
     try {
-       
-        let id = req.params.data_id
+      let id = req.params.data_id
       await  User.findOne({_id:id}).then((response)=>{
         
         res.status(200).json(response)
@@ -32,7 +31,7 @@ const updateUserDetails = async(req,res)=>{
     const id = req.body._id;
     await User.findByIdAndUpdate({_id:id},{$set:{
       firstName:req.body.firstName,
-      lastName:req.body.lastName,
+      lastName:req.body.lastName,          
       email:req.body.email,
       job:req.body.job,
       company:req.body.company
@@ -54,9 +53,10 @@ const profilePicture = async(req,res)=>{
     await User.findByIdAndUpdate({_id:id},{$set:{
       imageUrl
     }}).then((response)=>{
+      res.status(200).json(response)
     })
   } catch (error) {
-    console.log(error);
+    console.log(error);  
   }
 }
 

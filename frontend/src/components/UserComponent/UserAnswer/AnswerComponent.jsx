@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactHtmlParser from 'html-react-parser'
 import './Answer.css'
 import ReasonForReport from './ReasonForReport';
+import { setQuesId }  from '../../../redux/features/singleQuestionSlice'
  
  function LastSeen({ date }) {
   return (
@@ -30,7 +31,10 @@ import ReasonForReport from './ReasonForReport';
 function AnswerComponent(){
 
     const { questionDetails } = useSelector(state => state.singleQuestion);
+    const { quesId } = useSelector(state => state.singleQuestion);
     const { answerDetails } = useSelector(state => state.showAnswers)
+    const { tokenData } = useSelector(state=> state.user)
+
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [question,setQuestion]= useState('')
@@ -40,14 +44,20 @@ function AnswerComponent(){
 
 
     const location = useLocation();
-  let qid = location.state?.id;
+  const qid = location.state?.id;
+  dispatch(setQuesId(qid))
+  console.log("eeeeeqidd",qid);
  
   const handleQuill = (value)=>{
     setAnswer(value)
   }
 
   const getOneQuestion = async()=>{
-    await axios.get('/onequestion/'+qid).then((res)=>{
+    await axios.get('/onequestion/'+quesId,{
+      headers:{
+        Authorization:tokenData
+      }
+    }).then((res)=>{
        console.log("datas",res.data)
        setQuestion(res.data)
        dispatch(setSingleQuestion(res.data))
@@ -70,7 +80,11 @@ function AnswerComponent(){
       answer : answer,
       questionId : questionDetails?._id
     }
-    await axios.post('/answers',body,config).then((res)=>{
+    await axios.post('/answers',body,config,{
+      headers:{
+        Authorization:token
+      }
+    }).then((res)=>{
       console.log("answer is comming",res.data)
       alert("Answer added successfully")
      axios.get('/getAnswers/'+qid).then((res)=>{
@@ -79,7 +93,7 @@ function AnswerComponent(){
   
       })
       setIsModalOpen(false)
-      navigate('/answerpage')
+     
       
     })
   }

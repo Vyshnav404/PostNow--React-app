@@ -9,6 +9,7 @@ import { singleQuestionSlice } from './features/singleQuestionSlice';
 import { showAnswersSlice } from './features/showAnswersSlice';
 import { otherUserSlice } from './features/otherUserSlice';
 import { othersQuestionSlice } from './features/othersQuestionSlice';
+import { allQuestionSlice } from './features/allQuestionSlice';
 
 
 
@@ -26,6 +27,7 @@ const reducer = combineReducers({
     showAnswers:showAnswersSlice.reducer,
     otherUser:otherUserSlice.reducer,
     othersQuestion:othersQuestionSlice.reducer,
+    allQuestion:allQuestionSlice.reducer,
    
 })
 

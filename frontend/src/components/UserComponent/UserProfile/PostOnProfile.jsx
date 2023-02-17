@@ -11,15 +11,19 @@ import EditPost from '../UserPhotoPost/EditPost';
 
 export default function PostOnProfile({ userData }) {
 const { userDetails } = useSelector(state => state.user)
+const { tokenData } = useSelector(state => state.user)
  let id = userData._id;
- console.log(id," id id id id id idi di");
  const [state , setState] = useState([])
 
 
  const handlePost = async()=>{
     try {
       
-        await axios.get('/postOnProfile/'+id).then(async(res)=>{
+        await axios.get('/postOnProfile/'+id,{
+          headers:{
+            Authorization:tokenData
+          }
+        }).then(async(res)=>{
            await setState(res.data)
         })
     } catch (error) {

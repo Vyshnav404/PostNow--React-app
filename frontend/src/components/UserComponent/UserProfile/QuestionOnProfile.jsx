@@ -4,19 +4,25 @@ import { ArrowDownwardOutlined, ArrowUpwardOutlined,
     ChatBubbleOutlined, MoreHorizOutlined, RepeatOneOutlined,
      ShareOutlined } from '@material-ui/icons';
      import { Avatar } from '@material-ui/core'
+import { useSelector } from 'react-redux';
 
 
 
 
 function QuestionOnProfile({ userData }) {
 
+const { tokenData } = useSelector(state=> state.user)
 let id = userData._id
 const [ question , setQuestion ] = useState([])
 
 const callQuestions = async()=>{
     try {
         console.log("errorrr===");
-        await axios.get('/questionOnProfile/'+id).then(async(res)=>{
+        await axios.get('/questionOnProfile/'+id,{
+          headers:{
+            Authorization:tokenData
+          }
+        }).then(async(res)=>{
             setQuestion(res.data)
         })
     } catch (error) {

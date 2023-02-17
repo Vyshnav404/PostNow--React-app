@@ -66,7 +66,10 @@ function Post({post}) {
   
     <div className="post">
     <div className="post__info">
-      <Avatar />
+      {
+        post.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={post.user.imageUrl}/> :  <Avatar />
+      }
+     
       <h4>{post.user.firstName}</h4>
    
       <small>
