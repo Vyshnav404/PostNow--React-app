@@ -1,16 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const allQuestionSlice = createSlice({
-    name:'allQuestion',
-    initialState :{
-        allQuestion: [],
+  name: "allQuestion",
+  initialState: {
+    allQuestion: [],
+    searchAllQuestion: [],
+  },
+  reducers: {
+    setAllQuestion: (state, action) => {
+      state.allQuestion = action.payload;
     },
-    reducers:{
-        setAllQuestion :(state,action)=>{
-            state.allQuestion = action.payload
-        }
-    }
-})
 
-export const { setAllQuestion }  = allQuestionSlice.actions
-export default allQuestionSlice.reducer
+    setSearchAllQuestion: (state, action) => {
+      state.searchAllQuestion = action.payload;
+    },
+  },
+});
+
+export const { setAllQuestion, setSearchAllQuestion } =
+  allQuestionSlice.actions;
+export default allQuestionSlice.reducer;

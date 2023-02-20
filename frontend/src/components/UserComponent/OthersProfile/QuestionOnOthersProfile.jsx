@@ -13,6 +13,7 @@ import { useDispatch,useSelector } from 'react-redux';
 function QuestionOnOthersProfile({ userData }) {
 
 const { othersQuestiononProfile } = useSelector(state => state.othersQuestion)
+const { tokenData } = useSelector(state=> state.user)
 console.log("otherssss profile",othersQuestiononProfile);
 let id = userData._id
 const dispatch = useDispatch();
@@ -24,7 +25,11 @@ useEffect(()=>{
     const callQuestions = async()=>{
         try {
             console.log("errorrr===");
-            await axios.get('/questionOnProfile/'+id).then(async(res)=>{
+            await axios.get('/questionOnProfile/'+id,{
+              headers:{
+                Authorization:tokenData
+              }
+            }).then(async(res)=>{
                 dispatch(setOthersQuestion(res.data))
                 setQuestion(res.data)
             })
