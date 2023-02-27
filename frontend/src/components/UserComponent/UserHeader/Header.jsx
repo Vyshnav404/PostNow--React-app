@@ -30,7 +30,6 @@ import {
 
 function Header() {
   const { userDetails } = useSelector((state) => state.user);
-  console.log(userDetails, "come on daa");
   const dispatch = useDispatch();
 
   const { tokenData } = useSelector((state) => state.user);

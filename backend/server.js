@@ -6,6 +6,8 @@ const cors = require('cors')
 const db = require('./config/db')
 const userRouter = require('./routes/userRouter')
 const adminRouter = require('./routes/adminRouter')
+const conversationRouter = require('./routes/conversationRoute')
+const messageRouter = require('./routes/messagesRoute')
 require('dotenv').config();
 const PORT = 8080;
 
@@ -52,6 +54,8 @@ app.use(cors())
 
 app.use('/',userRouter)
 app.use('/admin',adminRouter)
+app.use('/conversation',conversationRouter)
+app.use('/message',messageRouter)
 
 
        // server listening

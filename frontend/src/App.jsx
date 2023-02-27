@@ -18,6 +18,7 @@ import AdminPublicRoute from "./components/AdminProtect/AdminPublicRoute"
 import AdminQuestionPage from "./Pages/admin/AdminQuestionPage"
 import UserPostPage from "./Pages/user/UserPostPage"
 import OthersProfilePage from "./Pages/user/OthersProfilePage"
+import MessengerPage from "./Pages/user/MessengerPage"
 
 function App() {
 
@@ -88,6 +89,14 @@ function App() {
          element={
           <ProtectedRouted>
          <OthersProfilePage />
+         </ProtectedRouted>
+         }></Route>
+
+        <Route 
+         exact path="/messenger" 
+         element={
+          <ProtectedRouted>
+         <MessengerPage />
          </ProtectedRouted>
          }></Route>
 
