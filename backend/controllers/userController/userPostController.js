@@ -132,6 +132,33 @@ const addDisLike = async (req, res) => {
   }
 };
 
+const addComment = async(req,res)=>{
+  try {
+    let postId = req.params.id;
+    await postDb.findByIdAndUpdate(postId,{$push:{
+      comment:{text:req.body.comment,userId:req.body.userId}
+    }}).then((response)=>{
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+const getComment = async(req,res) =>{
+  try {
+    let id = req.params.id
+    await postDb.findById(id).populate('comment.userId').then((response)=>{
+      console.log('---------------');
+      console.log(response.comment);
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   addPost,
   getAllPosts,
@@ -142,4 +169,6 @@ module.exports = {
   editPost,
   addLike,
   addDisLike,
+  addComment,
+  getComment
 };

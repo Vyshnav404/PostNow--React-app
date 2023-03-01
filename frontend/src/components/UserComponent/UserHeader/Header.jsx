@@ -174,11 +174,13 @@ function Header() {
               <FeaturedPlayListOutlined />
             </Link>
           </div>
-          <div className="qHeader__icon">
+          {/* <div className="qHeader__icon">
             <AssessmentOutlined />
-          </div>
+          </div> */}
           <div className="qHeader__icon">
+            <Link className="qHeader__icon" to='/messenger'>
             <PeopleAltOutlined />
+            </Link>
           </div>
           <div className="qHeader__icon">
             <NotificationsOutlined />

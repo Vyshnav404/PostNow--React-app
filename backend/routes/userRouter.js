@@ -10,7 +10,7 @@ const { getUser,getUserDetails,
 const verifyToken = require('../middleware/authjwt');
 
 const { addPost,getAllPosts,reportPost,editPost,addDisLike,
-    deletePost,getPostOnProfile,getImage,addLike } = require('../controllers/userController/userPostController')
+    deletePost,getPostOnProfile,getImage,addLike,addComment,getComment } = require('../controllers/userController/userPostController')
 const { otherDetails } =require('../controllers/userController/othersDetailsController')   
 const { getFriend }  = require('../controllers/userController/friendController')
 
@@ -50,6 +50,9 @@ router.get('/getImgToEdit/:postId',getImage)
 router.put('/editPost/:postId',editPost)
 router.put('/addLike/:id',addLike)
 router.put('/disLike/:id',addDisLike)
+//comment section
+router.put('/addcomment/:id',addComment)
+router.get('/getcomments/:id',getComment)
 
 //others profile section
 router.get('/getOthersDetail/:id',otherDetails)
@@ -57,7 +60,6 @@ router.get('/getOthersDetail/:id',otherDetails)
 
 //get friend
 router.get('/getfriend/:friendId',verifyToken,getFriend)
-
 
 
 

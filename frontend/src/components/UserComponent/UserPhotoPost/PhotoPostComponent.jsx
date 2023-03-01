@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button, TextField } from '@material-ui/core';
 import { ArrowDownwardOutlined, ArrowUpwardOutlined,
   ChatBubbleOutlined, MoreHorizOutlined, RepeatOneOutlined,
    ShareOutlined } from '@material-ui/icons';
@@ -10,6 +10,8 @@ import ReactHtmlParser from 'html-react-parser'
 import { useSelector } from 'react-redux';
 import ReasonForPostReport from './ReasonForPostReport';
 import { Link } from 'react-router-dom';
+import PostComment from './PostComment';
+import toast,{ Toaster } from 'react-hot-toast'
 
 
 
@@ -26,6 +28,9 @@ function PhotoPostComponent() {
   let userId = userDetails._id
   
   const [imagePost, setImagePost] = useState([])
+  const [comment,setComment] = useState(false)
+  const [show, setShow] = useState(false)
+  const [postId,setPostId]=useState('')
 
   const getPosts = async()=>{
     await axios.get('/getAllPosts').then((response)=>{
@@ -63,6 +68,28 @@ const handleDisLike = async(id)=>{
     })
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+
+const commentSubmit = async(id)=>{
+try {
+ await axios.put('/addcomment/'+id,{userId,comment:comment}).then((res)=>{
+  toast.success("Comment added successfully")
+ })
+} catch (error) {
+  console.log(error);
+}
+}
+
+const handlChange = async(id)=>{
+
+  if(show) {
+    setShow(false)
+  }else{
+    setShow(true)
+    setPostId(id)
   }
 }
 
@@ -109,19 +136,30 @@ const handleDisLike = async(id)=>{
 
             </div>
             <RepeatOneOutlined />
-            <ChatBubbleOutlined />
+            <ChatBubbleOutlined onClick={()=> handlChange(imagepost._id)}/>
+            
             <div className="post__footerLeft">
             
               {/* <button  className="post__report" onClick={()=> reportPost(imagepost._id)} >Report</button> */}
               <ReasonForPostReport postData={(imagepost._id)}/>
             </div>
           </div>
+          {
+            show && postId === imagepost._id && <PostComment postData={imagepost._id} />
+          }
+          <div>
+         <textarea type="text" className='w-50  mt-2' onChange={(e)=> setComment(e.target.value)} placeholder='add comment'/>
+         <button className='btn mb-5 ms-1' style={{background:'rgb(155, 34, 34)',border:'none',color:"white"}} onClick={()=> commentSubmit(imagepost._id)}>add</button>
+          </div>
+
           </div>
          
           </>
         )
         })
+
       }
+      <Toaster />
       </div>
      
      

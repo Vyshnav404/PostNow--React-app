@@ -1,7 +1,7 @@
 import React from "react";
 import "./UserSignup.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 import axios from "axios";
 import { styled } from "@material-ui/core";
 import { useDispatch } from "react-redux";
@@ -128,6 +128,7 @@ function UserSignUp() {
                 </button>
               </div>
             </form>
+          <div><p className="forgot" >Already have an account <Link to='/'>Login</Link></p></div>
           </div>
         </div>
       </div>

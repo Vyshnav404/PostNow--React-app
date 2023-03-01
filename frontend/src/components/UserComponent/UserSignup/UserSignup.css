@@ -185,3 +185,16 @@ h1,h2,h3,h4,h5,h6,p {
 	border-radius: 5px;
 	text-align: center;
 }
+
+
+.forgot
+{
+    margin-top: 10px;
+    color: #923939;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+.forgot a
+{
+    color: #ff0800;
+}

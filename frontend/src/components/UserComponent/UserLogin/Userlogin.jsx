@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { showloading,hideloading } from '../../../redux/features/alertSlice'
 import { setToken, setUser } from '../../../redux/features/userSlice'
 import { useNavigate } from 'react-router-dom'
+import Information from './Information'
 
 
 function Userlogin() {
