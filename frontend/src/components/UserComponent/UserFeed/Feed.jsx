@@ -18,6 +18,10 @@ function Feed() {
   const { searchAllQuestion } = useSelector((state) => state.allQuestion);
   const dispatch = useDispatch();
 
+
+
+
+
   useEffect(() => {
     axios
       .get("/Allquestions", {
@@ -38,8 +42,8 @@ function Feed() {
   return (
     <div className="feed col-lg-5 col-sm-12">
       <PostnowBox />
-      {searchAllQuestion.map((post, index) => (
-        <Post key={index} post={post} />
+      {searchAllQuestion.map((allQuestion, index) => (
+        <Post key={index} post={allQuestion} />
       ))}
     </div>
   );

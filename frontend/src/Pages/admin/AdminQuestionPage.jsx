@@ -7,6 +7,7 @@ const AdminQuestionPage = () => {
     <div>
       <Sidebar />
       <Adminquestion/>
+      
     </div>
   )
 }

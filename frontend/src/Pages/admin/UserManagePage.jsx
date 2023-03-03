@@ -7,6 +7,7 @@ function UserManagePage() {
     <div>
       <Sidebar />
       <UserManage />
+
     </div>
   )
 }

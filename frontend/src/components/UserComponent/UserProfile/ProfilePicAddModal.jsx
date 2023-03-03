@@ -38,7 +38,6 @@ function ProfilePicAddModal() {
           Authorization: tokenData
         }
       }).then(async(res)=>{
-        console.log("kaanik");
         toast.success("image updated")
         await axios.get('/getUser/'+email,{
           headers:{

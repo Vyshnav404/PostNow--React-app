@@ -2,9 +2,9 @@ const express = require('express');
 const { userSignup,verifyUser,resendotp} = require('../controllers/userController/signupController')
 const { userLogin } = require('../controllers/userController/loginController')
 const { addQuestion,getQuestionAnswer ,getOneQuestion,reportQuestion,
-    getQuestionsOnProfile} =require('../controllers/userController/questionController')
+    getQuestionsOnProfile,addUpvote,downVote} =require('../controllers/userController/questionController')
 const { addAnswer,getAllQuestion } = require('../controllers/userController/answerController')
-const { getUser,getUserDetails,
+const { getUser,getUserDetails,getFullUsers,
     updateUserDetails,profilePicture} = require('../controllers/userController/userDetailsController');
 
 const verifyToken = require('../middleware/authjwt');
@@ -28,6 +28,8 @@ router.get('/onequestion/:qid',verifyToken,getOneQuestion)
 router.post('/questions',verifyToken, addQuestion)
 router.post('/reportQuestion/:qid',verifyToken,reportQuestion) 
 router.get('/Allquestions',verifyToken ,getQuestionAnswer)
+router.put('/upvote/:id',verifyToken,addUpvote)
+router.put('/downvote/:id',verifyToken,downVote)
 
 //answer section
 router.post('/answers',verifyToken,addAnswer)
@@ -60,6 +62,11 @@ router.get('/getOthersDetail/:id',otherDetails)
 
 //get friend
 router.get('/getfriend/:friendId',verifyToken,getFriend)
+
+//get all users
+router.get('/takealluser',verifyToken,getFullUsers)
+
+
 
 
 

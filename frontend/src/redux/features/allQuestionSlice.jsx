@@ -9,6 +9,7 @@ export const allQuestionSlice = createSlice({
   reducers: {
     setAllQuestion: (state, action) => {
       state.allQuestion = action.payload;
+      console.log("update redux",action.payload);
     },
 
     setSearchAllQuestion: (state, action) => {

@@ -82,7 +82,7 @@ function AnswerComponent(){
     }
     await axios.post('/answers',body,config,{
       headers:{
-        Authorization:token
+        Authorization:tokenData
       }
     }).then((res)=>{
       console.log("answer is comming",res.data)

@@ -6,6 +6,7 @@ import './Messenger.css'
 import { useSelector } from "react-redux"
 import axios from 'axios'
 import {io} from "socket.io-client"
+import SearchBar from './SearchBar'
 
 function Messenger() {
  const { userDetails } = useSelector((state) => state.user)
@@ -106,7 +107,10 @@ useEffect(()=>{
     <div className='messenger'>
       <div className='chatMenu'>
       <div className='chatMenuWrapper'>
-        <input placeholder='Search for friends' className='chatMenuInput' />
+        <SearchBar />
+        <div className='card-scroll'
+        style={{height:"407px",overflowY:'scroll'}}>
+       
         {
           conversations.map((c)=>(
 
@@ -115,6 +119,7 @@ useEffect(()=>{
             </div>
           ))
         }
+         </div>
       </div>
       </div>
 

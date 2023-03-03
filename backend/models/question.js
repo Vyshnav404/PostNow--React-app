@@ -17,7 +17,9 @@ const QuestionSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    reason:[{type:String}]
+    reason:[{type:String}],
+    upVote:[{type:mongoose.SchemaTypes.ObjectId}],
+    downVote:[{type:mongoose.SchemaTypes.ObjectId}]
 })
 
 module.exports = mongoose.model("Questions",QuestionSchema)

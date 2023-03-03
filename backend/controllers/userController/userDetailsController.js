@@ -60,9 +60,22 @@ const profilePicture = async(req,res)=>{
   }
 }
 
+const getFullUsers = async(req,res)=>{
+  try {
+    await User.find().then((response)=>{
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
 module.exports = {
     getUser,
     getUserDetails,
     updateUserDetails,
-    profilePicture
+    profilePicture,
+    getFullUsers,
 }

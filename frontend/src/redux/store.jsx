@@ -10,6 +10,7 @@ import { showAnswersSlice } from "./features/showAnswersSlice";
 import { otherUserSlice } from "./features/otherUserSlice";
 import { othersQuestionSlice } from "./features/othersQuestionSlice";
 import { allQuestionSlice } from "./features/allQuestionSlice";
+import { adsSlice } from './features/adsSlice'
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   otherUser: otherUserSlice.reducer,
   othersQuestion: othersQuestionSlice.reducer,
   allQuestion: allQuestionSlice.reducer,
+  ads:adsSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

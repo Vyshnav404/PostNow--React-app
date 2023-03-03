@@ -13,6 +13,8 @@ import ReactTimeAgo from 'react-time-ago'
 import axios from 'axios';
 import ReactHtmlParser from 'html-react-parser'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllQuestion } from '../../../redux/features/allQuestionSlice';
 
 
 
@@ -25,42 +27,59 @@ import { Link } from 'react-router-dom';
 }
 
 function Post({post}) {
+  const { allQuestion } = useSelector(state => state.allQuestion)
+  const { userDetails } = useSelector(state => state.user)
+  const { tokenData } = useSelector(state => state.user)
+  console.log("userDetails",userDetails)
+  let userId = userDetails._id
+  const Close = (<CloseIcon />)
+  const dispatch = useDispatch();
+
+const getQuestion = async()=>{
+  try {
+    await axios.get("/Allquestions",{
+      headers:{
+        Authorization:tokenData,
+      },
+    }).then((res)=>{
+      dispatch(setAllQuestion(res.data.reverse()));
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+  const handleUpvote = async(id)=>{
+    try {
+      await axios.put('/upvote/'+id,{userId},{
+        headers:{
+          Authorization:tokenData
+        }
+      }).then((res)=>{
+        getQuestion()
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleDownvote = async(id)=>{
+    try {
+      console.log("in front",userId);
+      await axios.put('/downvote/'+id,{userId},{
+        headers:{
+          Authorization:tokenData
+        },
+        
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
 
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [answer,setAnswer] = useState('')
-  const Close = (<CloseIcon />)
-
-
-    // const handleQuill = (value)=>{
-    //   setAnswer(value)
-    // }
-    // console.log(answer);
-
-  // const handleSubmit = async()=>{
-  //   if(post?._id && answer !== ""){
-  //       const config={
-  //         headers:{
-  //           "Content-Type":"application/json"
-  //         }
-  //       }
-  //       const body = {
-  //         answer : answer,
-  //         questionId : post?._id
-  //       }
-  //       await axios.post('/answers',body,config).then((res)=>{
-  //         console.log(res.data);
-  //         alert('Answer added succesfully')
-  //         setIsModalOpen(false)
-  //         window.location.href = '/home'
-  //       }).catch((e)=>{
-    //         console.log(e);
-    //       })
-    //   }
-    // }
     
-    console.log(post?._id,"id==00000====")
   return (
     
   
@@ -121,8 +140,14 @@ function Post({post}) {
     </div>
     <div className="post__footer">
       <div className="post__footerAction">
-        <ArrowUpwardOutlined />
-        <ArrowDownwardOutlined />
+        <div className='likeLength me-3'>
+        <ArrowUpwardOutlined onClick={()=>handleUpvote(post._id)} />
+        <span>{post.upVote?.length}</span>
+        </div>
+        <div>
+        <ArrowDownwardOutlined onClick={()=>handleDownvote(post._id)}/>
+        <span>{post.downVote?.length}</span>
+        </div>
       </div>
       <RepeatOneOutlined />
       <ChatBubbleOutlined />

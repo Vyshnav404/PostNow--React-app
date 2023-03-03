@@ -150,8 +150,6 @@ const getComment = async(req,res) =>{
   try {
     let id = req.params.id
     await postDb.findById(id).populate('comment.userId').then((response)=>{
-      console.log('---------------');
-      console.log(response.comment);
       res.status(200).json(response)
     })
   } catch (error) {

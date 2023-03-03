@@ -9,7 +9,6 @@ function PostComment({ postData }) {
   useEffect(()=>{
     const fetchComments = async()=>{
       const response = await axios.get('/getcomments/'+postData);
-      console.log('comment response',response.data.comment);
       setComments(response.data.comment)
     }
     fetchComments();
@@ -26,11 +25,11 @@ function PostComment({ postData }) {
                 comment.userId.imageUrl ? <img style={{width:'45px',height:'40px',borderRadius:'20px'}} src={comment.userId.imageUrl} /> : <Avatar />
               }
               <div className='comment__body'>
-              <p>{comment.userId.firstName}</p>   
+              <p>{comment.userId.firstName+" "+ comment.userId.lastName}</p>   
               <h5>{comment.text}</h5>
              </div>
             </div>
-             
+             <hr/>
             </>
           )
         })

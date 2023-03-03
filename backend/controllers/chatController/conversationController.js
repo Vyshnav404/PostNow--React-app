@@ -1,8 +1,10 @@
 const Conversation = require('../../models/conversation')
 
 const conversation = async(req,res)=>{
+    console.log("conversation",req.body.userId);
+    console.log("====conversation",req.body.friendId);
     const newConversation = new Conversation({
-        members: [req.body.senderId, req.body.receiverId]
+        members: [req.body.userId, req.body.friendId]
     });
     try {
         const savedConversation = await newConversation.save();

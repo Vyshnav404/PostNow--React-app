@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const questionDB = require('../../models/question')
 
 
@@ -87,11 +88,52 @@ const getQuestionsOnProfile = async(req,res)=>{
     try {
         let id = req.params.id
         await questionDB.find({'user._id':id}).then((response)=>{
-            console.log(response,"daaaaataaa.......>>>>>>>");
         res.status(200).json(response)
         })
     } catch (error) {
         console.log(error);  
+    }
+}
+
+
+const addUpvote = async(req,res)=>{
+    try {
+        let postId = req.params.id
+        let userId = req.body.userId
+
+        await questionDB.updateOne({_id:postId},{$pull:{downVote:userId}});
+        let valid = await questionDB.findOne({_id:postId,upVote:userId});
+        if(valid){
+            res.status(400)
+        }else{
+            await questionDB.findByIdAndUpdate(postId,{$push:{upVote:userId}}).then((response)=>{
+                res.status(200).json(response)
+            })
+        }
+    } catch (error) {
+       console.log(error); 
+    }
+}
+
+
+const downVote = async(req,res)=>{ 
+    try {
+        let postId = req.params.id;
+        let id = req.body.userId;
+        console.log("========answer",postId,id);
+
+        await questionDB.updateOne({_id:postId}, {$pull:{upVote:id}});
+        console.log("worked====");
+        let value = await questionDB.findOne({_id:postId,downVote:id})
+        if(value){
+            res.status(400)
+        }else{
+            await questionDB.findByIdAndUpdate(postId, { $push:{downVote:id} }).then((response)=>{
+                res.status(200).json(response)
+            })
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -100,5 +142,7 @@ module.exports ={
     getQuestionAnswer,
     getOneQuestion,
     reportQuestion,
-    getQuestionsOnProfile
+    getQuestionsOnProfile,
+    addUpvote,
+    downVote
 }
