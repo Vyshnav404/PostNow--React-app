@@ -13,7 +13,6 @@ function Search() {
   const { userDetails } = useSelector(state => state.user)
   const dispatch = useDispatch();
   let userId = userDetails._id
-  console.log("nammmal id",userId);
 
   useEffect(() => {
     (async () => {

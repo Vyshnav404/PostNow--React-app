@@ -27,6 +27,7 @@ import QuestionOnOthersProfile from './QuestionOnOthersProfile';
 const ProfilePage =()=> {
 
   const { otherUserDetails } = useSelector(state => state.otherUser)
+  const { tokenData } = useSelector(state => state.user)
   console.log(otherUserDetails,"kkkkaaaakka");
 
   const [ values, setValues] = useState(null)
@@ -37,7 +38,11 @@ const ProfilePage =()=> {
    
  const getOthersDetails = async()=>{
   try {
-    await axios('/getOthersDetail/'+userId).then((res)=>{
+    await axios('/getOthersDetail/'+userId,{
+      headers:{
+        Authorization:tokenData
+      }
+    }).then((res)=>{
         dispatch(setOtherUser(res.data))
     })
   } catch (error) {

@@ -40,11 +40,11 @@ function Feed() {
   }, []);
 
   return (
-    <div className="feed col-lg-5 col-sm-12">
+    <div className="feed">
       <PostnowBox />
-      {searchAllQuestion.map((allQuestion, index) => (
-        <Post key={index} post={allQuestion} />
-      ))}
+      {/* {searchAllQuestion.map((allQuestion, index) => ( */}
+        <Post/>
+      {/* ))} */}
     </div>
   );
 }

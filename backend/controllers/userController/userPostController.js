@@ -2,6 +2,7 @@ const postDb = require("../../models/post");
 
 const addPost = async (req, res) => {
   try {
+    console.log("poseted");
     await postDb
       .create({
         postUrl: req.body.postUrl,
@@ -78,7 +79,7 @@ const getImage = async (req, res) => {
 
 const editPost = async (req, res) => {
   try {
-    let postId = req.params.postId;
+    let postId = req.params.postId;  
     await postDb
       .findByIdAndUpdate(postId, {
         $set: {

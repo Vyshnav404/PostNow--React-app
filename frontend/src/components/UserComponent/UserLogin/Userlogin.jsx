@@ -55,7 +55,11 @@ function Userlogin() {
   return (
     <>
     <div className='loginbody'>
-      <div className="form">
+      <div className='flez' style={{display:'flex',flexDirection:'column', alignItems:'center'}}>
+        <div>
+      <Information />
+     </div>
+     <div className="form">
             <h2>Login</h2>
             <form className="input"  onSubmit={handleSubmit}>
                 <div className="inputBox">
@@ -74,6 +78,8 @@ function Userlogin() {
             <p className="forgot">Not a member ? <Link to='/signup'>signup now</Link></p>
             
         </div>
+      </div>
+     
         </div>
         
     </>

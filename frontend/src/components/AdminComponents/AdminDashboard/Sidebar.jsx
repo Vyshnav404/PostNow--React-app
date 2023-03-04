@@ -114,7 +114,9 @@ const handleLogout =()=>{
                 className={currentLink === 4 ? "active" : "none"}
                 onClick={() => setCurrentLink(4)}
               >
-                <a href="#">
+                <a onClick={()=>{
+                  navigate('/postmanagement')
+                }}>
                   <GiTwirlCenter />
                   <span className="buttonsDashboard" > Reported Post</span>
                 </a>

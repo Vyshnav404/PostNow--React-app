@@ -3,10 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 function ReasonForPostReport({ postData }) {
   let postId = postData;
+  const { tokenData }  = useSelector(state => state.user)
   const [show, setShow] = useState(false);
   const [reason, setReason] = useState('')
 
@@ -27,7 +29,11 @@ function ReasonForPostReport({ postData }) {
     })
     .then((willDelete) => {
       if (willDelete) {
-         axios.put('/reportPost/'+postId,{reason:reason}).then((res)=>{
+         axios.put('/reportPost/'+postId,{reason:reason},{
+          headers:{
+            Authorization:tokenData
+          }
+         }).then((res)=>{
              
         })
         swal("You Reported This Question!", {

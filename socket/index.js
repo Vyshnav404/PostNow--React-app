@@ -21,7 +21,7 @@ const removeUser = (socketId)=>{
 };
 
 const getUser = (userId)=>{
-    return users.find(user=> user.userId === userId)
+    return users.find((user)=> user.userId === userId)
 }
 
 
@@ -36,11 +36,17 @@ io.on("connection",(socket)=>{
 
     //send and get message
     socket.on("sendMessage",({senderId,receiverId,text})=>{
+        console.log("receiver id==",receiverId);
         const user = getUser(receiverId)
-        io.to(user.socketId).emit("getMessage",{
-            senderId,
-            text,
-        });
+        if(user && user.socketId){
+
+            io.to(user.socketId).emit("getMessage",{
+                senderId,
+                text,
+            });
+        }else{
+            console.log("User not found or socket not defined");
+        }
     })
 
 

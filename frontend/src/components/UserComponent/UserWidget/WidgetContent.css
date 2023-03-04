@@ -3,6 +3,7 @@
 .widget__contents {
     display: flex;
     cursor: pointer;
+   
   }
   
   .widget__content {

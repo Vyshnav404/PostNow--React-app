@@ -9,7 +9,7 @@ import toast,{ Toaster } from 'react-hot-toast'
 
 function AddPhotoPost() {
  
-    const { userDetails } = useSelector(state => state.user)
+    const { userDetails,tokenData } = useSelector(state => state.user)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [image, setImage] = useState('')
     const [caption, setCaption] = useState('')
@@ -47,7 +47,12 @@ function AddPhotoPost() {
                         user:userDetails
                     }
 
-                    await axios.post('/addPost',body,config).then((res)=>{
+                    await axios.post('/addPost',body,{
+                      headers:{
+                        Authorization:tokenData
+                      },
+                      config,
+                    }).then((res)=>{
                         toast.success("Post Added Successfully")
                         // >>>>>>>> Add balance after Post page complete <<<<<<<<
                     })

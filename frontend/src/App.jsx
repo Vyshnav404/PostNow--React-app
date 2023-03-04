@@ -20,6 +20,7 @@ import UserPostPage from "./Pages/user/UserPostPage"
 import OthersProfilePage from "./Pages/user/OthersProfilePage"
 import MessengerPage from "./Pages/user/MessengerPage"
 import AdsManagePage from "./Pages/admin/AdsManagePage"
+import PostManagePage from "./Pages/admin/PostManagePage"
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
          <Route exact path="/userdetails" element={ <AdminProtectedRoute> <UserManagePage /> </AdminProtectedRoute>}></Route>
          <Route exact path="/reportQuestion" element={ <AdminProtectedRoute> <AdminQuestionPage /> </AdminProtectedRoute>}></Route>
          <Route exact path="/adsmanagement" element={<AdminProtectedRoute>  <AdsManagePage /> </AdminProtectedRoute> }></Route>
+         <Route exact path="/postmanagement" element={<AdminProtectedRoute>  <PostManagePage /> </AdminProtectedRoute> }></Route>
 
          <Route 
          exact path="/" 

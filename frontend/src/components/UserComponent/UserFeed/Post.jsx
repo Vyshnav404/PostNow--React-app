@@ -14,7 +14,7 @@ import axios from 'axios';
 import ReactHtmlParser from 'html-react-parser'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllQuestion } from '../../../redux/features/allQuestionSlice';
+import { setAllQuestion, setSearchAllQuestion } from '../../../redux/features/allQuestionSlice';
 
 
 
@@ -27,13 +27,14 @@ import { setAllQuestion } from '../../../redux/features/allQuestionSlice';
 }
 
 function Post({post}) {
-  const { allQuestion } = useSelector(state => state.allQuestion)
+  const { allQuestion,searchAllQuestion } = useSelector(state => state.allQuestion)
   const { userDetails } = useSelector(state => state.user)
   const { tokenData } = useSelector(state => state.user)
   console.log("userDetails",userDetails)
   let userId = userDetails._id
   const Close = (<CloseIcon />)
   const dispatch = useDispatch();
+  console.log("search All question",searchAllQuestion);
 
 const getQuestion = async()=>{
   try {
@@ -42,6 +43,7 @@ const getQuestion = async()=>{
         Authorization:tokenData,
       },
     }).then((res)=>{
+      dispatch(setSearchAllQuestion(res.data.reverse()));
       dispatch(setAllQuestion(res.data.reverse()));
     })
   } catch (error) {
@@ -72,8 +74,10 @@ const getQuestion = async()=>{
           Authorization:tokenData
         },
         
+      }).then((res)=>{
+        getQuestion()
       })
-    } catch (error) {
+    } catch (error) {searchAllQuestion
       console.log(error);
     }
   }
@@ -81,93 +85,101 @@ const getQuestion = async()=>{
 
     
   return (
+    <>
+    {searchAllQuestion.map((post)=>{
+      return (
+      <div className="post">
+      <div className="post__info">
+        {
+          post.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={post.user.imageUrl}/> :  <Avatar />
+        }
+       
+        <h4>{post.user.firstName}</h4>
+     
+        <small>
+          <LastSeen date={post?.createdAt}/>
+        </small>
+      </div>
+      <div className="post__body">
+        <div className="post__question">
+          
+        <Link to='/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
+          {/* <button  onClick={()=>{
+            setIsModalOpen(true);
+            console.log(post?._id);
+          } }     
+            className="post__btnAnswer">
+            Answer
+          </button>
+          <Modal 
+          open = {isModalOpen} closeIcon={Close} onClose={()=> setIsModalOpen(false)}
+          closeOnEsc
+          center 
+          closeOnOverlayClick={false}
+          styles={{
+            overlay:{
+              height:'auto'
+            },
+          }}>
+            <div className='modal__question'>
+              <h1>{post?.questionName}</h1>
+              <p>asked by {" "}<span className='name'>Username</span>{" "}on{" "}
+              <span className='name'>{new Date(post?.createdAt).toLocaleString()}</span></p>
+            </div>
+            <div className='modal__answer'>
+              <ReactQuill value={answer} onChange={handleQuill} placeholder='Enter your answer' />
+            </div>
+            <div className='modal__button'>
+                        <button className='cancle' onClick={()=> setIsModalOpen(false)}>
+                          Cancel
+                        </button>
+                        <button  onClick={handleSubmit} type='submit' className='add' >
+                          Add Answer
+                        </button>
+                      </div>
+          </Modal> */}
+        </div>
+       {
+        post.questionUrl !=='' && <img src={post.questionUrl} alt="" />
+       }
+      </div>
+      <div className="post__footer">
+        <div className="post__footerAction">
+          <div className='likeLength me-3'>
+          <ArrowUpwardOutlined onClick={()=>handleUpvote(post._id)} />
+          <span>{post.upVote?.length}</span>
+          </div>
+          <div>
+          <ArrowDownwardOutlined onClick={()=>handleDownvote(post._id)}/>
+          <span>{post.downVote?.length}</span>
+          </div>
+        </div>
+        <RepeatOneOutlined />
+        <ChatBubbleOutlined />
+        <div className="post__footerLeft">
+          <ShareOutlined />
+          <MoreHorizOutlined />
+        </div>
+      </div>
+      <p
+        style={{
+          color: "rgba(0,0,0,0.5)",
+          fontSize: "12px",
+          fontWeight: "bold",
+          margin: "10px 0",
+        }}
+      >
+       {post?.allAnswers.length}Answers
+      </p>
+      </div>
+      )
+    })}
+    </>
     
   
-    <div className="post">
-    <div className="post__info">
-      {
-        post.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={post.user.imageUrl}/> :  <Avatar />
-      }
-     
-      <h4>{post.user.firstName}</h4>
-   
-      <small>
-        <LastSeen date={post?.createdAt}/>
-      </small>
-    </div>
-    <div className="post__body">
-      <div className="post__question">
-        
-      <Link to='/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
-        {/* <button  onClick={()=>{
-          setIsModalOpen(true);
-          console.log(post?._id);
-        } }     
-          className="post__btnAnswer">
-          Answer
-        </button>
-        <Modal 
-        open = {isModalOpen} closeIcon={Close} onClose={()=> setIsModalOpen(false)}
-        closeOnEsc
-        center 
-        closeOnOverlayClick={false}
-        styles={{
-          overlay:{
-            height:'auto'
-          },
-        }}>
-          <div className='modal__question'>
-            <h1>{post?.questionName}</h1>
-            <p>asked by {" "}<span className='name'>Username</span>{" "}on{" "}
-            <span className='name'>{new Date(post?.createdAt).toLocaleString()}</span></p>
-          </div>
-          <div className='modal__answer'>
-            <ReactQuill value={answer} onChange={handleQuill} placeholder='Enter your answer' />
-          </div>
-          <div className='modal__button'>
-                      <button className='cancle' onClick={()=> setIsModalOpen(false)}>
-                        Cancel
-                      </button>
-                      <button  onClick={handleSubmit} type='submit' className='add' >
-                        Add Answer
-                      </button>
-                    </div>
-        </Modal> */}
-      </div>
-     {
-      post.questionUrl !=='' && <img src={post.questionUrl} alt="" />
-     }
-    </div>
-    <div className="post__footer">
-      <div className="post__footerAction">
-        <div className='likeLength me-3'>
-        <ArrowUpwardOutlined onClick={()=>handleUpvote(post._id)} />
-        <span>{post.upVote?.length}</span>
-        </div>
-        <div>
-        <ArrowDownwardOutlined onClick={()=>handleDownvote(post._id)}/>
-        <span>{post.downVote?.length}</span>
-        </div>
-      </div>
-      <RepeatOneOutlined />
-      <ChatBubbleOutlined />
-      <div className="post__footerLeft">
-        <ShareOutlined />
-        <MoreHorizOutlined />
-      </div>
-    </div>
-    <p
-      style={{
-        color: "rgba(0,0,0,0.5)",
-        fontSize: "12px",
-        fontWeight: "bold",
-        margin: "10px 0",
-      }}
-    >
-     {post?.allAnswers.length}Answers
-    </p>
+    
 
-    {/* <div
+    /* <div
       style={{
         margin: "5px 0px 0px 0px ",
         padding: "5px 0px 0px 20px",
@@ -220,8 +232,8 @@ const getQuestion = async()=>{
               }
         
       
-    </div> */}
-  </div>
+    </div> */
+  // </div>
 
   
   

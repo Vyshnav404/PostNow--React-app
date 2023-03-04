@@ -44,7 +44,11 @@ const deletePost = async(id)=>{
     .then(async(willDelete) => {
       if (willDelete) {
         
-        await axios.delete('/deletePost/'+id).then(async(res)=>{
+        await axios.delete('/deletePost/'+id,{
+          headers:{
+            Authorization:tokenData
+          }
+        }).then(async(res)=>{
           await handlePost()
         })  
         swal("You Reported This Question!", {

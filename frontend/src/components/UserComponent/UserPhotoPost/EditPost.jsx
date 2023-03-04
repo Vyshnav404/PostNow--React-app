@@ -10,7 +10,7 @@ import toast,{ Toaster } from 'react-hot-toast'
 function EditPost({ postId }) {
 
     
-    const { userDetails } = useSelector(state => state.user)
+    const { userDetails,tokenData } = useSelector(state => state.user)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [image, setImage] = useState('')
     const [caption, setCaption] = useState('')
@@ -19,7 +19,11 @@ function EditPost({ postId }) {
 
     const getImgToEdit = async()=>{
         try {
-            axios.get('/getImgToEdit/'+postId).then((res)=>{
+            axios.get('/getImgToEdit/'+postId,{
+              headers:{
+                Authorization:tokenData
+              }
+            }).then((res)=>{
                 setImg(res.data)
                 setCaption(res.data.caption)
                 

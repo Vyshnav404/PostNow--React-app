@@ -24,7 +24,7 @@ import toast,{ Toaster } from 'react-hot-toast'
 // }
 
 function PhotoPostComponent() {
-  const { userDetails } = useSelector(state => state.user)
+  const { userDetails,tokenData } = useSelector(state => state.user)
   let userId = userDetails._id
   
   const [imagePost, setImagePost] = useState([])
@@ -33,8 +33,12 @@ function PhotoPostComponent() {
   const [postId,setPostId]=useState('')
 
   const getPosts = async()=>{
-    await axios.get('/getAllPosts').then((response)=>{
-      setImagePost(response.data)
+    await axios.get('/getAllPosts',{
+      headers:{
+        Authorization:tokenData
+      }
+    }).then((response)=>{
+      setImagePost(response.data.reverse())
     })
   }
 
