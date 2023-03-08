@@ -10,11 +10,8 @@ const addQuestion = async(req,res)=>{
             questionName: req.body.questionName,
             questionUrl: req.body.questionUrl,
             user:req.body.user,
-        }).then(()=>{
-            res.status(201).send({
-                status:true,
-                message:"Question added successfully"
-            })
+        }).then((response)=>{
+            res.status(201).json(response)
         }).catch((err)=>{
             res.status(400).send({
                 status: false,
@@ -137,6 +134,19 @@ const downVote = async(req,res)=>{
     }
 }
 
+
+const deleteQuestion = async(req,res)=>{
+    try {
+        let id = req.params.id
+        await questionDB.findByIdAndDelete(id).then((response)=>{
+            res.status(200).json(response)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 module.exports ={
     addQuestion,
     getQuestionAnswer,
@@ -144,5 +154,6 @@ module.exports ={
     reportQuestion,
     getQuestionsOnProfile,
     addUpvote,
-    downVote
+    downVote,
+    deleteQuestion
 }

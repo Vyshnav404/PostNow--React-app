@@ -10,11 +10,18 @@ function UserAnswerPage() {
     <div className='userHome'>
       <Header />
       <div className='home__contents container-fluid'>
-        {/* <div className='home__content row'> */}
+      <div className='side__bar col-md-3'>
       <Sidebar />
+      </div>
+
+      <div className='col-md-6 col-lg-5 col-sm-12'>
       <AnswerComponent />
+      </div>
+
+      <div className='col-md-3'>
       <Widget />
-        {/* </div> */}
+      </div>
+     
       </div>
     </div>
   )

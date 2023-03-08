@@ -13,6 +13,7 @@ const {
   getQuestionsOnProfile,
   addUpvote,
   downVote,
+  deleteQuestion
 } = require("../controllers/userController/questionController");
 const {
   addAnswer,
@@ -24,6 +25,7 @@ const {
   getFullUsers,
   updateUserDetails,
   profilePicture,
+  getDetailsToRedux
 } = require("../controllers/userController/userDetailsController");
 
 const verifyToken = require("../middleware/authjwt");
@@ -61,6 +63,7 @@ router.post("/reportQuestion/:qid", verifyToken, reportQuestion);
 router.get("/Allquestions", verifyToken, getQuestionAnswer);
 router.put("/upvote/:id", verifyToken, addUpvote);
 router.put("/downvote/:id", verifyToken, downVote);
+router.delete('/deletequestion/:id',verifyToken,deleteQuestion)
 
 //answer section
 router.post("/answers", verifyToken, addAnswer);
@@ -98,5 +101,8 @@ router.get("/takealluser", verifyToken, getFullUsers);
 
 //get ads in userside
 router.get('/getcarousaldata',verifyToken,getAdsData)
+
+//get userDetails to redux
+router.get('/usertoredux/:mail',verifyToken,getDetailsToRedux)
 
 module.exports = router;

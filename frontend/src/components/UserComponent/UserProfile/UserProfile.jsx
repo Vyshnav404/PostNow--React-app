@@ -25,6 +25,7 @@ import ProfilePicAddModal from './ProfilePicAddModal';
 import PostOnProfile from './PostOnProfile';
 import QuestionOnProfile from './QuestionOnProfile';
 import Button from 'react-bootstrap/esm/Button';
+import AddPhotoPost from '../UserPhotoPost/AddPhotoPost';
 
 const UserProfile = () => {
   const { userDetails } = useSelector(state=> state.user);
@@ -79,7 +80,7 @@ const UserProfile = () => {
 
  let defaultUrl = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
   return (
-    <div>
+    <div >
         <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
       
@@ -102,6 +103,7 @@ const UserProfile = () => {
                   <MDBBtn outline className="ms-1">Message</MDBBtn> */}
                   <ProfileUpdate  userData={userDetails}  /><ProfilePicAddModal />
                 </div>
+                <AddPhotoPost />
 
               </MDBCardBody>
             </MDBCard>
@@ -163,14 +165,15 @@ const UserProfile = () => {
 
         <div className='d-flex' style={{justifyContent:'center'}}>
          <div style={{marginRight:"15px"}}>
-            <Button onClick={handlePost}>Posts</Button>
+            <Button style={{backgroundColor:'rgb(155, 34, 34)'}} onClick={handlePost}>Posts</Button>
           </div> 
          <div>
-          <Button onClick={handleQuestion}>Questions</Button>
+          <Button  style={{backgroundColor:'rgb(155, 34, 34)'}} onClick={handleQuestion}>Questions</Button>
          </div>         
         </div>
 
-        <div className='d-flex' style={{flexDirection:'column', alignItems:'center'}}>
+        <div className='d-flex mt-2' style={{flexDirection:'column', alignItems:'center'}}>
+         
           {
             values === post ? <PostOnProfile userData={userDetails}/> :  <QuestionOnProfile userData={userDetails}/> 
           } 

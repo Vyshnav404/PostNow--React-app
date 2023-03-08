@@ -23,7 +23,19 @@ const getSingleReportedPost = async(req,res)=>{
 }
 
 
+const deleteReportPost = async(req,res)=>{
+    try {
+        let id = req.params.id
+        await PostDb.findByIdAndDelete(id).then((response)=>{
+            res.status(200).json(response)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getReportedPost,
-    getSingleReportedPost
+    getSingleReportedPost,
+    deleteReportPost
 }

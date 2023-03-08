@@ -32,13 +32,11 @@ const reportPost = async (req, res) => {
     let id = req.params.id;
     let reason = req.body.reason
     await postDb.findByIdAndUpdate(
-      { _id: id },{$push:{reason:reason}},
-      {
-        $set: {
-          report: true,
-        },
-      }
-    );
+       id ,{$push:{reason:reason},
+      $set:{report:true}}
+      ).then((response)=>{
+      
+    })
   } catch (error) {
     console.log(error);
   }

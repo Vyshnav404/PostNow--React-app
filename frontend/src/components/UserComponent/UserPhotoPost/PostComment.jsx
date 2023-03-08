@@ -16,13 +16,14 @@ function PostComment({ postData }) {
 
   return (
     <div className='comment_head' style={{height:'300px',overflowY:'scroll'}}>
-      {
-        comments.map((comment) =>{
+      {comments.length > 0 ?(
+         comments.map((comment) =>{
           return(
             <>
             <div className='comment__profile'>
+             
               {
-                comment.userId.imageUrl ? <img style={{width:'45px',height:'40px',borderRadius:'20px'}} src={comment.userId.imageUrl} /> : <Avatar />
+                comment.userId.imageUrl ? <img style={{width:'45px',height:'40px',borderRadius:'20px'}} src={comment?.userId?.imageUrl} /> : <Avatar />
               }
               <div className='comment__body'>
               <p>{comment.userId.firstName+" "+ comment.userId.lastName}</p>   
@@ -33,6 +34,9 @@ function PostComment({ postData }) {
             </>
           )
         })
+      ):(
+        <h3>There are no comments</h3>
+      )    
       }
     
     </div>

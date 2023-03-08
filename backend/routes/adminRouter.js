@@ -4,7 +4,7 @@ const { getUserDetails ,
     blockUser,unBlockUser} = require('../controllers/adminController/adminUserDetails')
 const { getReportQuestion,getReportQuestionDetails,deleteQuestion } = require('../controllers/adminController/adminQuestionController')   
 const { createAds,getAllAds,deleteAd } = require('../controllers/adminController/adsController') 
-const { getReportedPost,getSingleReportedPost } = require('../controllers/adminController/adminPostController')
+const { getReportedPost,getSingleReportedPost,deleteReportPost } = require('../controllers/adminController/adminPostController')
 const adminrouter = express.Router()
 
 
@@ -20,4 +20,5 @@ adminrouter.get('/adsdetails',getAllAds)
 adminrouter.delete('/adsdelete/:id',deleteAd)
 adminrouter.get('/getreportpost',getReportedPost)
 adminrouter.get('/singlereportedpost/:id',getSingleReportedPost)
+adminrouter.delete('/post-delete/:id',deleteReportPost)
 module.exports = adminrouter;

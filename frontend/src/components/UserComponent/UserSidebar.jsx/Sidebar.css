@@ -1,6 +1,7 @@
 .sidebar{
     margin-top: 10px;
     flex: 0.2;
+    position: fixed;
 }
 @media screen and (max-width: 712px) {
     .sidebar {

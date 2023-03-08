@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../redux/features/userSlice";
 import {
   setAllQuestion,
   setSearchAllQuestion,
@@ -13,14 +14,26 @@ import {
 
 function Feed() {
   const [posts, setPost] = useState([]);
-  const { tokenData } = useSelector((state) => state.user);
+  const { tokenData, userDetails } = useSelector((state) => state.user);
   const { allQuestion } = useSelector((state) => state.allQuestion);
   const { searchAllQuestion } = useSelector((state) => state.allQuestion);
   const dispatch = useDispatch();
 
-
-
-
+  let mail = userDetails.email;
+  const getUserDetails = async () => {
+    try {
+      await axios.get("/usertoredux/" + mail,{
+        headers:{
+          Authorization:tokenData
+        }
+      }).then((res) => {
+        dispatch(setUser(res.data[0]));
+      });
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   useEffect(() => {
     axios
@@ -43,7 +56,7 @@ function Feed() {
     <div className="feed">
       <PostnowBox />
       {/* {searchAllQuestion.map((allQuestion, index) => ( */}
-        <Post/>
+      <Post />
       {/* ))} */}
     </div>
   );

@@ -213,3 +213,17 @@
     height: 120px;
   }
   
+  .likeLength{
+    cursor: pointer;
+  }
+  .dislikeLength{
+    cursor: pointer;
+  }
+
+  .likeLength:hover{
+    color: rgb(99, 154, 226);
+  }
+
+  .dislikeLength:hover{
+    color: rgb(99, 154, 226);
+  }

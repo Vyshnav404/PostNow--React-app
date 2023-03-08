@@ -4,7 +4,8 @@ import { ArrowDownwardOutlined, ArrowUpwardOutlined,
     ChatBubbleOutlined, MoreHorizOutlined, RepeatOneOutlined,
      ShareOutlined } from '@material-ui/icons';
      import { Avatar } from '@material-ui/core'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllQuestion } from '../../../redux/features/allQuestionSlice'
 
 
 
@@ -14,6 +15,21 @@ function QuestionOnProfile({ userData }) {
 const { tokenData } = useSelector(state=> state.user)
 let id = userData._id
 const [ question , setQuestion ] = useState([])
+const dispatch = useDispatch()
+
+const getAllQuestions = async()=>{
+  try {
+    await axios.get('/Allquestions',{
+      headers:{
+        Authorization:tokenData,
+      }
+    }).then((res)=>{
+      dispatch(setAllQuestion(res.data.reverse()))
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const callQuestions = async()=>{
     try {
@@ -23,11 +39,44 @@ const callQuestions = async()=>{
             Authorization:tokenData
           }
         }).then(async(res)=>{
-            setQuestion(res.data)
+           await setQuestion(res.data)
         })
     } catch (error) {
         console.log(error);
     }
+}
+
+
+const deleteQuestion = async(id) =>{
+  try {
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to report this question!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        await axios
+          .delete("/deletequestion/" + id, {
+            headers: {
+              Authorization: tokenData,
+            },
+          })
+          .then(async (res) => {
+            await callQuestions();
+            await getAllQuestions();
+          });
+        swal("You Reported This Question!", {
+          icon: "success",
+        });
+      } else {
+        swal("Action not done!");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 useEffect(()=>{
@@ -78,11 +127,10 @@ useEffect(()=>{
             </div>
             <RepeatOneOutlined />
             <ChatBubbleOutlined />
-            {/* <div className="post__footerLeft">
+            <div className="post__footerLeft">
             
-              <button  className="post__report me-2" onClick={()=> editPost(newState._id)} >Edit</button>
-              <button  className="post__report " onClick={()=> deletePost(newState._id)} >Delete</button>
-            </div> */}
+              <button  className="post__report " onClick={()=> deleteQuestion(newQuestion._id)} >Delete</button>
+            </div>
           </div>
           </div>
          

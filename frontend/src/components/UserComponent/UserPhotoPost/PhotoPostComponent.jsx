@@ -7,11 +7,12 @@ import ReactTimeAgo from 'react-time-ago';
 import './PhotoPost.css' 
 import axios from 'axios';
 import ReactHtmlParser from 'html-react-parser'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReasonForPostReport from './ReasonForPostReport';
 import { Link } from 'react-router-dom';
 import PostComment from './PostComment';
 import toast,{ Toaster } from 'react-hot-toast'
+import { setAllPost } from '../../../redux/features/allPostSlice'
 
 
 
@@ -24,8 +25,11 @@ import toast,{ Toaster } from 'react-hot-toast'
 // }
 
 function PhotoPostComponent() {
+  const { allPost } = useSelector(state => state.allPost)
   const { userDetails,tokenData } = useSelector(state => state.user)
+  const dispatch = useDispatch()
   let userId = userDetails._id
+  console.log("aaaallll-==== post",allPost);
   
   const [imagePost, setImagePost] = useState([])
   const [comment,setComment] = useState(false)
@@ -38,7 +42,8 @@ function PhotoPostComponent() {
         Authorization:tokenData
       }
     }).then((response)=>{
-      setImagePost(response.data.reverse())
+      dispatch(setAllPost(response.data.reverse()))
+      // setImagePost(response.data.reverse())
     })
   }
 
@@ -46,12 +51,12 @@ function PhotoPostComponent() {
     getPosts();
   },[])
 
- const reportPost = async(id)=>{
+//  const reportPost = async(id)=>{
   
-  await axios.put('/reportPost/'+id).then((res)=>{
+//   await axios.put('/reportPost/'+id).then((res)=>{
 
-  })
-}
+//   })
+// }
 
 
 const handleLike = async(id)=>{
@@ -102,7 +107,7 @@ const handlChange = async(id)=>{
    
       <div className='col-5'>
     {
-      imagePost ?.map(imagepost=>{
+      allPost ?.map(imagepost=>{
         return( 
 <>
           <div className="post">

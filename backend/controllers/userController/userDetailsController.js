@@ -5,7 +5,6 @@ const getUser = async(req,res)=>{
       let mail = req.params.email
       console.log("njaaaan",mail);
         User.findOne({email:mail}).then((response)=>{
-          // console.log(response);
           res.status(200).json(response)
         })
     } catch (error) {
@@ -27,7 +26,6 @@ const getUserDetails = async(req,res)=>{
 
 const updateUserDetails = async(req,res)=>{
   try {
-    console.log(req.body,"comming");
     const id = req.body._id;
     await User.findByIdAndUpdate({_id:id},{$set:{
       firstName:req.body.firstName,
@@ -70,6 +68,17 @@ const getFullUsers = async(req,res)=>{
   }
 }
 
+const getDetailsToRedux = async(req,res)=>{
+  try {
+    let mail = req.params.mail
+    await User.find({email:mail}).then((response)=>{
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 
 module.exports = {
@@ -78,4 +87,5 @@ module.exports = {
     updateUserDetails,
     profilePicture,
     getFullUsers,
+    getDetailsToRedux
 }

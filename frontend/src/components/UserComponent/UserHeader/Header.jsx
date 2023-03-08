@@ -25,6 +25,7 @@ import {
   setAllQuestion,
   setSearchAllQuestion,
 } from "../../../redux/features/allQuestionSlice";
+import toast,{ Toaster } from 'react-hot-toast'
 
 
 
@@ -43,6 +44,20 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState(allQuestion);
   const Close = <CloseIcon />;
   const navigate = useNavigate();
+
+  const getAllQuestions = async()=>{
+    try {
+      await axios.get("/Allquestions",{
+        headers:{
+          Authorization:tokenData,
+        },
+      }).then((res)=>{
+        dispatch(setAllQuestion(res.data.reverse()))
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   let Allowed_File_Types = [
     "image/jpeg",
@@ -91,8 +106,12 @@ function Header() {
                   Authorization: tokenData,
                 },
                 config,
-              });
+              }).then((res)=>{
+                getAllQuestions();
+              })
+             
               alert("Question added succesfully");
+              toast.success("Question Added Successfully")
               navigate("/").catch((e) => {
                 console.log(e);
                 alert("Error in adding question");
@@ -112,11 +131,14 @@ function Header() {
           user: userDetails,
         };
         await axios
-          .post("/questions", body, config)
+          .post("/questions", body, {
+            headers:{
+              Authorization:tokenData
+            },config
+          })
           .then((res) => {
-            console.log("eroor");
-            console.log(res.data);
-            alert(res.data.message);
+            getAllQuestions();
+            alert("successfull",res.data.message);
             navigate("/");
           })
           .catch((e) => {
@@ -197,7 +219,7 @@ function Header() {
         <div className="qHeader__Rem">
           <Link to="/profile">
             <img
-              src={userDetails.imageUrl ? userDetails?.imageUrl : defaultUrl}
+              src={userDetails?.imageUrl ? userDetails?.imageUrl : defaultUrl}
               alt="avatar"
               className="rounded-circle"
               style={{ width: "50px", height: "35px" }}
@@ -298,6 +320,7 @@ function Header() {
           Logout
         </Button>
       </div>
+      <Toaster />
     </div>
   );
 }

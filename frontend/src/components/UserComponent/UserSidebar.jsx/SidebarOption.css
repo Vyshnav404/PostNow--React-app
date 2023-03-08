@@ -3,6 +3,7 @@
 .sidebarOptions {
     display: flex;
     flex-direction: column;
+    margin-left: 30%;
   }
   .sidebarOption {
     display: flex;

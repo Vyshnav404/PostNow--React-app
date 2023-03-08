@@ -5,7 +5,7 @@ import UserProfile from '../../components/UserComponent/UserProfile/UserProfile'
 
 function UserProfilePage() {
   return (
-    <div>
+    <div className='profileon__profilePage'>
         <Header />
         <UserProfile />
     </div>

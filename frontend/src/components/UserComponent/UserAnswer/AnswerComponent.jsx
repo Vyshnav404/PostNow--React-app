@@ -80,10 +80,11 @@ function AnswerComponent(){
       answer : answer,
       questionId : questionDetails?._id
     }
-    await axios.post('/answers',body,config,{
+    await axios.post('/answers',body,{
       headers:{
         Authorization:tokenData
-      }
+      },
+      config,
     }).then((res)=>{
       console.log("answer is comming",res.data)
       alert("Answer added successfully")
@@ -146,8 +147,10 @@ function AnswerComponent(){
     return(
         <div className="post">
       <div className="post__info">
-        <Avatar />
-        <h4>User Name</h4>
+        {
+          questionDetails?.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={questionDetails?.user.imageUrl}/> :  <Avatar />
+        }
+        <h4>{questionDetails?.user.firstName+" "+ questionDetails?.user.lastName}</h4>
      
         <small>
           <LastSeen date={questionDetails?.createdAt}/>

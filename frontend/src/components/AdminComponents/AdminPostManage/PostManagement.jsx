@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setReportPost }from '../../../redux/features/reportPostSlice'
 import PostShowModal from './PostShowModal'
+import toast,{ Toaster } from 'react-hot-toast'
 
 function PostManagement() {
 const { reportedPost } = useSelector(state => state.reportPost)
@@ -48,6 +49,18 @@ useEffect(()=>{
         );
       }, []);
 
+      const postDelete = async(id)=>{
+        try {
+          await axios.delete(`/admin/post-delete/${id}`).then(async(res)=>{
+              toast.success('Deleted')
+            await getReportedPost();
+
+          })
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
 
     const columns = [
         {
@@ -67,6 +80,7 @@ useEffect(()=>{
             name:"Actions",
             selector: (row)=>(
                 <button className='btn btn-danger'
+                onClick={()=>postDelete(row._id)}
                  >Delete</button>
             )
         }
@@ -87,6 +101,7 @@ useEffect(()=>{
             />
             </div>
         </Section>
+        <Toaster />
       
     </div>
   )
