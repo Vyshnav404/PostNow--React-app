@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showloading,hideloading } from "../../../redux/features/alertSlice";
 import toast,{ Toaster } from 'react-hot-toast'
+import { useNavigate } from "react-router-dom";
 
 function Adminlogin() {
 
@@ -15,6 +16,7 @@ function Adminlogin() {
     password:'',
   })
 
+  const navigate = useNavigate();
   const dispatch = useDispatch()
 
   const handleChange = ({currentTarget : input})=>{
@@ -25,15 +27,14 @@ function Adminlogin() {
     e.preventDefault();
     try {
     
-      // axios.defaults.baseURL = 'http://localhost:8000'
       dispatch(showloading())
        const { data:res } = await axios.post('/admin/adminLogin',data);
         dispatch(hideloading())
        localStorage.setItem("Admintoken",res.data);
        setIsAdminLoggedIn(true);
-       window.location = "/admindashboard"
+       navigate('/admin/admindashboard')
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       if(error.response &&
         error.response.status >= 400 &&
         error.response.status <500){

@@ -141,8 +141,7 @@ function AnswerComponent(){
   
 //  }
 
-  console.log("question details",questionDetails)
-  console.log("answer from back",answerDetails)
+
 
     return(
         <div className="post">

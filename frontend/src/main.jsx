@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 TimeAgo.addDefaultLocale(en)
@@ -20,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
     <BrowserRouter>
-    <App />
+    <Routes>
+      <Route  path="/*" element={<App />}/> 
+    </Routes>
     </BrowserRouter>
     </PersistGate>
   </Provider>

@@ -2,7 +2,7 @@ import React from 'react'
 import Adminlogin from '../../components/AdminComponents/adminLoginPage/Adminlogin'
 
 
-function adminLogin() {
+function AdminLogin() {
   return (
     <>
       <Adminlogin/>
@@ -10,4 +10,4 @@ function adminLogin() {
   )
 }
 
-export default adminLogin
+export default AdminLogin

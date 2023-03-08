@@ -38,7 +38,7 @@ function Userlogin() {
        console.log("user token",res.data)
        dispatch(setToken(res.data))
         setIsUserLoggedIn(true);   
-        navigate('/home')
+        navigate('/user/home')
 
         
       } catch (error) {
@@ -63,7 +63,7 @@ function Userlogin() {
             <h2>Login</h2>
             <form className="input"  onSubmit={handleSubmit}>
                 <div className="inputBox">
-                    <label for="">Email</label>
+                    <label for="htmlFor">Email</label>
                     <input name='email' onChange={handleChange} value={data.email} required type="email"/>
                 </div>
                 <div className="inputBox">
@@ -75,7 +75,7 @@ function Userlogin() {
                 </div>
                 {error && <div><p className='errormsg'>{error}</p></div>}
             </form>
-            <p className="forgot">Not a member ? <Link to='/signup'>signup now</Link></p>
+            <p className="forgot">Not a member ? <Link to='/user/signup'>signup now</Link></p>
             
         </div>
       </div>

@@ -82,7 +82,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(1)}
               >
                 <a onClick={()=>{
-                    navigate('/admindashboard')
+                    navigate('/admin/admindashboard')
                   }} >
                   <MdSpaceDashboard />
                   <span className="buttonsDashboard"  > Dashboard</span>
@@ -93,7 +93,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(2)}
               >
                 <a onClick={()=>{
-                    navigate('/userdetails')
+                    navigate('/admin/userdetails')
                   }}>
                   <HiUsers />
                   <span className="buttonsDashboard"   > Users</span>
@@ -104,7 +104,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(3)}
               >
                 <a onClick={()=>{
-                  navigate('/reportQuestion')
+                  navigate('/admin/reportQuestion')
                 }}>
                   <FaAddressCard />
                   <span className="buttonsDashboard" > Questions</span>
@@ -115,7 +115,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(4)}
               >
                 <a onClick={()=>{
-                  navigate('/postmanagement')
+                  navigate('/admin/postmanagement')
                 }}>
                   <GiTwirlCenter />
                   <span className="buttonsDashboard" > Reported Post</span>
@@ -126,7 +126,7 @@ const handleLogout =()=>{
                 onClick={() => setCurrentLink(5)}
               >
                 <a onClick={()=>{
-                  navigate('/adsmanagement')
+                  navigate('/admin/adsmanagement')
                 }}>
                   <BsFillChatTextFill />
                   <span className="buttonsDashboard" > Ads</span>
@@ -144,11 +144,9 @@ const handleLogout =()=>{
             </ul>
           </div>
         </div>
-        <div className="logout">
-          <Link>
+        <div className="logou btn btn-danger">
             <FiLogOut />
-            <span onClick={handleLogout} className="logout">Logout</span>
-          </Link>
+            <span onClick={handleLogout} className="logou btn btn-danger">Logout</span>
         </div>
       </Section>
       <ResponsiveNav state={navbarState} className={navbarState ? "show" : ""}>

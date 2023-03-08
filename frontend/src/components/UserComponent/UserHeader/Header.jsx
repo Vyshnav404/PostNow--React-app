@@ -139,6 +139,7 @@ function Header() {
           .then((res) => {
             getAllQuestions();
             alert("successfull",res.data.message);
+            toast.success("Question Added Successfully")
             navigate("/");
           })
           .catch((e) => {
@@ -187,12 +188,12 @@ function Header() {
         </div>
         <div className="qHeader__icons">
           <div className="qHeader__icon">
-            <Link className="qHeader__icon" to="/home">
+            <Link className="qHeader__icon" to="/user/home">
               <HomeIcon />
             </Link>
           </div>
           <div className="qHeader__icon">
-            <Link className="qHeader__icon" to="/userpost">
+            <Link className="qHeader__icon" to="/user/userpost">
               <FeaturedPlayListOutlined />
             </Link>
           </div>
@@ -200,7 +201,7 @@ function Header() {
             <AssessmentOutlined />
           </div> */}
           <div className="qHeader__icon">
-            <Link className="qHeader__icon" to='/messenger'>
+            <Link className="qHeader__icon" to='/user/messenger'>
             <PeopleAltOutlined />
             </Link>
           </div>
@@ -217,7 +218,7 @@ function Header() {
           />
         </div>
         <div className="qHeader__Rem">
-          <Link to="/profile">
+          <Link to="/user/profile">
             <img
               src={userDetails?.imageUrl ? userDetails?.imageUrl : defaultUrl}
               alt="avatar"

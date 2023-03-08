@@ -34,7 +34,7 @@ function UserSignUp() {
           console.log(response.data,"goood");
  
           dispatch(setUser(response, response.data.OTP));
-          navigate("/otp-page");
+          navigate("/user/otp-page");
         });
       console.log(res.message);
     } catch (error) {

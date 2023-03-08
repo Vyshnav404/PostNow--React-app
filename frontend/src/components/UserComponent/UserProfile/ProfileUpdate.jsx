@@ -74,7 +74,7 @@ function ProfileUpdate({ userData }) {
           setUserDetail(response.data)
         
           toast.success("profile updated")
-          navigate("/profile")
+          navigate("/user/profile")
         })
         
       })
