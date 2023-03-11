@@ -13,10 +13,15 @@ import toast,{ Toaster } from 'react-hot-toast'
 function Entertainment() {
   const dispatch = useDispatch()
   const { allAds } = useSelector(state => state.ads)
+  const { adminToken } = useSelector(state => state.admin)
 
 const getAds = async()=>{
   try {
-    await axios.get("/admin/adsdetails").then((res)=>{
+    await axios.get("/admin/adsdetails",{
+      headers:{
+        Authorization:adminToken
+      }
+    }).then((res)=>{
       dispatch(setAllAds(res.data))
     })
   } catch (error) {

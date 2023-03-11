@@ -13,7 +13,8 @@ const {
   getQuestionsOnProfile,
   addUpvote,
   downVote,
-  deleteQuestion
+  deleteQuestion,
+  getHotQuestions
 } = require("../controllers/userController/questionController");
 const {
   addAnswer,
@@ -104,5 +105,8 @@ router.get('/getcarousaldata',verifyToken,getAdsData)
 
 //get userDetails to redux
 router.get('/usertoredux/:mail',verifyToken,getDetailsToRedux)
+
+//get hot questions on right side
+router.get('/get-hot-questions',verifyToken,getHotQuestions)
 
 module.exports = router;

@@ -13,6 +13,8 @@ import { allQuestionSlice } from "./features/allQuestionSlice";
 import { adsSlice } from './features/adsSlice'
 import { reportPostSlice } from './features/reportPostSlice'
 import { allPostSlice } from './features/allPostSlice'
+import { adminSlice } from './features/adminSlice'
+import { friendSlice } from './features/friendSlice'
 
 const persistConfig = {
   key: "root",
@@ -32,6 +34,8 @@ const reducer = combineReducers({
   ads:adsSlice.reducer,
   reportPost:reportPostSlice.reducer,
   allPost:allPostSlice.reducer,
+  admin:adminSlice.reducer,
+  friend:friendSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

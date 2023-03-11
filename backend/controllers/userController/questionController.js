@@ -147,6 +147,17 @@ const deleteQuestion = async(req,res)=>{
 }
 
 
+const getHotQuestions = async(req,res)=>{
+    try {
+        const hotQuestions = await questionDB.find({ $expr: { $gt: [{ $size: "$upVote"},1]}})
+        res.status(200).json(hotQuestions)
+    } catch (error) {
+        console.log("eee123123123=======+++++++",error);
+        res.status(500).json(error)
+    }
+}
+
+
 module.exports ={
     addQuestion,
     getQuestionAnswer,
@@ -155,5 +166,6 @@ module.exports ={
     getQuestionsOnProfile,
     addUpvote,
     downVote,
-    deleteQuestion
+    deleteQuestion,
+    getHotQuestions
 }

@@ -12,11 +12,16 @@ import toast,{ Toaster } from 'react-hot-toast'
 
 function PostManagement() {
 const { reportedPost } = useSelector(state => state.reportPost)
+const { adminToken } = useSelector(state => state.admin)
 const dispatch = useDispatch();
 
 const getReportedPost = async()=>{
     try {
-        await axios.get("/admin/getreportpost").then((res)=>{
+        await axios.get("/admin/getreportpost",{
+          headers:{
+            Authorization:adminToken
+          }
+        }).then((res)=>{
       dispatch(setReportPost(res.data))
         })
     } catch (error) {

@@ -104,7 +104,7 @@ const getQuestion = async()=>{
       <div className="post__body">
         <div className="post__question">
           
-        <Link to='/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
+        <Link to='/user/answerpage' state={{id:post?._id}} style={{textDecoration:'none',color:"black"}}><p>{post?.questionName}</p></Link>
          
         </div>
        {

@@ -1,17 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { BiGroup } from "react-icons/bi";
 import { FiActivity } from "react-icons/fi";
 import { cardStyles } from "./ReusableStyles";
+import { useSelector } from "react-redux";
+import axios from "axios";
 export default function Analytics() {
+
+  const { usersDetails } =useSelector(state => state.allUsers) 
+  const [ posts,setPosts ] = useState([])
+  const [ questions,setQuestions ] = useState([])
+  const [ ads,setAds] = useState([])
+  const { adminToken } = useSelector(state => state.admin)
+
+  const getAllPosts = async()=>{
+    try {
+      await axios.get('/admin/getallposts',{
+        headers:{
+          Authorization:adminToken
+        }
+      }).then((res)=>{
+        setPosts(res.data)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getAllQuestions = async()=>{
+    try {
+      await axios.get('/admin/getallquestion',{
+        headers:{
+          Authorization:adminToken
+        }
+      }).then((res)=>{
+        setQuestions(res.data)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getAllAds = async()=>{
+    try {
+      await axios.get('/admin/getallads',{
+        headers:{
+          Authorization:adminToken,
+        }
+      }).then((res)=>{
+          setAds(res.data)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getAllAds();
+  },[])
+
+  useEffect(()=>{
+    getAllQuestions();
+  },[])
+
+  useEffect(()=>{
+    getAllPosts();
+  },[])
+
+
   return (
     <Section>
       <div className="analytic ">
         <div className="content">
-          <h5>Spent this month</h5>
-          <h2>$682.5</h2>
+          <h5>Posts</h5>
+          <h2>{posts.length}</h2>
         </div>
         <div className="logo">
           <BsFillCalendar2WeekFill />
@@ -22,8 +86,8 @@ export default function Analytics() {
           <IoStatsChart />
         </div>
         <div className="content">
-          <h5>Earnings</h5>
-          <h2>$350.40</h2>
+          <h5>Questions</h5>
+          <h2>{questions.length}</h2>
         </div>
       </div>
       <div className="analytic">
@@ -31,14 +95,14 @@ export default function Analytics() {
           <BiGroup />
         </div>
         <div className="content">
-          <h5>New clients</h5>
-          <h2>321</h2>
+          <h5>Users</h5>
+          <h2>{usersDetails.length}</h2>
         </div>
       </div>
       <div className="analytic ">
         <div className="content">
-          <h5>Activity</h5>
-          <h2>$540.50</h2>
+          <h5>ADS</h5>
+          <h2>{ads.length}</h2>
         </div>
         <div className="logo">
           <FiActivity />

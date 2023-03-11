@@ -16,37 +16,24 @@ const UserManage = () => {
   const [details, setDetails] = useState([]);
   const dispatch = useDispatch();
   const { usersDetails } = useSelector((state) => state.allUsers);
+  const { adminToken } = useSelector((state) => state.admin);
 
   const getUserDetails = async () => {
     try {
-      await axios.get("/admin/userdetails").then((response) => {
-        console.log("userDetails comming", response);
+      await axios.get("/admin/userdetails",{
+        headers:{
+          Authorization:adminToken,
+        }
+      }).then((response) => {
         setDetails(response.data);
         dispatch(setUsers(response.data));
       });
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   };
 
-  // const userBlock = async (id) => {
-  //   try {
-  //     console.log("xios");
-  //     if(window.confirm("Are you sure?")){
-
-  //       await axios.put("/admin/block-user/" + id).then((response) => {
-  //         console.log(response);
-  //         toast.error("User Blocked");
   
-  //         axios.get("/admin/userdetails").then((res) => {
-  //           dispatch(setUsers(res.data));
-  //         });
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log(error, "this is");
-  //   }
-  // };
   //  start
   const userBlock = async(id)=>{
     swal({
@@ -62,7 +49,11 @@ const UserManage = () => {
           console.log(response);
           // toast.error("User Blocked");
   
-          axios.get("/admin/userdetails").then((res) => {
+          axios.get("/admin/userdetails",{
+            headers:{
+              Authorization:adminToken
+            }
+          }).then((res) => {
             dispatch(setUsers(res.data));
           });
         });
@@ -75,15 +66,36 @@ const UserManage = () => {
     });
   }
  
-
   // eeennnd
+
+
+
+    // let userBlock= async(id)=>{
+    //   try {
+    //       await fetch("http://localhost:8080/admin/block-user/" + id,{
+    //         method:"PUT",
+    //         headers:{
+    //           Authorization:adminToken
+    //         },
+    //       })
+    //   } catch (error) {
+    //     console.log("fffffffffffff ",error)
+    //   }
+    
+    // }
+   
+  
   const userUnBlock = async (id) => {
     try {
       await axios.put("/admin/unblock-user/" + id).then((response) => {
         console.log("unblock success");
         toast.success("user unblocked");
 
-        axios.get("/admin/userdetails").then((res) => {
+        axios.get("/admin/userdetails",{
+          headers:{
+            Authorization:adminToken,
+          }
+        }).then((res) => {
           dispatch(setUsers(res.data));
         });
       });

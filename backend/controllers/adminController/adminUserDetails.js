@@ -12,6 +12,7 @@ const getUserDetails = async(req,res)=>{
 }
 
 const blockUser = async(req,res)=>{
+    console.log("aaaaaaaaaaa=======10");
     try {
         const id = req.params.id;
        await User.findByIdAndUpdate(id,{$set:{
@@ -25,14 +26,14 @@ const blockUser = async(req,res)=>{
     }
 }
 
-const unBlockUser = async(req,res)=>{
+const unBlockUser = async(req,res)=>{ 
     try {
         const id = req.params.id;
         await User.findByIdAndUpdate(id,{$set:{
             isBlocked:false
         }}).then((response)=>{
             console.log("unblock updating",response);
-            res.status(200).json({blocke:false,message:'user unblocked successfully'})
+            res.status(200).json({blocke:false,message:'user unblocked successfully'})   
         })
     } catch (error) {
         console.log(error);

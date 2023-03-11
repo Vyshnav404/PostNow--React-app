@@ -5,12 +5,18 @@ import axios from 'axios';
 import styled from 'styled-components';
 import scrollreveal from 'scrollreveal';
 import QuestionShowModal from './QuestionShowModal';
+import { useSelector } from 'react-redux';
 
 function Adminquestion() {
 
+    const { adminToken }=useSelector(state => state.admin)
    const [ report, setReport] = useState([])
     const getReportQuestions = async()=>{
-        await axios.get('/admin/getreportQuestion').then((res)=>{
+        await axios.get('/admin/getreportQuestion',{
+          headers:{
+            Authorization:adminToken
+          }
+        }).then((res)=>{
           setReport(res.data)
         })
     }
@@ -23,7 +29,11 @@ function Adminquestion() {
       const questionDelete = async(qid)=>{
         console.log(qid,"qid qid qid qid ")
         await axios.delete(`/admin/question-delete/${qid}`).then(async(res)=>{
-        await axios.get('/admin/getreportQuestion').then((res)=>{
+        await axios.get('/admin/getreportQuestion',{
+          headers:{
+            Authorization:adminToken
+          }
+        }).then((res)=>{
             setReport(res.data)
           })
         })

@@ -1,14 +1,31 @@
 import React from 'react'
 import AddPhotoPost from '../UserPhotoPost/AddPhotoPost';
 import './Sidebar.css';
-import SidebarOptions from './SidebarOptions';
+import LeftSidebar from './LeftSidebar';
+
+// import SidebarOptions from './SidebarOptions';
 
 function Sidebar() {
   return (
-    <div style={{flex:'0.2'}} className='sidebar col-lg-3 col-sm-12'>
+    <>
+    <div style={{position:'fixed',maxWidth:'300px'}} >
+      <div className='mb-2'> 
       <AddPhotoPost />
-      <SidebarOptions />
+      </div>
+
+      {/* <SidebarOptions /> */}
+      <div 
+      className="questions--LeftSidebar  border "
+      style={{ fontSize: "14px",
+      height: "627px",
+      paddingTop: "13px" ,border:'1px solid black'}}
+      > 
+      <LeftSidebar />
+      </div>
+
+
     </div>
+    </>
   )
 }
 

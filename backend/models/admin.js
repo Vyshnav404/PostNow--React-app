@@ -5,7 +5,7 @@ const adminSchema = mongoose.Schema({
     userName:{
         type:String,
         required:true
-    },
+    }, 
     password:{
         type:String,
         required:true
@@ -15,7 +15,7 @@ const adminSchema = mongoose.Schema({
 adminSchema.methods.generateAuthToken = function () {
     const token = jwt.sign(
       { _id: this._id },
-      process.env.JWTPRIVATEKEY,
+      process.env.JWTADMINPRIVATEKEY,
       { expiresIn: "7d" }
     );
     return token;

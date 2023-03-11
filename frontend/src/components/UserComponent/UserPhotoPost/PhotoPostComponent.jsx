@@ -29,7 +29,6 @@ function PhotoPostComponent() {
   const { userDetails,tokenData } = useSelector(state => state.user)
   const dispatch = useDispatch()
   let userId = userDetails._id
-  console.log("aaaallll-==== post",allPost);
   
   const [imagePost, setImagePost] = useState([])
   const [comment,setComment] = useState(false)
@@ -51,12 +50,7 @@ function PhotoPostComponent() {
     getPosts();
   },[])
 
-//  const reportPost = async(id)=>{
-  
-//   await axios.put('/reportPost/'+id).then((res)=>{
 
-//   })
-// }
 
 
 const handleLike = async(id)=>{

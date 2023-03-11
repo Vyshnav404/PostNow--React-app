@@ -147,13 +147,13 @@ function AnswerComponent(){
         <div className="post">
       <div className="post__info">
         {
-          questionDetails?.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={questionDetails?.user.imageUrl}/> :  <Avatar />
+          questionDetails?.user?.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={questionDetails?.user?.imageUrl}/> :  <Avatar />
         }
-        <h4>{questionDetails?.user.firstName+" "+ questionDetails?.user.lastName}</h4>
+        <h4>{questionDetails?.user?.firstName+" "+ questionDetails?.user?.lastName}</h4>
      
-        <small>
+         <small>
           <LastSeen date={questionDetails?.createdAt}/>
-        </small>
+        </small> 
       </div>
       <div className="post__body">
         <div className="post__question">

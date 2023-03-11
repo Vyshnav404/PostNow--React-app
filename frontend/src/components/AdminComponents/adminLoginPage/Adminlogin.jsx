@@ -2,15 +2,17 @@ import React from "react";
 import "./AdminLogin.css";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showloading,hideloading } from "../../../redux/features/alertSlice";
 import toast,{ Toaster } from 'react-hot-toast'
 import { useNavigate } from "react-router-dom";
+import { setAdminToken } from '../../../redux/features/adminSlice'
 
 function Adminlogin() {
 
   
   const [isAdminLoggedIn,setIsAdminLoggedIn]= useState(false)
+  const { adminToken } =useSelector(state => state.admin)
   const [data,setData] = useState({
     userName:'',
     password:'',
@@ -31,6 +33,7 @@ function Adminlogin() {
        const { data:res } = await axios.post('/admin/adminLogin',data);
         dispatch(hideloading())
        localStorage.setItem("Admintoken",res.data);
+       dispatch(setAdminToken(res.data))
        setIsAdminLoggedIn(true);
        navigate('/admin/admindashboard')
     } catch (error) {
