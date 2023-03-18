@@ -23,6 +23,7 @@ import { setOtherUser } from '../../../redux/features/otherUserSlice'
 import { useDispatch,useSelector } from 'react-redux';
 import PostOnOthersProfile from './PostOnOthersProfile';
 import QuestionOnOthersProfile from './QuestionOnOthersProfile';
+import { response } from 'express';
 
 const ProfilePage =()=> {
 
@@ -30,22 +31,20 @@ const ProfilePage =()=> {
   const { tokenData,userDetails } = useSelector(state => state.user)
 
  const [ values, setValues] = useState(null)
+ const [ isFollowing,setIsFollowing ] = useState(false);
  const location = useLocation();
  const dispatch = useDispatch();
  let userId = location.state?.id
  let currentId = userDetails._id
- const [ isFollowing,setIsFollowing ] = useState(otherUserDetails.following.includes(currentId));
 
-
- 
  const handleFollowClick = async()=>{
   try {
     await axios.put('/follow/'+userId,{currentUserId:currentId}).then((response => {
       console.log(response)
-      getOthersDetails();
-     setIsFollowing(true)
     }))
-   
+    .then(data => {
+      setIsFollowing(true)
+    })  
   } catch (error) {
     console.log(error);
   }
@@ -55,15 +54,16 @@ const ProfilePage =()=> {
   try {
     await axios.put('/unfollow/'+userId,{currentUserId:currentId}).then(response =>{
       console.log(response)
-      getOthersDetails();
+    })
+    .then(data => {
       setIsFollowing(false)
     })
   } catch (error) {
     console.log(error);
   }
  }
- console.log("unfollow",otherUserDetails);
- console.log("unfol======low",currentId);
+
+
    
  const getOthersDetails = async()=>{
   try {
@@ -94,7 +94,6 @@ const handleQuestion = async()=>{
  },[])
 
  const defaultUrl = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'
- console.log(isFollowing)
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
@@ -114,10 +113,14 @@ const handleQuestion = async()=>{
                 <h4 className="text-muted mb-">{otherUserDetails.firstName+" "+otherUserDetails.lastName}</h4>
                 <p className="text-muted mb-4">{otherUserDetails.job}</p>
                 <div>
-                  { 
-                  otherUserDetails.followers.includes(currentId) ? <Button onClick={handleUnfollowClick}>Unfollow</Button> : <Button onClick={handleFollowClick}>Follow</Button>
-                  }
-                                   
+                  {isFollowing ? (
+                    <Button onClick={handleUnfollowClick}>Unfollow</Button>
+
+                  ):(
+                    <Button onClick={handleFollowClick}>Follow</Button>
+
+                  )
+                }
                 </div>
                
               </MDBCardBody>

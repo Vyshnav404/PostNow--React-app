@@ -20,7 +20,7 @@ function Messenger() {
 
 
 useEffect(()=>{
-socket.current = io("ws://localhost:8090");
+socket.current = io("ws://localhost:8030");
 socket.current.on('getMessage',data =>{
   setArrivalMessages({
     sender: data.senderId,

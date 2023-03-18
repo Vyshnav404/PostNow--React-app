@@ -49,6 +49,8 @@ const {
 } = require("../controllers/userController/othersDetailsController");
 const { getFriend } = require("../controllers/userController/friendController");
 const { getAdsData } = require('../controllers/userController/userAdController')
+const { followUser,unFollowUser } = require('../controllers/userController/followUnfollowController')
+
 const router = express.Router();
 
 //login and signup section
@@ -108,5 +110,10 @@ router.get('/usertoredux/:mail',verifyToken,getDetailsToRedux)
 
 //get hot questions on right side
 router.get('/get-hot-questions',verifyToken,getHotQuestions)
+
+//user follow and unfollow 
+router.put('/follow/:id',followUser)
+router.put('/unfollow/:id',unFollowUser)
+
 
 module.exports = router;

@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema({
   imageUrl: { type:String, },
   job: { type:String },
   company:{ type:String },
-  verified :{type:Number,default:0}
+  verified :{type:Number,default:0},
+  followers:[],
+  following:[]
 
 
 });

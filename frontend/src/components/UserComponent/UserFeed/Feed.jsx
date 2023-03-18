@@ -44,8 +44,8 @@ function Feed() {
       })
       .then((res) => {
         setPost(res.data);
-        dispatch(setAllQuestion(res.data.reverse()));
-        dispatch(setSearchAllQuestion(allQuestion));
+       dispatch(setAllQuestion(res.data.reverse()));
+       dispatch(setSearchAllQuestion(res.data));
       })
       .catch((e) => {
         console.log(e);

@@ -21,7 +21,7 @@ import { setAllQuestion, setSearchAllQuestion } from '../../../redux/features/al
  function LastSeen({ date }) {
   return (
     <div>
-     <ReactTimeAgo date={date} locale="en-US" timeStyle="round"/>
+     <ReactTimeAgo date={new Date(date).getTime()} locale="en-US" timeStyle="round"/>
     </div>
   )
 }
@@ -33,7 +33,6 @@ function Post({post}) {
   let userId = userDetails._id
   const Close = (<CloseIcon />)
   const dispatch = useDispatch();
-  console.log("search All question",searchAllQuestion);
 
 const getQuestion = async()=>{
   try {
