@@ -23,7 +23,7 @@ const PostSchema = new mongoose.Schema({
     comment:{
         type:[{
             text: {
-                type:String
+                type:String,
             },
             userId:{
                 type:mongoose.SchemaTypes.ObjectId,
@@ -32,6 +32,7 @@ const PostSchema = new mongoose.Schema({
         }],
     },
     user:Object,
+    category:String
 })
 
 module.exports = mongoose.model("Posts",PostSchema)

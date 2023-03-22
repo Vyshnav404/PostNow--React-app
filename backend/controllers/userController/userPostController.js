@@ -2,12 +2,13 @@ const postDb = require("../../models/post");
 
 const addPost = async (req, res) => {
   try {
-    console.log("poseted");
+    console.log("poseted",req.body);
     await postDb
       .create({
         postUrl: req.body.postUrl,
         caption: req.body.caption,
         user: req.body.user,
+        category:req.body.category
       })
       .then((response) => {
         res.status(200).json(response);
@@ -156,6 +157,18 @@ const getComment = async(req,res) =>{
   }
 }
 
+const getPostByCategory = async(req,res)=>{
+  try {
+    let value = req.params.value
+    console.log("values========================>",value);
+    await postDb.find({category:value}).then((response)=>{
+      res.status(200).json(response)
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   addPost,
   getAllPosts,
@@ -167,5 +180,6 @@ module.exports = {
   addLike,
   addDisLike,
   addComment,
-  getComment
+  getComment,
+  getPostByCategory
 };

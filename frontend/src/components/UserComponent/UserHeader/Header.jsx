@@ -26,6 +26,7 @@ import {
   setSearchAllQuestion,
 } from "../../../redux/features/allQuestionSlice";
 import toast,{ Toaster } from 'react-hot-toast'
+import { setAllPost } from '../../../redux/features/allPostSlice'
 
 
 
@@ -53,6 +54,7 @@ function Header() {
         },
       }).then((res)=>{
         dispatch(setAllQuestion(res.data.reverse()))
+        
       })
     } catch (error) {
       console.log(error);
@@ -177,15 +179,32 @@ function Header() {
     navigate("/");
   };
 
+  const getAllPosts = async()=>{
+    try {
+      await axios.get('/getAllPosts/',{
+        headers:{
+          Authorization:tokenData
+        }
+      }).then((response)=>{
+        dispatch(setAllPost(response.data.reverse()))
+        navigate('/user/userpost')
+      })
+    } catch (error) {
+      
+    }
+  }
+
   let defaultUrl =
     "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp";
 
   return (
     <div className="qHeader">
       <div className="qHeader-content">
+          <Link to="/user/home">
         <div className="qHeader__logo">
           <img src={logo} alt="logo" />
         </div>
+          </Link>
         <div className="qHeader__icons">
           <div className="qHeader__icon">
             <Link className="qHeader__icon" to="/user/home">
@@ -193,9 +212,9 @@ function Header() {
             </Link>
           </div>
           <div className="qHeader__icon">
-            <Link className="qHeader__icon" to="/user/userpost">
-              <FeaturedPlayListOutlined />
-            </Link>
+            {/* <Link className="qHeader__icon" to={"/user/userpost"}>
+            </Link> */}
+              <FeaturedPlayListOutlined  onClick={getAllPosts}/>
           </div>
           {/* <div className="qHeader__icon">
             <AssessmentOutlined />

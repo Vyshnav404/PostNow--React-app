@@ -43,6 +43,7 @@ const {
   addLike,
   addComment,
   getComment,
+  getPostByCategory
 } = require("../controllers/userController/userPostController");
 const {
   otherDetails,
@@ -89,6 +90,7 @@ router.get("/getImgToEdit/:postId",verifyToken, getImage);
 router.put("/editPost/:postId", editPost);
 router.put("/addLike/:id", addLike);
 router.put("/disLike/:id", addDisLike);
+router.get('/postbycategory/:value',getPostByCategory)
 //comment section
 router.put("/addcomment/:id", addComment);
 router.get("/getcomments/:id", getComment);

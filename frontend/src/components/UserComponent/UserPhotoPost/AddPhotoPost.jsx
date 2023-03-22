@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { setAllPost } from '../../../redux/features/allPostSlice'
+import './AddPhoto.css'
 
 function AddPhotoPost() {
   const { userDetails, tokenData } = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
+  const [category, setCategory] = useState('');
   const Close = <CloseIcon />;
   console.log("immage data", image);
   const dispatch = useDispatch()
@@ -66,6 +68,7 @@ function AddPhotoPost() {
               postUrl: data.url,
               caption: caption,
               user: userDetails,
+              category:category,
             };
 
             await axios
@@ -132,6 +135,22 @@ function AddPhotoPost() {
             />
           )}
         </div>
+        <div className="category mt-4">
+          <div>
+          <p style={{ marginRight: "10px"}}>Select Category:</p>
+          </div>
+            <div>
+          <select value={category} onChange={e => setCategory(e.target.value)}>
+            <option></option>
+            <option>History</option>
+            <option>Science</option>
+            <option>Programming</option>
+            <option>India</option>
+            <option>World</option>
+          </select>
+            </div>
+        </div>
+
         <div className="modal__answer">
           <ReactQuill
             value={caption}
@@ -139,6 +158,7 @@ function AddPhotoPost() {
             placeholder="Enter your answer"
           />
         </div>
+       
         <div className="modal__button">
           <button className="cancle" onClick={() => setIsModalOpen(false)}>
             Cancel

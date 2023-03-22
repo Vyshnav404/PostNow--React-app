@@ -9,34 +9,33 @@ import axios from 'axios';
 import ReactHtmlParser from 'html-react-parser'
 import { useDispatch, useSelector } from 'react-redux';
 import ReasonForPostReport from './ReasonForPostReport';
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import PostComment from './PostComment';
 import toast,{ Toaster } from 'react-hot-toast'
 import { setAllPost } from '../../../redux/features/allPostSlice'
 
 
 
-// function LastSeen({ date }) {
-//   return (
-//     <div>
-//      <ReactTimeAgo date={date} locale="en-US" timeStyle="round"/>
-//     </div>
-//   )
-// }
+function LastSeen({ date }) {
+  return (
+    <div>
+     <ReactTimeAgo date={new Date(date).getTime()} locale="en-US" timeStyle="round"/>
+    </div>
+  )
+}
 
 function PhotoPostComponent() {
   const { allPost } = useSelector(state => state.allPost)
   const { userDetails,tokenData } = useSelector(state => state.user)
   const dispatch = useDispatch()
   let userId = userDetails._id
-  
+ 
   const [imagePost, setImagePost] = useState([])
-  const [comment,setComment] = useState(false)
+  const [comment,setComment] = useState("")
   const [show, setShow] = useState(false)
   const [postId,setPostId]=useState('')
-
   const getPosts = async()=>{
-    await axios.get('/getAllPosts',{
+    await axios.get('/getAllPosts/',{
       headers:{
         Authorization:tokenData
       }
@@ -46,9 +45,9 @@ function PhotoPostComponent() {
     })
   }
 
-  useEffect(()=>{
-    getPosts();
-  },[])
+  // useEffect(()=>{
+  //   getPosts();
+  // },[])
 
 
 
@@ -78,9 +77,16 @@ const handleDisLike = async(id)=>{
 
 const commentSubmit = async(id)=>{
 try {
- await axios.put('/addcomment/'+id,{userId,comment:comment}).then((res)=>{
-  toast.success("Comment added successfully")
- })
+  if(comment==""){
+    console.log("ithila");
+    toast.error("Enter something in comment ")
+  }else{
+  await axios.put('/addcomment/'+id,{userId,comment:comment}).then((res)=>{
+   setComment("")
+   toast.success("Comment added successfully")
+  })
+}
+ 
 } catch (error) {
   console.log(error);
 }
@@ -101,6 +107,9 @@ const handlChange = async(id)=>{
    
       <div className='col-5'>
     {
+      allPost.length === 0 ? (
+        <h1>No Posts  To Show</h1>
+      ): (
       allPost ?.map(imagepost=>{
         return( 
 <>
@@ -110,11 +119,11 @@ const handlChange = async(id)=>{
               imagepost.user.imageUrl ? <img style={{width:'45px',height:"40px" ,borderRadius:'20px'}} src={imagepost.user.imageUrl}/> :   <Avatar />
             }
           
-          <Link to='/user/othersprofile' state={{id:imagepost.user._id}} style={{textDecoration:'none',color:'black'}} > <h6>{imagepost.user.firstName+" "+imagepost.user.lastName}</h6> </Link>  
+          <Link to='/user/othersprofile' state={{id:imagepost.user._id}} style={{textDecoration:'none',color:'black'}} > <h6 className='post-userName ms-3'>{imagepost.user.firstName+" "+imagepost.user.lastName}</h6> </Link>  
          
-            {/* <small>
-              <LastSeen date="createdAt"/>
-            </small> */}
+            <small >
+              <LastSeen date={imagepost?.createdAt}/>
+            </small>
           </div>
           <div className="post__body">
             {
@@ -151,15 +160,18 @@ const handlChange = async(id)=>{
             show && postId === imagepost._id && <PostComment postData={imagepost._id} />
           }
           <div>
-         <textarea type="text" className='w-50  mt-2' onChange={(e)=> setComment(e.target.value)} placeholder='add comment'/>
+          
+         <textarea type="text" className='w-50  mt-2' value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='add comment' required/>
          <button className='btn mb-5 ms-1' style={{background:'rgb(155, 34, 34)',border:'none',color:"white"}} onClick={()=> commentSubmit(imagepost._id)}>add</button>
+         
           </div>
 
           </div>
          
           </>
         )
-        })
+        }))
+
 
       }
       <Toaster />

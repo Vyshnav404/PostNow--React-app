@@ -12,6 +12,7 @@ function PostnowBox() {
         
           userDetails.imageUrl ? <img style={{width:'45px',height:'40px',borderRadius:"20px"}}  src={userDetails?.imageUrl} /> : <Avatar />
         }
+        <div className='userName ms-3'>{userDetails.firstName+" "+userDetails.lastName}</div>
       </div>
       <div className='postnowBox__post'>
         <h5>What is your question or link ?</h5>
