@@ -28,5 +28,6 @@
   .postnowBox__post {
     display: flex;
     margin-top: 8px;
+    padding: 5px;
   }
   

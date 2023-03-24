@@ -23,7 +23,7 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
-  alerts: alertSlice.reducer,
+  // alerts: alertSlice.reducer,
   user: userSlice.reducer,
   allUsers: completeUserSlice.reducer,
   singleQuestion: singleQuestionSlice.reducer,

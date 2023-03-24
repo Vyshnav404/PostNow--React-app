@@ -119,7 +119,7 @@ const handlChange = async(id)=>{
               imagepost.user.imageUrl ? <img style={{width:'45px',height:"40px" ,borderRadius:'20px'}} src={imagepost.user.imageUrl}/> :   <Avatar />
             }
           
-          <Link to='/user/othersprofile' state={{id:imagepost.user._id}} style={{textDecoration:'none',color:'black'}} > <h6 className='post-userName ms-3'>{imagepost.user.firstName+" "+imagepost.user.lastName}</h6> </Link>  
+          <Link to='/user/othersprofile' state={{id:imagepost.user._id}} style={{textDecoration:'none',color:'black'}} > <h6 className='post-userName ms-3 mt-2'>{imagepost.user.firstName+" "+imagepost.user.lastName}</h6> </Link>  
          
             <small >
               <LastSeen date={imagepost?.createdAt}/>

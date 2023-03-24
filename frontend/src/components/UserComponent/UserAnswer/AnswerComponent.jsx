@@ -22,7 +22,7 @@ import { setQuesId }  from '../../../redux/features/singleQuestionSlice'
  function LastSeen({ date }) {
   return (
     <div>
-     <ReactTimeAgo date={date} locale="en-US" timeStyle="round"/>
+     <ReactTimeAgo date={new Date(date).getTime()} locale="en-US" timeStyle="round"/>
     </div>
   )
 }
@@ -33,7 +33,7 @@ function AnswerComponent(){
     const { questionDetails } = useSelector(state => state.singleQuestion);
     const { quesId } = useSelector(state => state.singleQuestion);
     const { answerDetails } = useSelector(state => state.showAnswers)
-    const { tokenData } = useSelector(state=> state.user)
+    const { tokenData,userDetails } = useSelector(state=> state.user)
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -77,6 +77,7 @@ function AnswerComponent(){
       }
     }
     const body = {
+      user:userDetails,
       answer : answer,
       questionId : questionDetails?._id
     }
@@ -149,7 +150,7 @@ function AnswerComponent(){
         {
           questionDetails?.user?.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={questionDetails?.user?.imageUrl}/> :  <Avatar />
         }
-        <h4>{questionDetails?.user?.firstName+" "+ questionDetails?.user?.lastName}</h4>
+        <h4 className='mt-2'>{questionDetails?.user?.firstName+" "+ questionDetails?.user?.lastName}</h4>
      
          <small>
           <LastSeen date={questionDetails?.createdAt}/>
@@ -259,13 +260,17 @@ function AnswerComponent(){
                 }}
                 className="post-answered"
               >
-                <Avatar  />
+                {
+                  _a?.user.imageUrl ? (<img style={{width:'50px',height:'40px',borderRadius:'50%'}} src={_a?.user.imageUrl} alt="" />) : (<Avatar  />)
+                }
+                
+                
                 <div
                   style={{
                     margin: "0px 10px",
                   }}
                   className="post-info">
-                    <p>Username</p>
+                    <h6>{_a?.user.firstName+" "+_a?.user.lastName}</h6>
                   <span>
                     <LastSeen date = {_a?.createdAt}/>
                   </span>

@@ -7,6 +7,7 @@ const AnswerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "questions"
     },
+    user:Object,
     createdAt: {
         type: Date,
         default: Date.now()

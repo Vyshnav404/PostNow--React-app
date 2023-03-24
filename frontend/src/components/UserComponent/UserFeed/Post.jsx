@@ -94,7 +94,7 @@ const getQuestion = async()=>{
           post.user.imageUrl ? <img style={{ width:'45px',height:"40px",borderRadius:'20px'}} src={post.user.imageUrl}/> :  <Avatar />
         }
        
-        <h4>{post.user.firstName+" "+post.user.lastName}</h4>
+        <Link to='/user/othersprofile' state={{id:post.user._id}} style={{textDecoration:'none',color:'black'}} ><h6 className='ms-2 mt-2'>{post.user.firstName+" "+post.user.lastName}</h6></Link>
      
         <small>
           <LastSeen date={post?.createdAt}/>

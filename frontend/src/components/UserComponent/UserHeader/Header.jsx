@@ -74,10 +74,10 @@ function Header() {
       if (Allowed_File_Types.includes(image.type)) {
         const data = new FormData();
         data.append("file", image);
-        data.append("upload_preset", "imagetesting");
-        data.append("cloud_name", "dv5vyqpjh");
+        data.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+        data.append("cloud_name", import.meta.env.VITE_CLOUDINARY_UPLOAD_NAME);
 
-        await fetch("https://api.cloudinary.com/v1_1/dv5vyqpjh/image/upload", {
+        await fetch(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_UPLOAD_NAME}/image/upload`, {
           method: "post",
           body: data,
         })
@@ -224,9 +224,10 @@ function Header() {
             <PeopleAltOutlined />
             </Link>
           </div>
-          <div className="qHeader__icon">
+          {/* <div className="qHeader__icon">
+            <div className="notification_counter">2</div>
             <NotificationsOutlined />
-          </div>
+          </div> */}
         </div>
         <div className="qHeader__input">
           <Search />
@@ -337,7 +338,7 @@ function Header() {
             marginLeft: "8px",
           }}
         >
-          Logout
+          Logout 
         </Button>
       </div>
       <Toaster />

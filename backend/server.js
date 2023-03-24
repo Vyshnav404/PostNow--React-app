@@ -9,7 +9,7 @@ const adminRouter = require('./routes/adminRouter')
 const conversationRouter = require('./routes/conversationRoute')
 const messageRouter = require('./routes/messagesRoute')
 require('dotenv').config();
-const PORT = 8080;
+const PORT = 8090;
 
 
        //  database connection

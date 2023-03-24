@@ -237,4 +237,25 @@
     margin-right:10%;
   }
 
+  .notification_counter{
+    width: 15px;
+    height: 13px;
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60%;
+    margin-bottom: -14%;
+    /* position: absolute; */
+    /* top: -5px; */
+    /* right: -5px; */
+  }
+
+.qHeader__input{
+  min-width: 450px;
+}
+
   

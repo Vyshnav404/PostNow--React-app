@@ -48,37 +48,34 @@ function AddPhotoPost() {
     if (Allowed_File_Types.includes(image.type)) {
       const data = new FormData();
       data.append("file", image);
-      data.append("upload_preset", "imagetesting");
-      data.append("cloud_name", "dv5vyqpjh");
+      data.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+      data.append("cloud_name", import.meta.env.VITE_CLOUDINARY_UPLOAD_NAME);
 
-      await fetch("https://api.cloudinary.com/v1_1/dv5vyqpjh/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then(async (data) => {
-          if (data.url) {
+      await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_UPLOAD_NAME}/image/upload`, data)
+        // .then((res) => res.json())
+        .then(async (res) => {
+          if (res.data.url) {
             const config = {
               headers: {
                 "Content-Type": "application/json",
               },
             };
-
+            
             const body = {
-              postUrl: data.url,
+              postUrl: res.data.url,
               caption: caption,
               user: userDetails,
               category:category,
             };
-
+            
             await axios
-              .post("/addPost", body, {
-                headers: {
-                  Authorization: tokenData,
-                },
-                config,
-              })
-              .then((res) => {
+            .post("/addPost", body, {
+              headers: {
+                Authorization: tokenData,
+              },
+              config,
+            })
+            .then((res) => {
                  getPosts();
                 toast.success("Post Added Successfully");
 

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const db = async()=>{
   try{
-      const connection = await mongoose.connect('mongodb://0.0.0.0:27017/PostNow',{
+      const connection = await mongoose.connect('mongodb+srv://Vyshnav:vyshnav.2440@cluster0.l9jvafx.mongodb.net/PostNow',{
           useNewUrlParser:true,
           useUnifiedTopology:true
       });
@@ -13,3 +13,5 @@ const db = async()=>{
 }
 
 module.exports = db;
+
+// mongodb+srv://Vyshnav:vyshnav.2440@cluster0.l9jvafx.mongodb.net/PostNow

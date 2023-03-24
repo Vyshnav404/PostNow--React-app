@@ -4,6 +4,7 @@ const addAnswer = async(req,res)=>{
     console.log('cooooooommmmme',req.body);
     try {
         await answerDB.create({
+            user:req.body.user,
             answer: req.body.answer,
             questionId: req.body.questionId
         }).then(()=>{
