@@ -168,7 +168,7 @@ const UploadFile = async () => {
     const res = await axios.post('https://api.cloudinary.com/v1_1/dv5vyqpjh/image/upload',data);
     // console.log("Url",res);
     const message = {
-      senderId: userDetails._id,
+      sender: userDetails._id,
       text: res.data.secure_url,
       conversationId: currentChat._id,
       type: type,
