@@ -35,9 +35,9 @@
   .react-responsive-modal-overlay {
     background: rgb(0 0 0 / 75%);
   }
-   *{
+   /* *{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  } */
 
   .side__bar{
     display: flex;
